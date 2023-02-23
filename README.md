@@ -1,5 +1,7 @@
 # Let's Build a Full Stack Application
 
+Database Structure: https://dbdiagram.io/d/63f6b628296d97641d830ce0
+
 This full stack app boilerplate consists of:
 
 - an Express web server,
