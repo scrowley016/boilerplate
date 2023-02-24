@@ -6,7 +6,7 @@ const {
 
 async function dropTables() {
   try {
-    console.log('Dropping all tables');
+    console.log('Dropping all tables...');
     // drop tables in correct order
     await client.query(`
     DROP TABLE IF EXISTS cars;
@@ -19,14 +19,16 @@ async function dropTables() {
     DROP TABLE IF EXISTS users;
     `);
 
-    // build tables in correct order
+    console.log('finished dropping tables!');
   } catch (error) {
+    console.error('Error dropping tables...');
     throw error;
   }
 }
 
 async function createTables() {
   try {
+    console.log('Starting to create tables...');
     await client.query(`
     CREATE TABLE cars (
       id SERIAL PRIMARY KEY, 
@@ -82,8 +84,10 @@ async function createTables() {
       image VARBINARY(MAX)
     );
     `); //NOTE SHANNON WHAT IS 255>???
+    console.log('finished creating tables!');
   } catch (error) {
     console.error('Error in creating tables...');
+    throw error;
   }
 }
 
