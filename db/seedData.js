@@ -2,12 +2,10 @@ const {
   client,
   // declare your model imports here
   // for example, User
-} = require('.');
+} = require('./');
 const { createUser } = require('./');
 
-const {
-  createType,
- } = require("./")
+const { createType } = require('./');
 
 async function dropTables() {
   try {
@@ -140,45 +138,45 @@ async function createInitialMakes() {
 
 async function createInitialModels() {
   try {
-    console.log("Starting to create models...");
+    console.log('Starting to create models...');
     const models = [
-      {make: Audi.id, name: "Q4 e-tron" },
-      {make: Audi.id, name: "Q4 Sportback e-tron" },
-      {make: Audi.id, name: "Q8 e-tron" },
-      {make: Audi.id, name: "Q8 Sportback e-tron" },
-      {make: Audi.id, name: "e-tron GT quattro" },
-      {make: Ford.id, name: "Mustang Mach-E" },
-      {make: Ford.id, name: "Ford F-150 Lightning" },
-      {make: Mercedes-Benz.id, name: "EQA" },
-      {make: Mercedes-Benz.id, name: "EQB" },
-      {make: Mercedes-Benz.id, name: "EQS" },
-      {make: Mercedes-Benz.id, name: "EQE" },
-      {make: Mercedes-Benz.id, name: "EQC" },
-      {make: Tesla.id, name: "Model S" },
-      {make: Tesla.id, name: "Model 3" },
-      {make: Tesla.id, name: "Model X" },
-      {make: Tesla.id, name: "Model Y" },
-      {make: Rivian.id, name: "R1T" },
-      {make: Rivian.id, name: "R1S" },
-      {make: LucidAir.id, name: "Touring" },
-      {make: BMW.id, name: "i4" },
-      {make: BMW.id, name: "iX" },
-      {make: BMW.id, name: "i7" }
-    ]
-    console.log("Finished creating models!");
+      { make: Audi.id, name: 'Q4 e-tron' },
+      { make: Audi.id, name: 'Q4 Sportback e-tron' },
+      { make: Audi.id, name: 'Q8 e-tron' },
+      { make: Audi.id, name: 'Q8 Sportback e-tron' },
+      { make: Audi.id, name: 'e-tron GT quattro' },
+      { make: Ford.id, name: 'Mustang Mach-E' },
+      { make: Ford.id, name: 'Ford F-150 Lightning' },
+      { make: Mercedes - Benz.id, name: 'EQA' },
+      { make: Mercedes - Benz.id, name: 'EQB' },
+      { make: Mercedes - Benz.id, name: 'EQS' },
+      { make: Mercedes - Benz.id, name: 'EQE' },
+      { make: Mercedes - Benz.id, name: 'EQC' },
+      { make: Tesla.id, name: 'Model S' },
+      { make: Tesla.id, name: 'Model 3' },
+      { make: Tesla.id, name: 'Model X' },
+      { make: Tesla.id, name: 'Model Y' },
+      { make: Rivian.id, name: 'R1T' },
+      { make: Rivian.id, name: 'R1S' },
+      { make: LucidAir.id, name: 'Touring' },
+      { make: BMW.id, name: 'i4' },
+      { make: BMW.id, name: 'iX' },
+      { make: BMW.id, name: 'i7' },
+    ];
+    console.log('Finished creating models!');
   } catch (error) {
-    console.log("Error creating models!");
+    console.log('Error creating models!');
     throw error;
   }
 }
 
 async function createInitialTypes() {
   try {
-    console.log("Starting to create users...");
+    console.log('Starting to create users...');
     const typesToCreate = [
-      { name: 'sedan'},
-      { name: 'SUV'},
-      { name: 'truck'}
+      { name: 'sedan' },
+      { name: 'SUV' },
+      { name: 'truck' },
     ];
 
     const types = await Promise.all(typesToCreate.map(createType));
@@ -187,18 +185,48 @@ async function createInitialTypes() {
     console.log(types);
     console.log('Finished creating types!');
   } catch (error) {
-    console.error("Error creating Types...");
+    console.error('Error creating Types...');
     throw error;
   }
 }
 
 async function createInitialCars() {
   try {
-    console.log("Starting to create cars...");
+    console.log('Starting to create cars...');
     const carsToCreate = [
-      { makeId: 1, typeId: '', year: '2022', price: '100000', mileage: '500', description: 'Great car! Really fast.', color: 'blue', isFavorite: false, userId: 1},
-      { makeId: 2, typeId: '', year: '2023', price: '80000', mileage: '15000', description: 'Super fun. Love it!', color: 'black', isFavorite: false, userId: 2},
-      { makeId: 2, typeId: '', year: '2021', price: '120000', mileage: '30000', description: 'Zoom, zoom', color: 'red', isFavorite: true, userId: 3},
+      {
+        makeId: 1,
+        typeId: '',
+        year: '2022',
+        price: '100000',
+        mileage: '500',
+        description: 'Great car! Really fast.',
+        color: 'blue',
+        isFavorite: false,
+        userId: 1,
+      },
+      {
+        makeId: 2,
+        typeId: '',
+        year: '2023',
+        price: '80000',
+        mileage: '15000',
+        description: 'Super fun. Love it!',
+        color: 'black',
+        isFavorite: false,
+        userId: 2,
+      },
+      {
+        makeId: 2,
+        typeId: '',
+        year: '2021',
+        price: '120000',
+        mileage: '30000',
+        description: 'Zoom, zoom',
+        color: 'red',
+        isFavorite: true,
+        userId: 3,
+      },
     ];
 
     const cars = await Promise.all(carsToCreate.map(createCars));
@@ -207,14 +235,27 @@ async function createInitialCars() {
     console.log(cars);
     console.log('Finished creating cars!');
   } catch (error) {
-    console.error("Error creating cars...");
+    console.error('Error creating cars...');
     throw error;
   }
 }
 
+async function rebuildDB() {
+  try {
+    client.connect();
+    await dropTables();
+    await createTables();
+    await createInitialUsers();
+    await createInitialMakes();
+    await createInitialModels();
+    await createInitialTypes();
+    await createInitialCars();
+  } catch (error) {
+    console.log('Error during rebuildDB');
+    throw error;
+  }
+}
 
-
-buildTables()
-  .then(populateInitialData)
+rebuildDB()
   .catch(console.error)
   .finally(() => client.end());
