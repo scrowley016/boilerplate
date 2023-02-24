@@ -3,6 +3,7 @@ const {
   // declare your model imports here
   // for example, User
 } = require('.');
+const { createUser } = require('./');
 
 const {
   createType,
@@ -89,6 +90,7 @@ async function createTables() {
     );
     `); //use the string of the text to the url link to image
     //could download image to then add to source file on here
+    //NOTE: ASK SHANNON... on learn dot, bullet 6, do we need email?
     console.log('finished creating tables!');
   } catch (error) {
     console.error('Error in creating tables...');
@@ -98,11 +100,11 @@ async function createTables() {
 
 async function createInitialUsers() {
   try {
-    console.log("Starting to create users...");
+    console.log('Starting to create users...');
     const usersToCreate = [
-      { username: 'bobby', password: 'bobby123', isAdmin: true},
+      { username: 'bobby', password: 'bobby123', isAdmin: true },
       { username: 'ana', password: 'ana123456', isAdmin: false },
-      { username: 'zack', password: 'zack123456', isAdmin: true }
+      { username: 'zack', password: 'zack123456', isAdmin: true },
     ];
     const users = await Promise.all(usersToCreate.map(createUser)); //don't forget to write this function "createUser"
 
@@ -110,17 +112,63 @@ async function createInitialUsers() {
     console.log(users);
     console.log('Finished creating users!');
   } catch (error) {
-    console.error("Error creating users...");
+    console.error('Error creating users...');
     throw error;
   }
 }
 
 async function createInitialMakes() {
   try {
-    console.log("Starting to create makes");
-    const makesToCreate = 
+    console.log('Starting to create makes');
+    const makesToCreate = [
+      { name: 'Audi' },
+      { name: 'Ford' },
+      { name: 'Mercedes-Benz' },
+      { name: 'Tesla' },
+      { name: 'Rivian' },
+      { name: 'LucidAir' },
+      { name: 'BMW' },
+    ];
+
+    const makes = await Promise.all(makesToCreate.map(createMakes)); //don't forget to write this function "createMakes"
+
+    console.log('Makes created:');
+    console.log(makes);
+    console.log('Finished creating makes!');
+  } catch (error) {}
+}
+
+async function createInitialModels() {
+  try {
+    console.log("Starting to create models...");
+    const models = [
+      {make: Audi.id, name: "Q4 e-tron" },
+      {make: Audi.id, name: "Q4 Sportback e-tron" },
+      {make: Audi.id, name: "Q8 e-tron" },
+      {make: Audi.id, name: "Q8 Sportback e-tron" },
+      {make: Audi.id, name: "e-tron GT quattro" },
+      {make: Ford.id, name: "Mustang Mach-E" },
+      {make: Ford.id, name: "Ford F-150 Lightning" },
+      {make: Mercedes-Benz.id, name: "EQA" },
+      {make: Mercedes-Benz.id, name: "EQB" },
+      {make: Mercedes-Benz.id, name: "EQS" },
+      {make: Mercedes-Benz.id, name: "EQE" },
+      {make: Mercedes-Benz.id, name: "EQC" },
+      {make: Tesla.id, name: "Model S" },
+      {make: Tesla.id, name: "Model 3" },
+      {make: Tesla.id, name: "Model X" },
+      {make: Tesla.id, name: "Model Y" },
+      {make: Rivian.id, name: "R1T" },
+      {make: Rivian.id, name: "R1S" },
+      {make: LucidAir.id, name: "Touring" },
+      {make: BMW.id, name: "i4" },
+      {make: BMW.id, name: "iX" },
+      {make: BMW.id, name: "i7" }
+    ]
+    console.log("Finished creating models!");
   } catch (error) {
-    
+    console.log("Error creating models!");
+    throw error;
   }
 }
 
