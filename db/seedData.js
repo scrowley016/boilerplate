@@ -5,6 +5,10 @@ const {
 } = require('.');
 const { createUser } = require('./');
 
+const {
+  createType,
+ } = require("./")
+
 async function dropTables() {
   try {
     console.log('Dropping all tables...');
@@ -167,6 +171,48 @@ async function createInitialModels() {
     throw error;
   }
 }
+
+async function createInitialTypes() {
+  try {
+    console.log("Starting to create users...");
+    const typesToCreate = [
+      { name: 'sedan'},
+      { name: 'SUV'},
+      { name: 'truck'}
+    ];
+
+    const types = await Promise.all(typesToCreate.map(createType));
+
+    console.log('Types created:');
+    console.log(types);
+    console.log('Finished creating types!');
+  } catch (error) {
+    console.error("Error creating Types...");
+    throw error;
+  }
+}
+
+async function createInitialCars() {
+  try {
+    console.log("Starting to create cars...");
+    const carsToCreate = [
+      { makeId: 1, typeId: '', year: '2022', price: '100000', mileage: '500', description: 'Great car! Really fast.', color: 'blue', isFavorite: false, userId: 1},
+      { makeId: 2, typeId: '', year: '2023', price: '80000', mileage: '15000', description: 'Super fun. Love it!', color: 'black', isFavorite: false, userId: 2},
+      { makeId: 2, typeId: '', year: '2021', price: '120000', mileage: '30000', description: 'Zoom, zoom', color: 'red', isFavorite: true, userId: 3},
+    ];
+
+    const cars = await Promise.all(carsToCreate.map(createCars));
+
+    console.log('Cars created:');
+    console.log(cars);
+    console.log('Finished creating cars!');
+  } catch (error) {
+    console.error("Error creating cars...");
+    throw error;
+  }
+}
+
+
 
 buildTables()
   .then(populateInitialData)
