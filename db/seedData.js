@@ -111,12 +111,46 @@ async function createInitialUsers() {
   }
 }
 
-async function createInitialMakes() {
-  try {
-    console.log("Starting to create makes");
-    const makesToCreate = 
-  } catch (error) {
+// async function createInitialMakes() {
+//   try {
+//     console.log("Starting to create makes");
+//     const makesToCreate = 
+//   } catch (error) {
     
+//   }
+// }
+
+async function createInitialModels() {
+  try {
+    console.log("Starting to create models...");
+    const models = [
+      {make: Audi.id, name: "Q4 e-tron" },
+      {make: Audi.id, name: "Q4 Sportback e-tron" },
+      {make: Audi.id, name: "Q8 e-tron" },
+      {make: Audi.id, name: "Q8 Sportback e-tron" },
+      {make: Audi.id, name: "e-tron GT quattro" },
+      {make: Ford.id, name: "Mustang Mach-E" },
+      {make: Ford.id, name: "Ford F-150 Lightning" },
+      {make: Mercedes-Benz.id, name: "EQA" },
+      {make: Mercedes-Benz.id, name: "EQB" },
+      {make: Mercedes-Benz.id, name: "EQS" },
+      {make: Mercedes-Benz.id, name: "EQE" },
+      {make: Mercedes-Benz.id, name: "EQC" },
+      {make: Tesla.id, name: "Model S" },
+      {make: Tesla.id, name: "Model 3" },
+      {make: Tesla.id, name: "Model X" },
+      {make: Tesla.id, name: "Model Y" },
+      {make: Rivian.id, name: "R1T" },
+      {make: Rivian.id, name: "R1S" },
+      {make: LucidAir.id, name: "Touring" },
+      {make: BMW.id, name: "i4" },
+      {make: BMW.id, name: "iX" },
+      {make: BMW.id, name: "i7" }
+    ]
+    console.log("Finished creating models!");
+  } catch (error) {
+    console.log("Error creating models!");
+    throw error;
   }
 }
 
