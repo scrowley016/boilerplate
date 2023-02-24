@@ -3,6 +3,7 @@ const {
   // declare your model imports here
   // for example, User
 } = require('.');
+const { createUser } = require('./');
 
 async function dropTables() {
   try {
@@ -85,6 +86,7 @@ async function createTables() {
     );
     `); //use the string of the text to the url link to image
     //could download image to then add to source file on here
+    //NOTE: ASK SHANNON... on learn dot, bullet 6, do we need email?
     console.log('finished creating tables!');
   } catch (error) {
     console.error('Error in creating tables...');
@@ -94,11 +96,11 @@ async function createTables() {
 
 async function createInitialUsers() {
   try {
-    console.log("Starting to create users...");
+    console.log('Starting to create users...');
     const usersToCreate = [
-      { username: 'bobby', password: 'bobby123', isAdmin: true},
+      { username: 'bobby', password: 'bobby123', isAdmin: true },
       { username: 'ana', password: 'ana123456', isAdmin: false },
-      { username: 'zack', password: 'zack123456', isAdmin: true }
+      { username: 'zack', password: 'zack123456', isAdmin: true },
     ];
     const users = await Promise.all(usersToCreate.map(createUser)); //don't forget to write this function "createUser"
 
@@ -106,18 +108,30 @@ async function createInitialUsers() {
     console.log(users);
     console.log('Finished creating users!');
   } catch (error) {
-    console.error("Error creating users...");
+    console.error('Error creating users...');
     throw error;
   }
 }
 
 async function createInitialMakes() {
   try {
-    console.log("Starting to create makes");
-    const makesToCreate = 
-  } catch (error) {
-    
-  }
+    console.log('Starting to create makes');
+    const makesToCreate = [
+      { name: 'Audi' },
+      { name: 'Ford' },
+      { name: 'Mercedes-Benz' },
+      { name: 'Telsa' },
+      { name: 'Rivian' },
+      { name: 'LucidAir' },
+      { name: 'BMW' },
+    ];
+
+    const makes = await Promise.all(makesToCreate.map(createMakes)); //don't forget to write this function "createMakes"
+
+    console.log('Makes created:');
+    console.log(makes);
+    console.log('Finished creating makes!');
+  } catch (error) {}
 }
 
 buildTables()
