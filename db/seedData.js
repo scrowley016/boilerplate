@@ -113,14 +113,14 @@ async function createInitialUsers() {
   }
 }
 
-async function createInitialModels() {
+async function createInitialMakes() {
   try {
     console.log('Starting to create makes');
     const makesToCreate = [
       { name: 'Audi' },
       { name: 'Ford' },
       { name: 'Mercedes-Benz' },
-      { name: 'Telsa' },
+      { name: 'Tesla' },
       { name: 'Rivian' },
       { name: 'LucidAir' },
       { name: 'BMW' },
