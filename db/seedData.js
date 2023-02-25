@@ -3,7 +3,8 @@ const {
   // declare your model imports here
   // for example, User
 } = require('./');
-const { createUser } = require('./');
+const { createUser } = require('./users');
+const { createMakes } = require('./make');
 
 const { createType } = require('./');
 
@@ -12,14 +13,14 @@ async function dropTables() {
     console.log('Dropping all tables...');
     // drop tables in correct order
     await client.query(`
-    DROP TABLE IF EXISTS cars;
-    DROP TABLE IF EXISTS make;
     DROP TABLE IF EXISTS model; 
-    DROP TABLE IF EXISTS selectedCars;
-    DROP TABLE IF EXISTS type;
-    DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS photos;
+    DROP TABLE IF EXISTS cart;
+    DROP TABLE IF EXISTS selectedCars;
+    DROP TABLE IF EXISTS cars;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS make;
+    DROP TABLE IF EXISTS type;
     `);
 
     console.log('finished dropping tables!');
@@ -33,6 +34,30 @@ async function createTables() {
   try {
     console.log('Starting to create tables...');
     await client.query(`
+    
+    CREATE TABLE users (
+      id SERIAL PRIMARY KEY, 
+      username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      isAdmin BOOLEAN DEFAULT false
+    );
+    
+    CREATE TABLE make (
+      id SERIAL PRIMARY KEY, 
+      name VARCHAR(255) UNIQUE NOT NULL
+    );
+    
+    CREATE TABLE model (
+      id SERIAL PRIMARY KEY, 
+      name VARCHAR(255) NOT NULL,
+      "makeId" INTEGER REFERENCES make(id)
+    );
+
+    CREATE TABLE type (
+      id SERIAL PRIMARY KEY, 
+      name VARCHAR(255) NOT NULL
+    );
+    
     CREATE TABLE cars (
       id SERIAL PRIMARY KEY, 
       description TEXT,
@@ -44,47 +69,24 @@ async function createTables() {
       "usersId" INTEGER REFERENCES users(id),
       color VARCHAR(255),
       mileage INTEGER,
-      UNIQUE ("typeId", "makeId", "userId") 
+      UNIQUE ("typeId", "makeId", "usersId") 
     );
-
-    CREATE TABLE users (
+      
+    CREATE TABLE photos (
       id SERIAL PRIMARY KEY, 
-      username VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      isAdmin BOOLEAN DEFAULT false
-    );
-
-    CREATE TABLE make (
-      id SERIAL PRIMARY KEY, 
-      name VARCHAR(255) NOT NULL
-    );
-
-    CREATE TABLE model (
-      id SERIAL PRIMARY KEY, 
-      name VARCHAR(255) NOT NULL,
-      "makeId" INTEGER REFERENCES make(id)
-    );
-
-    CREATE TABLE type (
-      id SERIAL PRIMARY KEY, 
-      name VARCHAR(255) NOT NULL
+      "carsId" INTEGER REFERENCES cars(id),
+      image TEXT
     );
 
     CREATE TABLE selectedCars (
       id SERIAL PRIMARY KEY, 
       "carsId" INTEGER REFERENCES cars(id)
-    );
+      );
 
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY, 
       "selectedCars" INTEGER REFERENCES selectedCars(id),
-      "usersId" INTEGER REFERECNES users(id)
-    );
-
-    CREATE TABLE photos (
-      id SERIAL PRIMARY KEY, 
-      "carsId" INTEGER REFERENCES cars(id),
-      image TEXT
+      "usersId" INTEGER REFERENCES users(id)
     );
     `); //use the string of the text to the url link to image
     //could download image to then add to source file on here
@@ -104,6 +106,7 @@ async function createInitialUsers() {
       { username: 'ana', password: 'ana123456', isAdmin: false },
       { username: 'zack', password: 'zack123456', isAdmin: true },
     ];
+
     const users = await Promise.all(usersToCreate.map(createUser)); //don't forget to write this function "createUser"
 
     console.log('Users created:');
