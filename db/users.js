@@ -93,4 +93,8 @@ async function getAllAdminUsers({ isAdmin }) {
 
 module.exports = {
   createUser,
+  getUserbyUsername,
+  getUser,
+  getUserbyId,
+  getAllAdminUsers,
 };
