@@ -5,19 +5,9 @@ const {
 } = require('./');
 const { createUser } = require('./users');
 const { createMakes } = require('./make');
+const { createType } = require('./type')
+const { createCar } = require('./cars')
 
-const {
-  createType,
-  createCar
- } = require("./")
-<<<<<<< HEAD
-const {
-  createType,
-  createCar
- } = require("./")
-=======
-const { createType } = require('./');
->>>>>>> a318bcb4f05fe9cd0c2e4e4e2e81389615c33cf0
 
 async function dropTables() {
   try {
@@ -186,11 +176,11 @@ async function createInitialModels() {
 
 async function createInitialTypes() {
   try {
-    console.log('Starting to create users...');
+    console.log('Starting to create types...');
     const typesToCreate = [
-      { name: 'sedan' },
+      { name: 'Sedan' },
       { name: 'SUV' },
-      { name: 'truck' },
+      { name: 'Truck' },
     ];
 
     const types = await Promise.all(typesToCreate.map(createType));
@@ -261,9 +251,10 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialMakes();
-    await createInitialModels();
     await createInitialTypes();
+    await createInitialModels();
     await createInitialCars();
+   
   } catch (error) {
     console.log('Error during rebuildDB');
     throw error;

@@ -17,11 +17,17 @@ apiRouter.get('/health', (req, res, next) => {
 const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
 
+// ROUTER: /api/type
+const typeRouter = require('./type');
+apiRouter.use('/type', typeRouter);
+
 // ROUTER: /api/make
 
 // ROUTER: /api/model
 
 // ROUTER: /api/cars
+const carsRouter = require('./cars');
+apiRouter.use('/cars', carsRouter);
 
 // ROUTER: /api/cart
 
