@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -11,6 +12,12 @@ const App = () => {
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
     // first, create an async function that will wrap your axios service adapter
+    const fetchData = async () => {
+      const data = await Axios();
+
+      return data;
+    };
+    fetchData();
     // invoke the adapter, await the response, and set the data
     const getAPIStatus = async () => {
       const { healthy } = await getAPIHealth();
@@ -23,7 +30,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app-container">
+    <div className='app-container'>
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
     </div>
