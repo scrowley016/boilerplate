@@ -1,7 +1,15 @@
 const client = require('./client');
-const models = require('./models');
+const users = require('./users');
 
 module.exports = {
   client,
-  ...models,
+  ...users,
 };
+
+//below would not work
+
+// module.exports = {
+//   ...require('./client'),
+//   ...require('.users'),
+//   ...require('./make'),
+// };
