@@ -7,6 +7,7 @@ const { createUser } = require('./');
 
 const {
   createType,
+  createCar
  } = require("./")
 
 async function dropTables() {
@@ -201,7 +202,7 @@ async function createInitialCars() {
       { makeId: 2, typeId: '', year: '2021', price: '120000', mileage: '30000', description: 'Zoom, zoom', color: 'red', isFavorite: true, userId: 3},
     ];
 
-    const cars = await Promise.all(carsToCreate.map(createCars));
+    const cars = await Promise.all(carsToCreate.map(createCar));
 
     console.log('Cars created:');
     console.log(cars);
