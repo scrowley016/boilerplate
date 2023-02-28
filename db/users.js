@@ -10,7 +10,7 @@ async function createUser({ username, password, isAdmin }) {
       rows: [user],
     } = await client.query(
       `
-        INSERT INTO users (username, password, isAdmin)
+        INSERT INTO users (username, password, "isAdmin")
         VALUES ($1, $2, $3)
         ON CONFLICT (username) DO NOTHING
         RETURNING *
@@ -65,7 +65,7 @@ async function getUserbyId(userId) {
       FROM users
       WHERE id = $1
       `,
-      [userid]
+      [userId]
     );
 
     delete user.password;
@@ -82,7 +82,7 @@ async function getAllAdminUsers({ isAdmin }) {
       `
       SELECT *
       FROM users
-      WHERE isAdmin = true
+      WHERE "isAdmin" = true
       `
     );
     return users;
