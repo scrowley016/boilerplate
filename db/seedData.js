@@ -4,16 +4,12 @@ const {
   // for example, User
 } = require('./');
 const { createUser } = require('./users');
-<<<<<<< HEAD
 const { createMakes } = require('./make');
 const { createMakes, getAllMakes } = require('./make');
 const { createModels } = require('./models');
 const { createType } = require('./type')
 const { createCar } = require('./cars')
-=======
 
-
->>>>>>> 7be61362ac03f335828eec19a9b3ca5e2e18ea24
 
 
 async function dropTables() {
