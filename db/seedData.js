@@ -8,6 +8,7 @@ const { createMakes, getAllMakes } = require('./make');
 const { createModels } = require('./models');
 const { createType, getAllTypes } = require('./type')
 const { createCar } = require('./cars')
+const { createCart } = require('./cart')
 
 
 
@@ -259,6 +260,29 @@ async function createInitialCars() {
   }
 }
 
+async function createInitialCarts() {
+  try {
+    console.log('Starting to create carts...');
+
+    const [bobby, ana, zack] = await getAllUsers()
+
+    const cartsToCreate = [
+      { userId: bobby.id },
+      { userId: ana.id },
+      { userId: zack.id },
+    ];
+
+    const carts = await Promise.all(cartsToCreate.map(createCart));
+
+    console.log('Carts created:');
+    console.log(carts);
+    console.log('Finished creating carts!');
+  } catch (error) {
+    console.error('Error creating carts...');
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
@@ -269,6 +293,7 @@ async function rebuildDB() {
     await createInitialTypes();
     await createInitialModels();
     await createInitialCars();
+    await createInitialCarts();
    
   } catch (error) {
     console.log('Error during rebuildDB');
