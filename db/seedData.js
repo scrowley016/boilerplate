@@ -4,9 +4,16 @@ const {
   // for example, User
 } = require('./');
 const { createUser } = require('./users');
+<<<<<<< HEAD
 const { createMakes } = require('./make');
+const { createMakes, getAllMakes } = require('./make');
+const { createModels } = require('./models');
 const { createType } = require('./type')
 const { createCar } = require('./cars')
+=======
+
+
+>>>>>>> 7be61362ac03f335828eec19a9b3ca5e2e18ea24
 
 
 async function dropTables() {
@@ -143,30 +150,35 @@ async function createInitialMakes() {
 async function createInitialModels() {
   try {
     console.log('Starting to create models...');
-    const models = [
-      { make: Audi.id, name: 'Q4 e-tron' },
-      { make: Audi.id, name: 'Q4 Sportback e-tron' },
-      { make: Audi.id, name: 'Q8 e-tron' },
-      { make: Audi.id, name: 'Q8 Sportback e-tron' },
-      { make: Audi.id, name: 'e-tron GT quattro' },
-      { make: Ford.id, name: 'Mustang Mach-E' },
-      { make: Ford.id, name: 'Ford F-150 Lightning' },
-      { make: Mercedes - Benz.id, name: 'EQA' },
-      { make: Mercedes - Benz.id, name: 'EQB' },
-      { make: Mercedes - Benz.id, name: 'EQS' },
-      { make: Mercedes - Benz.id, name: 'EQE' },
-      { make: Mercedes - Benz.id, name: 'EQC' },
-      { make: Tesla.id, name: 'Model S' },
-      { make: Tesla.id, name: 'Model 3' },
-      { make: Tesla.id, name: 'Model X' },
-      { make: Tesla.id, name: 'Model Y' },
-      { make: Rivian.id, name: 'R1T' },
-      { make: Rivian.id, name: 'R1S' },
-      { make: LucidAir.id, name: 'Touring' },
-      { make: BMW.id, name: 'i4' },
-      { make: BMW.id, name: 'iX' },
-      { make: BMW.id, name: 'i7' },
+    const [Audi, Ford, Mercedes, Tesla, Rivian, LucidAir, BMW ] = await getAllMakes ()
+    
+    const modelsToCreate = [
+      { makeId: Audi.id, name: 'Q4 e-tron' },
+      { makeId: Audi.id, name: 'Q4 Sportback e-tron' },
+      { makeId: Audi.id, name: 'Q8 e-tron' },
+      { makeId: Audi.id, name: 'Q8 Sportback e-tron' },
+      { makeId: Audi.id, name: 'e-tron GT quattro' },
+      { makeId: Ford.id, name: 'Mustang Mach-E' },
+      { makeId: Ford.id, name: 'Ford F-150 Lightning' },
+      { makeId: Mercedes.id, name: 'EQA' },
+      { makeId: Mercedes.id, name: 'EQB' },
+      { makeId: Mercedes.id, name: 'EQS' },
+      { makeId: Mercedes.id, name: 'EQE' },
+      { makeId: Mercedes.id, name: 'EQC' },
+      { makeId: Tesla.id, name: 'Model S' },
+      { makeId: Tesla.id, name: 'Model 3' },
+      { makeId: Tesla.id, name: 'Model X' },
+      { makeId: Tesla.id, name: 'Model Y' },
+      { makeId: Rivian.id, name: 'R1T' },
+      { makeId: Rivian.id, name: 'R1S' },
+      { makeId: LucidAir.id, name: 'Touring' },
+      { makeId: BMW.id, name: 'i4' },
+      { makeId: BMW.id, name: 'iX' },
+      { makeId: BMW.id, name: 'i7' },
     ];
+    const models = await Promise.all(modelsToCreate.map(createModels));;
+    console.log('Models created:');
+    console.log(models);
     console.log('Finished creating models!');
   } catch (error) {
     console.log('Error creating models!');

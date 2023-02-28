@@ -71,4 +71,6 @@ async function getMakeByName(name) {
 
 module.exports = {
   createMakes,
+  getMakeByName,
+  getAllMakes
 };
