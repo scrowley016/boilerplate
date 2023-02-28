@@ -17,7 +17,7 @@ require('dotenv').config();
 // POST /api/users/register
 apiRouter.post('/register', async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, isAdmin } = req.body;
     //check password length
     if (password.length < 8) {
       res.send({
@@ -37,7 +37,7 @@ apiRouter.post('/register', async (req, res, next) => {
     }
 
     //create user after previous checks
-    const user = await createUser({ username, password });
+    const user = await createUser({ username, password, isAdmin });
     const token = jwt.sign(
       {
         id: user.id,
@@ -81,6 +81,16 @@ apiRouter.post('/login', async (req, res, next) => {
     res.send({ message: "you're logged in!", user, token });
   } catch (error) {
     console.error('err in login in api/users.js', error);
+  }
+});
+
+apiRouter.get('/me', async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    res.send(user);
+  } catch (error) {
+    console.error('err in /me in db/users.js');
   }
 });
 

@@ -18,12 +18,17 @@ import axios from 'axios';
   }
 */
 
-export async function getAPIHealth() {
+export const APIURL = `http://localhost:4000/api`;
+
+//this is where all our api endpoints are located
+
+// cars
+export async function fetchAllCars() {
   try {
-    const { data } = await axios.get('/api/health');
-    return data;
+    const res = await fetch(`${APIURL}/cars`);
+    const json = res.json();
+    return json;
   } catch (err) {
     console.error(err);
-    return { healthy: false };
   }
 }

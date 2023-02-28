@@ -6,11 +6,9 @@ const {
 const { createUser, getAllAdminUsers } = require('./users');
 const { createMakes, getAllMakes } = require('./make');
 const { createModels } = require('./models');
-const { createType, getAllTypes } = require('./type')
-const { createCar } = require('./cars')
-const { createCart } = require('./cart')
-
-
+const { createType, getAllTypes } = require('./type');
+const { createCar } = require('./cars');
+const { createCart } = require('./cart');
 
 async function dropTables() {
   try {
@@ -44,7 +42,7 @@ async function createTables() {
       id SERIAL PRIMARY KEY, 
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      isAdmin BOOLEAN DEFAULT false
+      "isAdmin" BOOLEAN DEFAULT false
     );
     
     CREATE TABLE make (
@@ -152,8 +150,9 @@ async function createInitialMakes() {
 async function createInitialModels() {
   try {
     console.log('Starting to create models...');
-    const [Audi, Ford, Mercedes, Tesla, Rivian, LucidAir, BMW ] = await getAllMakes ()
-    
+    const [Audi, Ford, Mercedes, Tesla, Rivian, LucidAir, BMW] =
+      await getAllMakes();
+
     const modelsToCreate = [
       { makeId: Audi.id, name: 'Q4 e-tron' },
       { makeId: Audi.id, name: 'Q4 Sportback e-tron' },
@@ -178,7 +177,7 @@ async function createInitialModels() {
       { makeId: BMW.id, name: 'iX' },
       { makeId: BMW.id, name: 'i7' },
     ];
-    const models = await Promise.all(modelsToCreate.map(createModels));;
+    const models = await Promise.all(modelsToCreate.map(createModels));
     console.log('Models created:');
     console.log(models);
     console.log('Finished creating models!');
@@ -212,9 +211,10 @@ async function createInitialCars() {
   try {
     console.log('Starting to create cars...');
 
-    const [Audi, Ford, Mercedes, Tesla, Rivian, LucidAir, BMW ] = await getAllMakes ()
-    const [Sedan, SUV, Truck] = await getAllTypes()
-    const [bobby, zack] = await getAllAdminUsers(true)
+    const [Audi, Ford, Mercedes, Tesla, Rivian, LucidAir, BMW] =
+      await getAllMakes();
+    const [Sedan, SUV, Truck] = await getAllTypes();
+    const [bobby, zack] = await getAllAdminUsers(true);
 
     const carsToCreate = [
       {
@@ -264,7 +264,7 @@ async function createInitialCarts() {
   try {
     console.log('Starting to create carts...');
 
-    const [bobby, ana, zack] = await getAllUsers()
+    const [bobby, ana, zack] = await getAllUsers();
 
     const cartsToCreate = [
       { userId: bobby.id },
@@ -294,7 +294,6 @@ async function rebuildDB() {
     await createInitialModels();
     await createInitialCars();
     await createInitialCarts();
-   
   } catch (error) {
     console.log('Error during rebuildDB');
     throw error;
