@@ -3,11 +3,10 @@ const {
   // declare your model imports here
   // for example, User
 } = require('./');
-const { createUser } = require('./users');
-const { createMakes } = require('./make');
+const { createUser, getAllAdminUsers } = require('./users');
 const { createMakes, getAllMakes } = require('./make');
 const { createModels } = require('./models');
-const { createType } = require('./type')
+const { createType, getAllTypes } = require('./type')
 const { createCar } = require('./cars')
 
 
@@ -19,6 +18,7 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS model; 
     DROP TABLE IF EXISTS photos;
+    DROP TABLE IF EXISTS favorite;
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS selectedCars;
     DROP TABLE IF EXISTS cars;
@@ -65,7 +65,6 @@ async function createTables() {
     CREATE TABLE cars (
       id SERIAL PRIMARY KEY, 
       description TEXT,
-      isFavorite BOOLEAN DEFAULT false, 
       price INTEGER,
       year INTEGER,
       "typeId" INTEGER REFERENCES type(id),
@@ -80,6 +79,12 @@ async function createTables() {
       id SERIAL PRIMARY KEY, 
       "carsId" INTEGER REFERENCES cars(id),
       image TEXT
+    );
+
+    CREATE TABLE favorite (
+      id SERIAL PRIMARY KEY,
+      "usersId" INTEGER REFERENCES users(id), 
+      "carsId" INTEGER REFERENCES cars(id)
     );
 
     CREATE TABLE selectedCars (
@@ -205,39 +210,41 @@ async function createInitialTypes() {
 async function createInitialCars() {
   try {
     console.log('Starting to create cars...');
+
+    const [Audi, Ford, Mercedes, Tesla, Rivian, LucidAir, BMW ] = await getAllMakes ()
+    const [Sedan, SUV, Truck] = await getAllTypes()
+    const [bobby, zack] = await getAllAdminUsers(true)
+
     const carsToCreate = [
       {
-        makeId: 1,
-        typeId: '',
+        makeId: Audi.id,
+        typeId: Sedan.id,
         year: '2022',
         price: '100000',
         mileage: '500',
         description: 'Great car! Really fast.',
         color: 'blue',
-        isFavorite: false,
-        userId: 1,
+        userId: bobby.id,
       },
       {
-        makeId: 2,
-        typeId: '',
+        makeId: BMW.id,
+        typeId: Sedan.id,
         year: '2023',
         price: '80000',
         mileage: '15000',
         description: 'Super fun. Love it!',
         color: 'black',
-        isFavorite: false,
-        userId: 2,
+        userId: zack.id,
       },
       {
-        makeId: 2,
-        typeId: '',
+        makeId: Mercedes.id,
+        typeId: SUV.id,
         year: '2021',
         price: '120000',
         mileage: '30000',
         description: 'Zoom, zoom',
         color: 'red',
-        isFavorite: true,
-        userId: 3,
+        userId: zack.id,
       },
     ];
 

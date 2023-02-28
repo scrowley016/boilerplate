@@ -1,12 +1,12 @@
 const client = require("./client");
 
-async function createCar({ makeId, typeId, year, price, mileage, description, color, isFavorite, userId }) {
+async function createCar({ makeId, typeId, year, price, mileage, description, color, userId }) {
 
     const { rows: [car] } = await client.query(`
-    INSERT INTO cars (makeId, typeId, year, price, mileage, description, color, isFavorite, userId) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) 
+    INSERT INTO cars ("makeId", "typeId", year, price, mileage, description, color, "usersId") 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
     RETURNING *;
-    `, [makeId, typeId, year, price, mileage, description, color, isFavorite, userId]);
+    `, [makeId, typeId, year, price, mileage, description, color, userId]);
 
     return car;
 
