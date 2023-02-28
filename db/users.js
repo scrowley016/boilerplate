@@ -47,7 +47,7 @@ async function getUserbyUsername(username) {
 async function getUser({ username, password, isAdmin }) {
   try {
     const user = await getUserbyUsername(username);
-    const password = user.password;
+    // const password = user.password;
 
     return user;
   } catch (error) {
