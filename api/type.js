@@ -12,7 +12,6 @@ const {
 // Get all types
 apiRouter.get('/', async (req, res) => {
     const types = await getAllTypes()
-
     res.send(
         types
     )
