@@ -36,8 +36,8 @@ async function getCartById(id) {
 async function getCartByUserId({userId}) {
 
     const { rows: [cart] } = await client.query(`
-    SELECT * FROM type
-    WHERE "userId"=$1;
+    SELECT * FROM cart
+    WHERE "usersId"=$1;
     `, [userId]);
 
 return cart;
