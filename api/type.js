@@ -42,30 +42,5 @@ apiRouter.post('/', async (req, res, next) => {
   }
 })
 
-// apiRouter.delete('/:typeId', async (req, res, next) => {
-
-//   const id = req.params.typeId;
-
-//   const routine = await getRoutineById(req.params.routineId);
-
-//   if (routine.creatorId === req.user.id) {
-
-//     const removedRoutine = await destroyRoutine(id);
-  
-//     res.send(removedRoutine);
-
-//   }
-//   else {
-
-//     res.status(403)
-
-//     res.send({
-//       error: `AuthorizationError`,
-//       message: `User ${req.user.username} is not allowed to delete ${routine.name}`,
-//       name: `Only the author of the routine can delete it.`
-//     })
-//   }
-
-// })
 
 module.exports = apiRouter;

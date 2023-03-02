@@ -264,12 +264,9 @@ async function createInitialCarts() {
   try {
     console.log('Starting to create carts...');
 
-    const [bobby, ana, zack] = await getAllUsers();
-
     const cartsToCreate = [
-      { userId: bobby.id },
-      { userId: ana.id },
-      { userId: zack.id },
+      { userId: 1 },
+
     ];
 
     const carts = await Promise.all(cartsToCreate.map(createCart));
