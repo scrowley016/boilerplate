@@ -24,6 +24,7 @@ apiRouter.get('/', async (req, res, next) => {
 }
 });
 
+// Add new car
 apiRouter.post('/', async (req, res, next) => {
    try{
     const {  
