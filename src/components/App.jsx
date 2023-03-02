@@ -17,16 +17,15 @@ const App = () => {
       <Link to={'/Cars'} className='navLink'>Cars</Link>
       <Link to={'/Home'} className='navLink'>Home</Link>
       <div className='app-container'>
-        <h1>Hello, World!</h1>
-        <p>API Status:</p>
-      </div>
+      
+    
       <Route path="/Home">
         <Home />
       </Route>
       <Route path="/Cars">
         <Cars />
       </Route>
-      
+      </div>
     </BrowserRouter>
   );
 };

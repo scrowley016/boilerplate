@@ -15,7 +15,22 @@ const Cars = () => {
     return (
       <div className='app-container'>
         <h1>Cars Page!</h1>
-        <p>API Status: {JSON.stringify(cars)}</p>
+        <p>Available Cars:</p>
+        <div>{cars.map((e, i) => {
+            return (<div key={i}>
+               
+                <p>MakeId: {e.makeId}</p>
+                <p>TypeId: {e.typeId}</p>
+                <p>Year: {e.year}</p>
+                <p>Price: {e.price}</p>
+                <p>Milage: {e.milage}</p>
+                <p>Description: {e.description}</p>
+                <p>Color: {e.color}</p>
+                <p>UserId: {e.userId}</p>
+                ---------------------
+            </div>
+            )
+        })}</div>
       </div>
     );
   };
