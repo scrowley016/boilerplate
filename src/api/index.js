@@ -22,7 +22,7 @@ export const APIURL = `http://localhost:4000/api`;
 
 //this is where all our api endpoints are located
 
-// cars
+// Fetch all cars
 export async function fetchAllCars() {
   try {
     const res = await fetch(`${APIURL}/cars`);
@@ -32,3 +32,26 @@ export async function fetchAllCars() {
     console.error(err);
   }
 }
+
+// Fetch all carts
+export async function fetchAllCarts() {
+  try {
+    const res = await fetch(`${APIURL}/cart`);
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function fetchAllTypes() {
+  try {
+    const res = await fetch(`${APIURL}/type`);
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+

@@ -16,14 +16,16 @@ const App = () => {
     <BrowserRouter>
       <Link to={'/Cars'} className='navLink'>Cars</Link>
       <Link to={'/Home'} className='navLink'>Home</Link>
+      <Link to={'/Cart'} className='navLink'>Cart</Link>
       <div className='app-container'>
-      
-    
       <Route path="/Home">
         <Home />
       </Route>
       <Route path="/Cars">
         <Cars />
+      </Route>
+      <Route path="/Cart">
+        <Cart />
       </Route>
       </div>
     </BrowserRouter>

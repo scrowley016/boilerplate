@@ -44,9 +44,25 @@ return cart;
 
 }
 
+async function deleteCart(id) {
+  const {
+    rows: [cart],
+  } = await client.query(
+    `
+        DELETE FROM cart
+        WHERE id = $1
+        RETURNING *;
+    `,
+    [id]
+  );
+
+  return cart;
+}
+
 module.exports = {
     createCart,
     getAllCarts,
     getCartById,
-    getCartByUserId
+    getCartByUserId,
+    deleteCart
   };
