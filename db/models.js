@@ -52,4 +52,6 @@ async function createModels({ name, makeId }) {
   
   module.exports = {
     createModels,
+    getAllModels,
+    getModelsById
   };
