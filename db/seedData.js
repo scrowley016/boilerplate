@@ -15,13 +15,14 @@ async function dropTables() {
     console.log('Dropping all tables...');
     // drop tables in correct order
     await client.query(`
-    DROP TABLE IF EXISTS model; 
+  
     DROP TABLE IF EXISTS photos;
     DROP TABLE IF EXISTS favorite;
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS selectedCars;
     DROP TABLE IF EXISTS cars;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS model; 
     DROP TABLE IF EXISTS make;
     DROP TABLE IF EXISTS type;
     `);
@@ -69,6 +70,7 @@ async function createTables() {
       "typeId" INTEGER REFERENCES type(id),
       "makeId" INTEGER REFERENCES make(id),
       "usersId" INTEGER REFERENCES users(id),
+      "modelId" INTEGER REFERENCES model(id),
       color VARCHAR(255),
       mileage INTEGER,
       UNIQUE ("typeId", "makeId", "usersId") 
@@ -93,7 +95,6 @@ async function createTables() {
 
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY, 
-      "selectedCars" INTEGER REFERENCES selectedCars(id),
       "usersId" INTEGER REFERENCES users(id)
     );
     `); //use the string of the text to the url link to image
@@ -220,6 +221,7 @@ async function createInitialCars() {
       {
         makeId: Audi.id,
         typeId: Sedan.id,
+        modelId: 3,
         year: '2022',
         price: '100000',
         mileage: '500',
@@ -230,6 +232,7 @@ async function createInitialCars() {
       {
         makeId: BMW.id,
         typeId: Sedan.id,
+        modelId: 6,
         year: '2023',
         price: '80000',
         mileage: '15000',
@@ -240,6 +243,7 @@ async function createInitialCars() {
       {
         makeId: Mercedes.id,
         typeId: SUV.id,
+        modelId: 6,
         year: '2021',
         price: '120000',
         mileage: '30000',

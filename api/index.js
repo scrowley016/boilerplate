@@ -34,5 +34,7 @@ const carsRouter = require('./cars');
 apiRouter.use('/cars', carsRouter);
 
 // ROUTER: /api/cart
+const cartRouter = require('./cart');
+apiRouter.use('/cart', cartRouter);
 
 module.exports = apiRouter;
