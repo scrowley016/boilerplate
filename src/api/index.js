@@ -54,4 +54,13 @@ export async function fetchAllTypes() {
   }
 }
 
-
+// models
+export async function fetchAllModels() {
+  try {
+    const res = await fetch(`${APIURL}/models`);
+    const json = await res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}

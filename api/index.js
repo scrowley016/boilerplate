@@ -28,7 +28,8 @@ apiRouter.use('/type', typeRouter);
 // ROUTER: /api/make
 
 // ROUTER: /api/model
-
+const modelsRouter = require('./models');
+apiRouter.use('/models', modelsRouter)
 // ROUTER: /api/cars
 const carsRouter = require('./cars');
 apiRouter.use('/cars', carsRouter);
