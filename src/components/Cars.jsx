@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllCars, fetchAllTypes } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels } from '../api/index';
 
 const Cars = () => {
     const [cars, setCars] = useState([]);
@@ -27,7 +27,7 @@ const Cars = () => {
                
                 <p>MakeId: {e.makeId}</p>
                 <p>ModelId: {e.modelId}</p>
-                <p>Type: {types.map((a, i) => {return (<div key={i}>{a.name}</div>)})}</p>
+                <p>Type: {types.map((a, i) => a.name)}</p>
                 <p>Year: {e.year}</p>
                 <p>Price: {e.price}</p>
                 <p>Milage: {e.milage}</p>
