@@ -8,7 +8,7 @@
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
-    "db:build": "node ./db/init_db",
+    "db:build": "node ./db/seedData",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
     "start": "node index.js",
     "test": "jest --runInBand"
@@ -18,10 +18,14 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "bcrypt": "^5.1.0",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
+    "daisyui": "^2.51.3",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "jest": "^24.9.0",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
     "react": "^16.13.1",
@@ -30,8 +34,11 @@
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
+    "@types/react": "^18.0.28",
     "nodemon": "^2.0.4",
-    "supertest": "^6.2.1"
+    "supertest": "^6.2.1",
+    "tailwindcss": "^3.2.7"
   },
   "proxy": "http://localhost:4000",
   "browserslist": {
