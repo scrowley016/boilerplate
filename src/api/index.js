@@ -54,4 +54,46 @@ export async function fetchAllTypes() {
   }
 }
 
+//users endpoints
+export const fetchRegister = async (username, password) => {
+  const res = await fetch(`${APIURL}/users/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: `${username}`,
+      password: `${password}`,
+    }),
+  });
+  const json = await res.json();
+  return json;
+};
 
+//POST /api/users/login
+export const fetchLogin = async (username, password) => {
+  const res = await fetch(`${APIURL}/users/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: `${username}`,
+      password: `${password}`,
+    }),
+  });
+  const json = await res.json();
+  return json;
+};
+
+//GET /api/users/me
+export const fetchMe = async (token) => {
+  const res = await fetch(`${APIURL}/users/me`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await res.json();
+  return json;
+};
