@@ -27,7 +27,9 @@ const Cars = () => {
                
                 <p>MakeId: {e.makeId}</p>
                 <p>ModelId: {e.modelId}</p>
-                <p>Type: {types.map((a, i) => a.name)}</p>
+                <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
+                    <>{type.name}</>
+                  ))}</p>
                 <p>Year: {e.year}</p>
                 <p>Price: {e.price}</p>
                 <p>Milage: {e.milage}</p>
