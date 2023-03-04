@@ -9,10 +9,21 @@ const Home = () => {
   const [makes, setMakes] = useState([]);
 
   const [selectedmake, setSelectedmake] = useState('');
+  const [selectedmodel, setSelectedmodel] = useState('');
+  const [selectedprice, setSelectedprice] = useState('');
 
-    const handleMake = (event) => {
-        setSelectedmake(event.target.value)
-    }
+  const [carsearch, setCarsearch] = useState([])
+
+  const handleModel = (event) => {
+    setSelectedmodel(event.target.value)
+  }
+
+  const handlePrice = (event) => {
+    setSelectedprice(event.target.value)
+  }
+
+  console.log("make:", selectedmake)
+  console.log("model:", selectedmodel)
 
   useEffect(() => {
     const homePage = async () => {
@@ -24,29 +35,28 @@ const Home = () => {
       setTypes(types)
       setMakes(makes);
       setModels(models);
-  
     };
     homePage();
-  }, [selectedmake]);
+  }, []);
 
-  // console.log("cars:", cars)
-  console.log("models:", models)
-  // console.log("makes:", makes)
-console.log("selectedMake:", selectedmake);
+// console.log("price:", selectedprice)
 
   return (
+
     <div className='app-container'>
+
+
       <h1>Home Page</h1>
-      <div id='searchBar'>
-        <select name='Make' value={selectedmake} onChange={handleMake}>
+      <form id='searchBar'>
+        <select value={selectedmake} onChange={(event) => {setSelectedmake(event.target.value)}}>
           <option value=''>Make</option>
-          {makes.map((e, i) => (<option value={e.id}>{e.name}</option>))}
+          {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
         </select>
-        <select>
-        <option value=''>Model</option>
-          {models.filter((model) => model.makeId == selectedmake).map((e, i) => (<option>{e.name}</option>))}
+        <select value={selectedmodel} onChange={handleModel}>
+          <option value=''>Model</option>
+          {models.filter((model) => model.makeId == selectedmake).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
         </select>
-        <select>
+        <select value={selectedprice} onChange={handlePrice}>
           <option value='0'>Max Price</option>
           <option>$20,000</option>
           <option>$40,000</option>
@@ -60,7 +70,7 @@ console.log("selectedMake:", selectedmake);
           <option>$200,000</option>
         </select>
         <button id='searchButton'>Search</button>
-      </div>
+      </form>
 
     </div>
   );
