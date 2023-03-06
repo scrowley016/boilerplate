@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { Cars, Home, Login, Register, Cart, Navbar } from './index';
 
@@ -36,16 +35,18 @@ const App = () => {
       <Route path="/Cars">
         <Cars />
       </Route>
-<<<<<<< Updated upstream
       <Route path="/Cart">
         <Cart />
       </Route>
-      <Route path="/Login"> <Login setToken={setToken} /></Route>
-=======
-        <Route path="/Login"> <Login setToken={setToken} /></Route>
-        <Route path="/Register"> <Register setToken={setToken} /></Route>
->>>>>>> Stashed changes
-      <Route exact path="*"> <NotFound /> </Route>
+      <Route path="/Login">
+        <Login setToken={setToken} />
+      </Route>
+      <Route path="/Register">
+        <Register setToken={setToken} />
+      </Route>
+      <Route exact path="*">
+        <NotFound />
+      </Route>
       </Switch>
     </BrowserRouter>
   );
