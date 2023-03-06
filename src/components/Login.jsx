@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchLogin } from '../api/index';
 
-const Login = ({setToken, token}) => {
+const Login = ({setToken}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -23,14 +23,16 @@ const Login = ({setToken, token}) => {
               setMessage('Invalid username or password, please try again');
             } else {
               setToken(login.token);
-                localStorage.setItem('token', login.token);
-                console.log(token);
+              let token = localStorage.setItem('token', login.token);
+              console.log(token);
               history.push('/');
             }
           } catch (error) {
             console.error(error);
           }
-    }
+  }
+
+  // useEffect(() => {}, [login])
 
     return (
 <section className="bg-white">
