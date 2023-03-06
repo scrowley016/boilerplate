@@ -8,7 +8,7 @@ import NotFound from './NotFound';
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
 
   const history = useHistory();
 
@@ -20,22 +20,13 @@ const App = () => {
     setUsername(username);
   }
 
-  // const logout = () => {
-  //   localStorage.removeItem('token');
-  //   setUsername('');
-  //   setToken('');
-  //   history.push('/');   
-  // }
-
   useEffect(() => {
     loggedInUser
-  }, []);
+  }, [token]);
 
   return (
     <BrowserRouter>
-      <Navbar token={token} setToken={setToken} username={username} setUsername={setUsername}></Navbar>
-      {/* <Link to={'/Cars'} className='navLink'>Cars</Link>
-      <Link to={'/Home'} className='navLink'>Home</Link> */}
+      <Navbar token={token} setToken={setToken} setUsername={setUsername}></Navbar>
       <div className='app-container'>
       </div>
       <Switch>
@@ -45,20 +36,18 @@ const App = () => {
       <Route path="/Cars">
         <Cars />
       </Route>
+<<<<<<< Updated upstream
       <Route path="/Cart">
         <Cart />
       </Route>
       <Route path="/Login"> <Login setToken={setToken} /></Route>
+=======
+        <Route path="/Login"> <Login setToken={setToken} /></Route>
+        <Route path="/Register"> <Register setToken={setToken} /></Route>
+>>>>>>> Stashed changes
       <Route exact path="*"> <NotFound /> </Route>
       </Switch>
     </BrowserRouter>
-
-    // <div>
-    //   <header>
-    //     <Navbar ></Navbar>
-    //   </header>
-    //   <main>hello world</main>
-    // </div>
   );
 };
 
