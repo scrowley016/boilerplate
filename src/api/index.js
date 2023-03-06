@@ -44,9 +44,21 @@ export async function fetchAllCarts() {
   }
 }
 
+// fetch all types
 export async function fetchAllTypes() {
   try {
     const res = await fetch(`${APIURL}/type`);
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// fetch all makes
+export async function fetchAllMakes() {
+  try {
+    const res = await fetch(`${APIURL}/make`);
     const json = res.json();
     return json;
   } catch (err) {

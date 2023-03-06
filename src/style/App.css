@@ -15,3 +15,31 @@
   color: var(--green);
   padding: 1rem;
 }
+
+#searchBar {
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: solid;
+  border-radius: 25px;
+  background-color: white;
+}
+
+.button {
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: solid;
+  margin-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 25px;
+}
+
+.button:hover {
+  background-color: lightgray;
+}
+

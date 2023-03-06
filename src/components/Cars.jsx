@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllCars, fetchAllTypes, fetchAllModels } from '../api/index';
 
-const Cars = () => {
+const Cars = ({carsearch}) => {
     const [cars, setCars] = useState([]);
     const [types, setTypes] = useState([]);
     const [models, setModels] = useState([]);
+
+    // console.log(carsearch);
+    if(carsearch){
+    const searchedMakeId = carsearch[0]
+    const searchedModelId = carsearch[1]
+    const searchedPrice = carsearch[2]
+      console.log(searchedMakeId)
+
+
+    }
 
     useEffect(() => {
       const carPage = async () => {
@@ -17,7 +27,9 @@ const Cars = () => {
       };
       carPage();
     }, []);
-  
+
+console.log("cars page!!", carsearch)
+
     return (
       <div className='app-container'>
         <h1>Cars Page!</h1>
@@ -27,7 +39,9 @@ const Cars = () => {
                
                 <p>MakeId: {e.makeId}</p>
                 <p>ModelId: {e.modelId}</p>
-                <p>Type: {types.map((a, i) => a.name)}</p>
+                <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
+                    <>{type.name}</>
+                  ))}</p>
                 <p>Year: {e.year}</p>
                 <p>Price: {e.price}</p>
                 <p>Milage: {e.milage}</p>

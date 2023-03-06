@@ -6,12 +6,13 @@ const {
   getMakeById,
   getMakeByName,
   getAllMakes,
-} = require('../db');
+} = require('../db/make');
 
 // GET /api/makes/name
-apiRouter.get('/make', async (req, res, next) => {
+apiRouter.get('/', async (req, res, next) => {
   try {
     const makes = await getAllMakes();
+    console.log("hi")
     res.send(makes);
   } catch (error) {
     console.error('err in getting all makes', error);

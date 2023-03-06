@@ -14,13 +14,20 @@ const Cart = () => {
   
     return (
       <div className='app-container'>
-        <h1>Cart Page!</h1>
+        
         <p>Cart:</p>
         <div>{carts.map((e, i) => {
             return (<div key={i}>
-               
-                <p>CartId: {e.id}</p>
-                <p>userId: {e.usersId}</p>
+               {e.id ? <div> 
+
+               <p>CartId: {e.id}</p>
+               <p>userId: {e.usersId}</p>
+              
+              {/* // need selectedCars info to put in here */}
+                
+               </div>
+               : "" 
+              }
            
             </div>
             )

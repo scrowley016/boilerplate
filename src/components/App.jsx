@@ -45,6 +45,9 @@ const App = () => {
       <Route path="/Cars">
         <Cars />
       </Route>
+      <Route path="/Cart">
+        <Cart />
+      </Route>
       <Route path="/Login"> <Login setToken={setToken} /></Route>
       <Route exact path="*"> <NotFound /> </Route>
       </Switch>
