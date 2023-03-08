@@ -119,3 +119,51 @@ export const fetchMe = async (token) => {
   const json = await res.json();
   return json;
 };
+
+export async function createNewCarPosting(addMake, addModel, addType, addYear, addPrice, addMileage, addDescription, addColor, addUsersId) {
+  try {
+    console.log("make:", addMake)
+    console.log("model:", addModel)
+    console.log("year:", addYear)
+    const res = await fetch(`${APIURL}/cars`,
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          makeId: addMake,
+          modelId: addModel,
+          typeId: addType,
+          year: addYear,
+          price: addPrice,
+          mileage: addMileage,
+          description: addDescription,
+          color: addColor,
+          usersId: addUsersId
+        })
+      });
+    const json = res.json();
+    json.error ? window.alert(json.error) : ""
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function deleteCarPosting(id) {
+  try {
+    const res = await fetch(`${APIURL}/cars/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    const json = res.json();
+    json.error ? window.alert(json.error) : ""
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}

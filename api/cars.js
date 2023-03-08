@@ -29,6 +29,7 @@ apiRouter.post('/', async (req, res, next) => {
    try{
     const {  
         makeId,
+        modelId,
         typeId,
         year,
         price,
@@ -40,6 +41,7 @@ apiRouter.post('/', async (req, res, next) => {
 
     const cars = await createCar({  
         makeId,
+        modelId,
         typeId,
         year,
         price,
