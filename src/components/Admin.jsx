@@ -174,17 +174,17 @@ const Admin = () => {
 
             <form id='createCarPosts' onSubmit={handleCreateNewCarPosting}>
                 <h2>Add a new car:</h2>
-                <p>Make:<select id='select1' className='select' onChange={handleAddMake}>
+                <p>Make: <select id='select1' className='select' onChange={handleAddMake}>
                     <option value=''>Make</option>
                     {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
                 </select>
                 </p>
-                <p>Model:<select id='select2' className='select' onChange={handleAddModel}>
+                <p>Model: <select id='select2' className='select' onChange={handleAddModel}>
                     <option value=''>Model</option>
                     {models.filter((model) => model.makeId == addMake).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
                 </select>
                 </p>
-                <p>Type:<select id='select3' className='select' onChange={handleAddType}>
+                <p>Type: <select id='select3' className='select' onChange={handleAddType}>
                     <option value=''>Type</option>
                     {types.map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
                 </select>
@@ -216,7 +216,7 @@ const Admin = () => {
 
                     <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
                     <div className='cardescription'>
-                        {e.description}
+                        "{e.description}"
                         <div className='typeandcolordiv'>
                             <>{types.filter((type) => type.id === e.typeId).map((type) => (
                                 <div>{type.name}</div>
@@ -232,17 +232,17 @@ const Admin = () => {
                     <form onSubmit={handleEditCarPosting}>
 
                         <h2>Edit:</h2>
-                        <p>Make:<select id='select1' className='select' onChange={handleEditMake}>
+                        <p>Make: <select id='select1' className='select' onChange={handleEditMake}>
                             <option value=''>Make</option>
                             {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
                         </select>
                         </p>
-                        <p>Model:<select id='select2' className='select' onChange={handleEditModel}>
+                        <p>Model: <select id='select2' className='select' onChange={handleEditModel}>
                             <option value=''>Model</option>
                             {models.filter((model) => model.makeId == editMake).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
                         </select>
                         </p>
-                        <p>Type:<select id='select3' className='select' onChange={handleEditType}>
+                        <p>Type: <select id='select3' className='select' onChange={handleEditType}>
                             <option value=''>Type</option>
                             {types.map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
                         </select>
