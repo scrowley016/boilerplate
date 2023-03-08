@@ -144,13 +144,13 @@ export async function createNewCarPosting(addMake, addModel, addType, addYear, a
         })
       });
     const json = res.json();
-    json.error ? window.alert(json.error) : ""
     return json;
   } catch (err) {
     console.error(err);
   }
 }
 
+// Delete car posts
 export async function deleteCarPosting(id) {
   try {
     const res = await fetch(`${APIURL}/cars/${id}`,
@@ -162,6 +162,38 @@ export async function deleteCarPosting(id) {
       });
     const json = res.json();
     json.error ? window.alert(json.error) : ""
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+//  Edit car posts
+export async function editCarPosting(id, editMake, editModel, editType, editYear, editPrice, editMileage, editDescription, editColor, editUsersId) {
+  try {
+    console.log(id)
+    console.log(editPrice)
+    const res = await fetch(`${APIURL}/cars/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          makeId: editMake,
+          modelId: editModel,
+          typeId: editType,
+          year: editYear,
+          price: editPrice,
+          mileage: editMileage,
+          description: editDescription,
+          color: editColor,
+          usersId: editUsersId
+      })
+      });
+      console.log("test1")
+    const json = res.json();
+    console.log(json)
     return json;
   } catch (err) {
     console.error(err);
