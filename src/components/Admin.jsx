@@ -96,22 +96,21 @@ const Admin = () => {
     return (
         <div className='app-container'>
 
-            <p>Admin:</p>
-
-            <h1>Add a new car:</h1>
+            <h2>Admin Page </h2>
 
             <form id='createCarPosts' onSubmit={handleCreateNewCarPosting}>
-                <p>Make:<select className='select' onChange={handleAddMake}>
+                <h2>Add a new car:</h2>
+                <p>Make:<select id='select1' className='select' onChange={handleAddMake}>
                     <option value=''>Make</option>
                     {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
                 </select>
                 </p>
-                <p>Model:<select className='select' onChange={handleAddModel}>
+                <p>Model:<select id='select2' className='select' onChange={handleAddModel}>
                     <option value=''>Model</option>
                     {models.filter((model) => model.makeId == addMake).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
                 </select>
                 </p>
-                <p>Type:<select className='select' onChange={handleAddType}>
+                <p>Type:<select id='select3' className='select' onChange={handleAddType}>
                     <option value=''>Type</option>
                     {types.map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
                 </select>
@@ -121,40 +120,43 @@ const Admin = () => {
                 <p>Mileage: <input type='text' onChange={handleAddMileage}></input></p>
                 <p>Description: <input type='text' onChange={handleAddDescription}></input></p>
                 <p>Color: <input type='text' onChange={handleAddColor}></input></p>
-                <p>UserId: </p>
-                <button className='button'>Create Posting</button>
+                {/* <p>UserId: </p> */}
+                <div id='createpostbutton'><button className='button'>Create Posting</button></div>
             </form>
-            <h1>Posted Cars:</h1>
-            <div>{
 
-                cars.map((e, i) => {
+            <h2>Posted Cars</h2>
+            {cars.map((e, i) => {
 
-                    return (<div key={i} className="carPosts">
+                return (<div key={i} className="carPosts">
 
-                        <p>Make: {makes.filter((make) => make.id === e.makeId)
-                            .map((make) => (
-                                <>{make.name}</>
-                            ))} --- MakeId: {e.makeId}</p>
-                        <p> Model: {models.filter((model) => model.id === e.modelId)
-                            .map((model) => (
-                                <>{model.name}</>
-                            ))} --- Model Id: {e.modelId}</p>
-                        <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
-                            <>{type.name}</>
-                        ))}</p>
-                        <p>Year: {e.year}</p>
-                        <p>Price: ${e.price}</p>
-                        <p>Milage: {e.mileage} mi</p>
-                        <p>Description: {e.description}</p>
-                        <p>Color: {e.color}</p>
-                        <p>UserId: {e.usersId}</p>
-                        <button className='button' onClick={() => handleDeleteCarPosting(e.id)}>Delete</button>
+                    <div className='makeandmodeldiv'>
+                        <h3>{e.year}</h3> <h3>{makes.filter((make) => make.id === e.makeId)
+                        .map((make) => (
+                            <>{make.name} </>
+                        ))}
+                    {models.filter((model) => model.id === e.modelId)
+                        .map((model) => (
+                            <> {model.name}</>
+                        ))}</h3>
+                        </div>
+                    <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
 
-                    </div>)
-                })}
-            </div>
-        </div>
-    );
+                    <div className='cardescription'>
+                    {e.description}
+                    <div className='typeandcolordiv'>
+                    <>{types.filter((type) => type.id === e.typeId).map((type) => (
+                        <div>{type.name}</div>
+                    ))}</>
+
+                    <div>{e.color}</div>
+                    </div>
+                    </div>
+                    {/* <p>UserId: {e.usersId}</p> */}
+                    <div id='deletepostbutton'><button className='button' id='editbutton'>Edit</button><button id='deletebutton' className='button' onClick={() => handleDeleteCarPosting(e.id)}>Delete</button></div>
+
+                </div>)
+            })}
+        </div>);
 };
 
 export default Admin;
