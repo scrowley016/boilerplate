@@ -199,3 +199,53 @@ export async function editCarPosting(id, editMake, editModel, editType, editYear
     console.error(err);
   }
 }
+
+// Get photos
+export async function fetchAllPhotos() {
+  try {
+    const res = await fetch(`${APIURL}/photos`);
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Add photos
+export async function createPhoto(carsId, image) {
+  try {
+    const res = await fetch(`${APIURL}/photos`,
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          carsId: carsId,
+          image: image
+        })
+      });
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Delete photos
+export async function deletePhoto(id) {
+  try {
+  console.log("photo is #2:", id)
+    const res = await fetch(`${APIURL}/photos/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}

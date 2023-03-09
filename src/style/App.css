@@ -141,3 +141,7 @@ option {
 #searchDiv{
   justify-content: left;
 }
+
+.carPhoto {
+  margin: auto;
+}

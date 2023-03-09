@@ -78,7 +78,7 @@ async function updateCar({
   } = await client.query(
     `
       UPDATE cars
-      SET "makeId"=$1,"modelId"=$2, "typeId"=$3, year=$4, price=$5, mileage=$6, description=$7, color=$7, "usersId"=$8
+      SET "makeId"=$1,"modelId"=$2, "typeId"=$3, year=$4, price=$5, mileage=$6, description=$7, color=$8, "usersId"=$9
       WHERE id=${id}
       RETURNING *;
     `,

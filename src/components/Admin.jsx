@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { createNewCarPosting, deleteCarPosting, editCarPosting } from '../api/index';
-import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllMakes } from '../api/index';
+import { createNewCarPosting, deleteCarPosting, editCarPosting, createPhoto, deletePhoto } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllMakes, fetchAllPhotos } from '../api/index';
 
 const Admin = () => {
     // For fetching all cars from DB
@@ -8,6 +8,7 @@ const Admin = () => {
     const [types, setTypes] = useState([]);
     const [models, setModels] = useState([]);
     const [makes, setMakes] = useState([]);
+    const [photos, setPhotos] = useState([]);
 
     // For drop down menu
     const [selectedMakeId, setSelectedMakeId] = useState('');
@@ -21,6 +22,7 @@ const Admin = () => {
     const [addMileage, setAddMileage] = useState('');
     const [addDescription, setAddDescription] = useState('');
     const [addColor, setAddColor] = useState('');
+    const [addPhoto, setAddPhoto] = useState('');
     const [addUsersId, setAddUsersId] = useState(1);
 
     // For editing pop up form
@@ -38,6 +40,13 @@ const Admin = () => {
     const [editColor, setEditColor] = useState('');
     const [editUsersId, setEditUsersId] = useState(1);
 
+    // States to trigger refresh
+    const [isAdded, setIsAdded] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [isPhotoDelete, setIsPhotoDelete] = useState(false);
+
+
     // funtction to refresh the useState
 
     const refreshCars = async () => {
@@ -45,16 +54,19 @@ const Admin = () => {
         const types = await fetchAllTypes();
         const models = await fetchAllModels();
         const makes = await fetchAllMakes();
+        const photos = await fetchAllPhotos();
         setCars(cars);
         setTypes(types)
         setModels(models);
-        setMakes(makes)
+        setMakes(makes);
+        setPhotos(photos);
     };
 
     // Handle functions for creating new car posting
 
     const handleCreateNewCarPosting = async (event) => {
         event.preventDefault();
+        setIsAdded(true)
         await createNewCarPosting(addMake, addModel, addType, addYear, addPrice, addMileage, addDescription, addColor, addUsersId)
         setAddMake('');
         setAddModel('');
@@ -64,6 +76,7 @@ const Admin = () => {
         setAddMileage('');
         setAddDescription('');
         setAddColor('');
+        setIsAdded(false)
     }
 
     const handleAddMake = event => {
@@ -98,10 +111,16 @@ const Admin = () => {
         setAddColor(event.target.value)
     }
 
+    const handleAddPhoto = event => {
+        setAddPhoto(event.target.value)
+    }
+
     // Handle function for deleting car posting
 
     const handleDeleteCarPosting = async (id) => {
+        setIsDelete(true)
         await deleteCarPosting(id)
+        setIsDelete(false)
     }
 
     // Handle functions for car post editing
@@ -118,6 +137,10 @@ const Admin = () => {
 
     const handleEditCarPosting = async (event) => {
         event.preventDefault();
+        setIsUpdate(true)
+        if(addPhoto){
+        await createPhoto(editableId, addPhoto)
+        }
         await editCarPosting(editableId, editMake, editModel, editType, editYear, editPrice, editMileage, editDescription, editColor, editUsersId)
         setEditMake('');
         setEditModel('');
@@ -127,6 +150,7 @@ const Admin = () => {
         setEditMileage('');
         setEditDescription('');
         setEditColor('');
+        setIsUpdate(false)
     }
 
     const handleEditMake = event => {
@@ -161,11 +185,18 @@ const Admin = () => {
         setEditColor(event.target.value)
     }
 
+    // Handle function for deleting car photo
 
+    const handleDeleteCarPhoto = async (id) => {
+        console.log('photoId', id)
+        setIsPhotoDelete(true)
+        await deletePhoto(id)
+        setIsPhotoDelete(false)
+    }
 
     useEffect(() => {
         refreshCars();
-    }, []);
+    }, [isDelete, isUpdate, isAdded, isPhotoDelete]);
 
     return (
         <div className='app-container'>
@@ -213,7 +244,7 @@ const Admin = () => {
                                     <> {model.name}</>
                                 ))}</h3>
                     </div>
-
+                    <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
                     <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
                     <div className='cardescription'>
                         "{e.description}"
@@ -225,11 +256,11 @@ const Admin = () => {
                         </div>
                     </div>
                     {/* <p>UserId: {e.usersId}</p> */}
-                    <div id='deletepostbutton'><button className='button' id='editbutton' onClick={() => handleEditable(e.id)}>{editable && editableId === e.id ? " Close Edit" : "Edit"}</button><button id='deletebutton' className='button' onClick={() => handleDeleteCarPosting(e.id)}>Delete</button></div>
+                    <div id='deletepostbutton'><button className='button' id='editbutton' onClick={(event) => handleEditable(e.id)}>{editable && editableId === e.id ? " Close Edit" : "Edit"}</button><button id='deletebutton' className='button' onClick={() => handleDeleteCarPosting(e.id)}>Delete</button></div>
 
                     {editable && editableId === e.id ? 
 
-                    <form onSubmit={handleEditCarPosting}>
+                    <form id='editform'>
 
                         <h2>Edit:</h2>
                         <p>Make: <select id='select1' className='select' onChange={handleEditMake}>
@@ -252,8 +283,10 @@ const Admin = () => {
                         <p>Mileage: <input type='text' onChange={handleEditMileage}></input></p>
                         <p>Description: <input type='text' onChange={handleEditDescription}></input></p>
                         <p>Color: <input type='text' onChange={handleEditColor}></input></p>
+                        <p>Add Photo URL (plain text): <input type='text' onChange={handleAddPhoto}></input></p>
+                        {photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<div className='carPhoto'><img className='carPhoto' key={i} src={p.image}></img><button onClick={() => handleDeleteCarPhoto(p.id)} className='button'>Delete Photo</button></div>))}
                         {/* <p>UserId: </p> */}
-                        <div id='createpostbutton'><button className='button'>Update</button></div>
+                        <div id='createpostbutton'><button onClick={handleEditCarPosting} className='button'>Update</button></div>
                     </form>
 
                     : ""}
