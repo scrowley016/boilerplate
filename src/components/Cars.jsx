@@ -81,9 +81,136 @@ const Cars = ({ carsearch }) => {
         <div>Price: {history.location.state?.price ? history.location.state?.price : "none applied"}</div>
       </div>
 
+
+
+<section>
+  <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <header>
+      <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
+        Featured Cars
+      </h2>
+    </header>
+
+    <div class="mt-8 block lg:hidden">
+      <button
+        class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600"
+      >
+        <span class="text-sm font-medium"> Filters & Sorting </span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-4 w-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
+      <div class="hidden space-y-4 lg:block">
+
+
+        <div>
+          <p class="block text-xs font-medium text-gray-700">Sort by</p>
+
+          <form>
+                  <div id='carPostFilterDiv'>
+                  <select className='select' >
+                    <option value=''>Make</option>
+                    {/* {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))} */}
+                  </select>
+                  <select className='select'>
+                    <option value=''>Model</option>
+                    {/* {models.filter((model) => model.makeId == selectedMakeId).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))} */}
+                  </select>
+                  <select className='select'>
+                    <option value='0'>Max Price</option>
+                    <option>$20,000</option>
+                    <option>$40,000</option>
+                    <option>$60,000</option>
+                    <option>$80,000</option>
+                    <option>$100,000</option>
+                    <option>$120,000</option>
+                    <option>$140,000</option>
+                    <option>$160,000</option>
+                    <option>$180,000</option>
+                    <option>$200,000</option>
+                  </select>
+                  <button class="mt-8 inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">Search</button>
+                  </div>
+
+                </form>
+          
+        </div>
+      </div>
+
+      
+        
+          
+
+
+
+<div id='carPostsDiv'>            
+
+            {
+
+cars.map((e, i) => {
+
+            <div key={i} className="carPosts">
+    
+    <div className='makeandmodeldiv'>
+        <h3>{e.year}</h3> <h3>{makes.filter((make) => make.id === e.makeId)
+            .map((make) => (
+                <>{make.name} </>
+            ))}
+            {models.filter((model) => model.id === e.modelId)
+                .map((model) => (
+                    <> {model.name}</>
+                ))}</h3>
+    </div>
+    <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
+    <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
+    <div className='cardescription'>
+        "{e.description}"
+        <div className='typeandcolordiv'>
+            <>{types.filter((type) => type.id === e.typeId).map((type) => (
+                <div>{type.name}</div>
+            ))}</>
+            <div>{e.color}</div>
+        </div>
+    </div></div>})}
+
+
+    </div> 
+
+
+
+         
+
+
+            
+          
+
+        
+      
+    </div>
+  </div>
+</section>
+
+
       <div>{
 
         cars.map((e, i) => {
+
+          
 
           if (state == undefined) {
 
@@ -164,6 +291,8 @@ const Cars = ({ carsearch }) => {
             // </div>)
 
             return(
+
+
               <div key={i} className="carPosts">
     
                         <div className='makeandmodeldiv'>

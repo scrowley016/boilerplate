@@ -145,3 +145,28 @@ option {
 .carPhoto {
   margin: auto;
 }
+
+#postedPhotos {
+  text-align: center;
+  padding-top: 5px;
+  margin: 5px;
+}
+
+#editCarPhoto{
+  padding: 10px;
+}
+
+#editCarPhotoDiv{
+  border: solid;
+  margin: 20px;
+  padding: 5px;
+}
+
+#carPostsFilterDiv{
+  display: flex;
+
+}
+
+#carPostsDiv{
+  display: flex;
+}

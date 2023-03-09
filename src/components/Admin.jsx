@@ -44,6 +44,7 @@ const Admin = () => {
     const [isAdded, setIsAdded] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
     const [isUpdate, setIsUpdate] = useState(false);
+    const [isPhotoAdd, setIsPhotoAdd] = useState(false);
     const [isPhotoDelete, setIsPhotoDelete] = useState(false);
 
 
@@ -123,6 +124,16 @@ const Admin = () => {
         setIsDelete(false)
     }
 
+       // Handle function for adding car photo
+
+       const handleAddCarPhoto = async (event) => {
+        event.preventDefault();
+        setIsPhotoAdd(true)
+        await createPhoto(editableId, addPhoto)
+        setAddPhoto('')
+        setIsPhotoAdd(false)
+    }
+
     // Handle functions for car post editing
 
     const handleEditable = (id) => {
@@ -138,9 +149,6 @@ const Admin = () => {
     const handleEditCarPosting = async (event) => {
         event.preventDefault();
         setIsUpdate(true)
-        if(addPhoto){
-        await createPhoto(editableId, addPhoto)
-        }
         await editCarPosting(editableId, editMake, editModel, editType, editYear, editPrice, editMileage, editDescription, editColor, editUsersId)
         setEditMake('');
         setEditModel('');
@@ -196,10 +204,13 @@ const Admin = () => {
 
     useEffect(() => {
         refreshCars();
-    }, [isDelete, isUpdate, isAdded, isPhotoDelete]);
+    }, [isDelete, isUpdate, isAdded, isPhotoDelete, isPhotoAdd]);
 
     return (
         <div className='app-container'>
+
+
+            
 
             <h2>Admin Page </h2>
 
@@ -283,10 +294,10 @@ const Admin = () => {
                         <p>Mileage: <input type='text' onChange={handleEditMileage}></input></p>
                         <p>Description: <input type='text' onChange={handleEditDescription}></input></p>
                         <p>Color: <input type='text' onChange={handleEditColor}></input></p>
-                        <p>Add Photo URL (plain text): <input type='text' onChange={handleAddPhoto}></input></p>
-                        {photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<div className='carPhoto'><img className='carPhoto' key={i} src={p.image}></img><button onClick={() => handleDeleteCarPhoto(p.id)} className='button'>Delete Photo</button></div>))}
+                        <p>Add Photo URL (plain text): <input type='text' onChange={handleAddPhoto}></input><button onClick={handleAddCarPhoto} className='button'>Add Photo</button></p>
+                        <div id='postedPhotos'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<div id='editCarPhotoDiv' className='carPhoto'><img id='editCarPhoto' className='carPhoto' key={i} src={p.image}></img><button onClick={() => handleDeleteCarPhoto(p.id)} className='button'>Delete Photo</button></div>))}</div>
                         {/* <p>UserId: </p> */}
-                        <div id='createpostbutton'><button onClick={handleEditCarPosting} className='button'>Update</button></div>
+                        <div id='createpostbutton'><button onClick={handleEditCarPosting} className='button'>Update Posting</button></div>
                     </form>
 
                     : ""}
