@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllCars, fetchAllTypes, fetchAllModels } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos } from '../api/index';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 
 const Cars = ({ carsearch }) => {
@@ -7,6 +7,7 @@ const Cars = ({ carsearch }) => {
   const [types, setTypes] = useState([]);
   const [models, setModels] = useState([]);
   const [makes, setMakes] = useState([]);
+  const [photos, setPhotos] = useState([]);
 
   const history = useHistory();
 
@@ -31,9 +32,11 @@ const Cars = ({ carsearch }) => {
       const cars = await fetchAllCars();
       const types = await fetchAllTypes();
       const models = await fetchAllModels();
+      const photos = await fetchAllPhotos();
       setCars(cars);
       setTypes(types)
       setModels(models);
+      setPhotos(photos);
     };
     carPage();
   }, []);
@@ -73,9 +76,9 @@ const Cars = ({ carsearch }) => {
       </form> */}
 
 
-        <p>MakeId - {history.location.state?.makeId}</p>
-        <p>ModelId - {history.location.state?.modelId}</p>
-        <p>Price - {history.location.state?.price}</p>
+        <div>MakeId: {history.location.state?.makeId ? history.location.state?.makeId : "none applied"}</div>
+        <div>ModelId: {history.location.state?.modelId ? history.location.state?.modelId : "none applied"}</div>
+        <div>Price: {history.location.state?.price ? history.location.state?.price : "none applied"}</div>
       </div>
 
       <div>{
@@ -84,56 +87,109 @@ const Cars = ({ carsearch }) => {
 
           if (state == undefined) {
 
-            return ( <div key={i}>
-              <p>MakeId: {e.makeId}</p>
-              <p>ModelId: {e.modelId}</p>
-              <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
-                <>{type.name}</>
-              ))}</p>
-              <p>Year: {e.year}</p>
-              <p>Price: {e.price}</p>
-              <p>Milage: {e.milage}</p>
-              <p>Description: {e.description}</p>
-              <p>Color: {e.color}</p>
-              <p>UserId: {e.price}</p>
-              ---------------------
-              <ul>
-                {models.filter((model) => model.makeId === e.makeId)
-                  .map((model, modelIndex) => (
-                    <li key={modelIndex}>
-                      <p> Model: {model.name}</p>
-                    </li>
-                  ))}
-              </ul>
-            </div>)
-          }
+          //   return ( <div key={i}>
+          //     <p>MakeId: {e.makeId}</p>
+          //     <p>ModelId: {e.modelId}</p>
+          //     <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
+          //       <>{type.name}</>
+          //     ))}</p>
+          //     <p>Year: {e.year}</p>
+          //     <p>Price: {e.price}</p>
+          //     <p>Milage: {e.milage}</p>
+          //     <p>Description: {e.description}</p>
+          //     <p>Color: {e.color}</p>
+          //     <p>UserId: {e.price}</p>
+          //     ---------------------
+          //     <ul>
+          //       {models.filter((model) => model.makeId === e.makeId)
+          //         .map((model, modelIndex) => (
+          //           <li key={modelIndex}>
+          //             <p> Model: {model.name}</p>
+          //           </li>
+          //         ))}
+          //     </ul>
+          //   </div>)
+          // }
+
+
+          return(
+          <div key={i} className="carPosts">
+
+                    <div className='makeandmodeldiv'>
+                        <h3>{e.year}</h3> <h3>{makes.filter((make) => make.id === e.makeId)
+                            .map((make) => (
+                                <>{make.name} </>
+                            ))}
+                            {models.filter((model) => model.id === e.modelId)
+                                .map((model) => (
+                                    <> {model.name}</>
+                                ))}</h3>
+                    </div>
+                    <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
+                    <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
+                    <div className='cardescription'>
+                        "{e.description}"
+                        <div className='typeandcolordiv'>
+                            <>{types.filter((type) => type.id === e.typeId).map((type) => (
+                                <div>{type.name}</div>
+                            ))}</>
+                            <div>{e.color}</div>
+                        </div>
+                    </div></div>)}
 
           else if ( e.makeId == state?.makeId || e.modelId == state?.modelId || e.price < state?.price) {
 
-            return (<div key={i}>
-              <p>MakeId: {e.makeId}</p>
-              <p>ModelId: {e.modelId}</p>
-              <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
-                <>{type.name}</>
-              ))}</p>
-              <p>Year: {e.year}</p>
-              <p>Price: {e.price}</p>
-              <p>Milage: {e.milage}</p>
-              <p>Description: {e.description}</p>
-              <p>Color: {e.color}</p>
-              <p>UserId: {e.price}</p>
-              ---------------------
-              <ul>
-                {models.filter((model) => model.makeId === e.makeId)
-                  .map((model, modelIndex) => (
-                    <li key={modelIndex}>
-                      <p> Model: {model.name}</p>
-                    </li>
-                  ))}
-              </ul>
+            // return (<div key={i}>
+            //   <p>MakeId: {e.makeId}</p>
+            //   <p>ModelId: {e.modelId}</p>
+            //   <p>Type: {types.filter((type) => type.id === e.typeId).map((type) => (
+            //     <>{type.name}</>
+            //   ))}</p>
+            //   <p>Year: {e.year}</p>
+            //   <p>Price: {e.price}</p>
+            //   <p>Milage: {e.milage}</p>
+            //   <p>Description: {e.description}</p>
+            //   <p>Color: {e.color}</p>
+            //   <p>UserId: {e.price}</p>
+            //   ---------------------
+            //   <ul>
+            //     {models.filter((model) => model.makeId === e.makeId)
+            //       .map((model, modelIndex) => (
+            //         <li key={modelIndex}>
+            //           <p> Model: {model.name}</p>
+            //         </li>
+            //       ))}
+            //   </ul>
 
-            </div>)
-          }
+            // </div>)
+
+            return(
+              <div key={i} className="carPosts">
+    
+                        <div className='makeandmodeldiv'>
+                            <h3>{e.year}</h3> <h3>{makes.filter((make) => make.id === e.makeId)
+                                .map((make) => (
+                                    <>{make.name} </>
+                                ))}
+                                {models.filter((model) => model.id === e.modelId)
+                                    .map((model) => (
+                                        <> {model.name}</>
+                                    ))}</h3>
+                        </div>
+                        <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
+                        <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
+                        <div className='cardescription'>
+                            "{e.description}"
+                            <div className='typeandcolordiv'>
+                                <>{types.filter((type) => type.id === e.typeId).map((type) => (
+                                    <div>{type.name}</div>
+                                ))}</>
+                                <div>{e.color}</div>
+                            </div>
+                        </div></div>)}
+    
+
+           
 
 
 
