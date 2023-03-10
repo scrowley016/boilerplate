@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes } from '../api/index';
 import { useHistory } from 'react-router-dom';
 
-const Cars = ({ carsearch }) => {
+const Cars = () => {
   const [cars, setCars] = useState([]);
   const [types, setTypes] = useState([]);
   const [models, setModels] = useState([]);
@@ -73,7 +73,7 @@ const Cars = ({ carsearch }) => {
   }
 
   const handleSetPriceFromCarsPage = (event) => {
-    setSelectedPriceId(event.target.value)
+    setSelectedPrice(event.target.value)
     setIsFilterPriceOnCarsPage(true)
   }
  
@@ -204,7 +204,7 @@ const Cars = ({ carsearch }) => {
             return c.price <= filterPrice
           }
 
-          if (!filterMake){
+          if (!filterMake && !filterPrice){
             return c.id
           }
 
