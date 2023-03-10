@@ -290,7 +290,6 @@ const Cart = () => {
                       ))}
                   </ul>
                     <button onClick={() => getSelectedCars(e.id)}>Get selected cars</button>
-
                </div>
                : "" 
               }
