@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes } from '../api/index';
-import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Cars = ({ carsearch }) => {
   const [cars, setCars] = useState([]);
@@ -10,24 +10,37 @@ const Cars = ({ carsearch }) => {
   const [makes, setMakes] = useState([]);
   const [photos, setPhotos] = useState([]);
 
+  const [selectedMakeId, setSelectedMakeId] = useState('');
+  const [selectedModelId, setSelectedModelId] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState('');
+
   // Adding filters
   const [filterMake, setFilterMake] = useState('');
   const [filterModel, setFilterModel] = useState('');
   const [filterPrice, setFilterPrice] = useState('');
-  const [isFilterMakeOn, setIsFilterMakeOn] = useState(false)
-  const [isFilterModelOn, setIsFilterModelOn] = useState(false)
-  const [isFilterPriceOn, setIsFilterPriceOn] = useState(false)
+
+  const [isFilterMakeOnHistory, setIsFilterMakeOnHistory] = useState(false)
+  const [isFilterModelOnHistory, setIsFilterModelOnHistory] = useState(false)
+  const [isFilterPriceOnHistory, setIsFilterPriceOnHistory] = useState(false)
+
+  const [isFilterMakeOnCarsPage, setIsFilterMakeOnCarsPage] = useState(false)
+  const [isFilterModelOnCarsPage, setIsFilterModelOnCarsPage] = useState(false)
+  const [isFilterPriceOnCarsPage, setIsFilterPriceOnCarsPage] = useState(false)
+
+  const [isFilterOnCarsPage, setIsFilterOnCarsPage] = useState(false)
+
 
   // Obtain history
   const history = useHistory();
   const state = history.location?.state
+
   // Functions to set filter info from home page (history)
 
   const handleSetMakeFromHistory = () => {
     const makeFromHistory = state?.makeId
     if (makeFromHistory) {
       setFilterMake(makeFromHistory)
-      setIsFilterMakeOn(true)
+      setIsFilterMakeOnHistory(true)
     }
   }
 
@@ -35,7 +48,7 @@ const Cars = ({ carsearch }) => {
     const modelFromHistory = state?.modelId
     if (modelFromHistory) {
       setFilterModel(modelFromHistory)
-      setIsFilterModelOn(true)
+      setIsFilterModelOnHistory(true)
     }
   }
 
@@ -43,9 +56,33 @@ const Cars = ({ carsearch }) => {
     const priceFromHistory = state?.price
     if (priceFromHistory) {
       setFilterPrice(priceFromHistory)
-      setIsFilterPriceOn(true)
-      console.log({ filterPrice })
+      setIsFilterPriceOnHistory(true)
     }
+  }
+
+  // Function to handle filter from cars page
+
+  const handleSetMakeFromCarsPage = (event) => {
+    setSelectedMakeId(event.target.value)
+    setIsFilterMakeOnCarsPage(true)
+  }
+
+  const handleSetModelFromCarsPage = (event) => {
+    setSelectedModelId(event.target.value)
+    setIsFilterModelOnCarsPage(true)
+  }
+
+  const handleSetPriceFromCarsPage = (event) => {
+    setSelectedPriceId(event.target.value)
+    setIsFilterPriceOnCarsPage(true)
+  }
+ 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsFilterOnCarsPage(true);
+    setFilterMake(selectedMakeId)
+    setFilterModel(selectedModelId)
+    setFilterPrice(selectedPrice)
   }
 
 
@@ -62,17 +99,19 @@ const Cars = ({ carsearch }) => {
       setMakes(makes);
       setPhotos(photos);
 
+      if(isFilterOnCarsPage == false){
       handleSetMakeFromHistory();
       handleSetModelFromHistory();
       handleSetPriceFromHistory();
+      }else if(isFilterOnCarsPage == true) {
+        setIsFilterMakeOnHistory(false)
+        setIsFilterModelOnHistory(false)
+        setIsFilterPriceOnHistory(false)
+      }
     };
     carPage();
-  }, []);
+  }, [filterMake, filterModel, filterPrice, selectedMakeId, selectedModelId, selectedPrice]);
 
-
-  console.log(state);
-  console.log({ filterMake })
-  console.log({ filterModel })
 
   return (
     <div className='app-container'>
@@ -93,31 +132,31 @@ const Cars = ({ carsearch }) => {
                 </p>
 
                 <form>
-                  <div id='carPostFilterDiv'>
-                    <select className='select' >
-                      <option value=''>Make</option>
-                      {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
-                    </select>
-                    <select className='select'>
-                      <option value=''>Model</option>
-                      {/* {models.filter((model) => model.makeId == selectedMakeId).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))} */}
-                    </select>
-                    <select className='select'>
-                      <option value='0'>Max Price</option>
-                      <option>40000</option>
-                      <option>60000</option>
-                      <option>80000</option>
-                      <option>100000</option>
-                      <option>120000</option>
-                      <option>140000</option>
-                      <option>160000</option>
-                      <option>180000</option>
-                      <option>200000</option>
-                      <option>300000</option>
-                      <option>400000</option>
-                      <option>500000</option>
-                    </select>
-
+                  <div id='searchDiv'>
+                  <select className='select' value={selectedMakeId} onChange={handleSetMakeFromCarsPage}>
+                    <option value=''>Make</option>
+                    {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
+                  </select>
+                  <select className='select' value={selectedModelId} onChange={handleSetModelFromCarsPage}>
+                    <option value=''>Model</option>
+                    {models.filter((model) => model.makeId == selectedMakeId).map((e, j) => (<option key={j} value={e.id}>{e.name}</option>))}
+                  </select>
+                  <select className='select' value={selectedPrice} onChange={handleSetPriceFromCarsPage}>
+                    <option value='0'>Max Price</option>
+                    <option>40000</option>
+                    <option>60000</option>
+                    <option>80000</option>
+                    <option>100000</option>
+                    <option>120000</option>
+                    <option>140000</option>
+                    <option>160000</option>
+                    <option>180000</option>
+                    <option>200000</option>
+                    <option>300000</option>
+                    <option>400000</option>
+                    <option>500000</option>
+                  </select>
+                  <button class="mt-8 inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" onClick={handleSubmit}>Search</button>
                   </div>
 
                 </form>
@@ -144,32 +183,47 @@ const Cars = ({ carsearch }) => {
       </section>
 
 
-      {/* <div>
-        <h2>Filters:</h2>
-        <div>MakeId: {history.location.state?.makeId ? history.location.state?.makeId : "none applied"}</div>
-        <div>ModelId: {history.location.state?.modelId ? history.location.state?.modelId : "none applied"}</div>
-        <div>Price: {history.location.state?.price ? history.location.state?.price : "none applied"}</div>
-      </div> */}
 
       <div id="postsDisplay">
 
         {cars.filter((c) => {
-
-          if (isFilterMakeOn == true) {
-            if (isFilterPriceOn == true && isFilterModelOn == false){
+      
+          if (isFilterMakeOnHistory == true) {
+            if (isFilterPriceOnHistory == true && isFilterModelOnHistory == false){
               return c.makeId == filterMake && c.price <= filterPrice
             }
-            if (isFilterModelOn == true) {
-              if (isFilterPriceOn == true){
+            if (isFilterModelOnHistory == true) {
+              if (isFilterPriceOnHistory == true){
                 return c.modelId == filterModel && c.price <= filterPrice
               }
               return c.modelId == filterModel
             }
             return c.makeId == filterMake
           }
-          if (isFilterPriceOn == true) {
+          if (isFilterPriceOnHistory == true) {
             return c.price <= filterPrice
           }
+
+          if (!filterMake){
+            return c.id
+          }
+
+          if (isFilterMakeOnCarsPage == true) {
+            if (isFilterPriceOnCarsPage == true && isFilterModelOnCarsPage == false){
+              return c.makeId == filterMake && c.price <= filterPrice
+            }
+            if (isFilterModelOnCarsPage == true) {
+              if (isFilterPriceOnCarsPage == true){
+                return c.modelId == filterModel && c.price <= filterPrice
+              }
+              return c.modelId == filterModel
+            }
+            return c.makeId == filterMake
+          }
+          if (isFilterPriceOnCarsPage == true) {
+            return c.price <= filterPrice
+          }
+
           else return c.id
 
         }).map((e, i) => {
@@ -215,68 +269,6 @@ const Cars = ({ carsearch }) => {
 
       </div>
 
-
-
-
-      {/* {cars.map((e, i) => {
-
-        if (state == undefined) {
-
-          return (
-            <div key={i} className="carPosts">
-
-              <div className='makeandmodeldiv'>
-                <h3>{e.year}</h3> <h3>{makes.filter((make) => make.id === e.makeId)
-                  .map((make) => (
-                    <>{make.name} </>
-                  ))}
-                  {models.filter((model) => model.id === e.modelId)
-                    .map((model) => (
-                      <> {model.name}</>
-                    ))}</h3>
-              </div>
-              <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
-              <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
-              <div className='cardescription'>
-                "{e.description}"
-                <div className='typeandcolordiv'>
-                  <>{types.filter((type) => type.id === e.typeId).map((type) => (
-                    <div>{type.name}</div>
-                  ))}</>
-                  <div>{e.color}</div>
-                </div>
-              </div></div>)
-        }
-
-        else if (e.makeId == state?.makeId || e.modelId == state?.modelId || e.price < state?.price) {
-
-          return (
-
-            <div key={i} className="carPosts">
-
-              <div className='makeandmodeldiv'>
-                <h3>{e.year}</h3> <h3>{makes.filter((make) => make.id === e.makeId)
-                  .map((make) => (
-                    <>{make.name} </>
-                  ))}
-                  {models.filter((model) => model.id === e.modelId)
-                    .map((model) => (
-                      <> {model.name}</>
-                    ))}</h3>
-              </div>
-              <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
-              <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
-              <div className='cardescription'>
-                "{e.description}"
-                <div className='typeandcolordiv'>
-                  <>{types.filter((type) => type.id === e.typeId).map((type) => (
-                    <div>{type.name}</div>
-                  ))}</>
-                  <div>{e.color}</div>
-                </div>
-              </div></div>)
-        }
-      })} */}
 
 
     </div>
