@@ -1,10 +1,10 @@
 const client = require('./client');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 async function createUser({ username, password, isAdmin }) {
-  // const SALT_COUNT = 10;
+  const SALT_COUNT = 10;
 
-  // const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+  const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
   try {
     const {
       rows: [user],
@@ -27,6 +27,7 @@ async function createUser({ username, password, isAdmin }) {
 }
 
 async function getUserbyUsername(username) {
+  console.log(username, 'getUserByUsername');
   try {
     const {
       rows: [user],
@@ -44,16 +45,31 @@ async function getUserbyUsername(username) {
   }
 }
 
-async function getUser({ username, password, isAdmin }) {
-  try {
-    const user = await getUserbyUsername(username);
-    // const password = user.password;
+async function getUser({ username, password }) {
+  const user = await getUserbyUsername(username);
+  const hashedPassword = user.password;
 
-    return user;
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        SELECT * 
+        FROM users
+        WHERE username = $1
+        AND password = $2
+       `,
+      [username, password]
+    );
+    const isValid = await bcrypt.compare(password, hashedPassword);
+    console.log(isValid);
+    if (isValid) {
+      return user;
+    }
   } catch (error) {
     console.error('err  in getUser in db/users.js', error);
   }
-} //how to test if this function works?
+}
 
 async function getUserbyId(userId) {
   try {
