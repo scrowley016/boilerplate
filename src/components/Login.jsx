@@ -16,7 +16,7 @@ const Login = ({setToken}) => {
         console.log(password);
         try {
             if (!username || !password) {
-              setMessage('username or password incorrect');
+              setMessage('Please supply both username and password');
             }
             const login = await fetchLogin(username, password);
             if (login.error) {
@@ -57,11 +57,6 @@ const Login = ({setToken}) => {
         >
           🚗RideStack🚗
         </h1>
-
-        <p className="mt-4 leading-relaxed text-gray-500">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam
-          dolorum aliquam, quibusdam aperiam voluptatum.
-        </p>
         {message && (
               <div className='shadow-lg alert alert-error'>
                 <div>
@@ -94,7 +89,10 @@ const Login = ({setToken}) => {
             <input
               type="text"
               id="username"
-              name="username"
+                    name="username"
+                    value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>
@@ -110,7 +108,10 @@ const Login = ({setToken}) => {
             <input
               type="password"
               id="Password"
-              name="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>

@@ -31,7 +31,7 @@ apiRouter.use('/make', makeRouter);
 
 // ROUTER: /api/model
 const modelsRouter = require('./models');
-apiRouter.use('/models', modelsRouter)
+apiRouter.use('/models', modelsRouter);
 // ROUTER: /api/cars
 const carsRouter = require('./cars');
 apiRouter.use('/cars', carsRouter);
@@ -43,5 +43,9 @@ apiRouter.use('/cart', cartRouter);
 // ROUTER: /api/photos
 const photoRouter = require('./photos');
 apiRouter.use('/photos', photoRouter);
+
+apiRouter.use('*', async (req, res, next) => {
+  res.status(404).json({ message: '404 not found' });
+});
 
 module.exports = apiRouter;
