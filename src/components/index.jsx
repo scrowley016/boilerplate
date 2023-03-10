@@ -7,3 +7,4 @@ export { default as Navbar } from './Navbar';
 export { default as Register } from './Register';
 export { default as NotFound } from './NotFound'
 export { default as Admin } from './Admin';
+export { default as Footer } from './Footer';

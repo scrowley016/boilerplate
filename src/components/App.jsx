@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
-import { Cars, Home, Login, Register, Cart, Navbar, Admin } from './index';
+import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer } from './index';
 
 import '../style/App.css';
 import NotFound from './NotFound';
@@ -51,6 +51,7 @@ const App = () => {
         <NotFound />
       </Route>
       </Switch>
+      <footer><Footer /></footer>
     </BrowserRouter>
   );
 };

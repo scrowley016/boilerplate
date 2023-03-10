@@ -258,27 +258,7 @@ const Cars = ({ carsearch }) => {
 
 
       </div>
-
-  );
-};
-
-export default Cars;
-
-
-
-//this is for selected model only - a second version
-//   <ul>
-//   {models.filter((model) => model.makeId === e.makeId)
-//     .map((model, modelIndex) => (
-//       <li key={modelIndex}>
-//         <p> Model: {model.name}</p>
-//       </li>
-//     ))}
-//   </ul>
-//   {selectedCar && selectedCar.id === e.id ? (
-//     <button onClick={handleAddToCart}>Add to Cart</button>
-// ) : (
-//     <button onClick={() => handleSelectCar(e)}>Select</button>
-// )}
-// <hr />
-
+    );
+  };
+  
+  export default Cars;
