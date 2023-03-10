@@ -10,14 +10,39 @@ const Cars = ({ carsearch }) => {
   const [makes, setMakes] = useState([]);
   const [photos, setPhotos] = useState([]);
 
+  // Adding filters
+  const [filterMake, setFilterMake] = useState('');
+  const [filterModel, setFilterModel] = useState('');
+  const [filterPrice, setFilterPrice] = useState('');
+
+  // Obtain history
   const history = useHistory();
+  const state = history.location?.state
+  // Functions to set filter info from home page (history)
+
+  const handleSetMakeFromHistory = () => {
+    const makeFromHistory =  state.makeId
+    setFilterMake(makeFromHistory)
+    console.log({filterMake})
+  }
+  
+  const handleSetModelFromHistory = () => {
+    const modelFromHistory =  state.modelId
+    setFilterModel(modelFromHistory)
+    console.log({filterModel})
+  }
+
+  const handleSetPriceFromHistory = () => {
+    const priceFromHistory =  state.price
+    setFilterPrice(priceFromHistory)
+    console.log({filterPrice})
+  }
+
 
   console.log("history:", history);
 
 
-  const state = history.location?.state
-
-  console.log("state.makeId:", state?.makeId);
+  // console.log("state.makeId:", state?.makeId);
 
 
 
@@ -40,6 +65,10 @@ const Cars = ({ carsearch }) => {
       setModels(models);
       setMakes(makes);
       setPhotos(photos);
+
+      handleSetMakeFromHistory();
+      handleSetModelFromHistory();
+      handleSetPriceFromHistory();
     };
     carPage();
   }, []);
@@ -66,7 +95,7 @@ const Cars = ({ carsearch }) => {
                   <div id='carPostFilterDiv'>
                     <select className='select' >
                       <option value=''>Make</option>
-                      {/* {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))} */}
+                      {makes.map((e, i) => (<option key={i} value={e.id}>{e.name}</option>))}
                     </select>
                     <select className='select'>
                       <option value=''>Model</option>
