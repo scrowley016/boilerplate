@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllCars, fetchAllTypes, fetchAllModels } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels, addToCart } from '../api/index';
 
 const Cars = ({carsearch}) => {
     const [cars, setCars] = useState([]);
     const [types, setTypes] = useState([]);
     const [models, setModels] = useState([]);
+    const [selectedCar, setSelectedCar] = useState(null);
 
     // console.log(carsearch);
     if(carsearch){
@@ -30,6 +31,18 @@ const Cars = ({carsearch}) => {
 
 console.log("cars page!!", carsearch)
 
+const handleSelectCar = (car) => {
+  setSelectedCar(car);
+};
+
+const handleAddToCart = async () => {
+  // Add selected car to cart
+  console.log(`Adding car ${selectedCar.id} to cart...`);
+  const res = await addToCart(selectedCar.id);
+  console.log(res);
+  setSelectedCar(null);
+};
+
     return (
       <div className='app-container'>
         <h1>Cars Page!</h1>
@@ -50,13 +63,15 @@ console.log("cars page!!", carsearch)
                 <p>UserId: {e.price}</p>
                 ---------------------
                 <ul>
-                  {models.filter((model) => model.makeId === e.makeId)
-                  .map((model, modelIndex) => (
+                {models.filter((model) => model.makeId === e.makeId)
+                .map((model, modelIndex) => (
                     <li key={modelIndex}>
-                      <p> Model: {model.name}</p>
+                        <p> Model: {model.name}</p>
                     </li>
-                  ))}
-                </ul>
+                ))}
+            </ul>
+            <button onClick={() => handleAddToCart(e)}>Add to Cart</button>
+            <hr />
             </div>
             )
         })}</div>
@@ -65,3 +80,20 @@ console.log("cars page!!", carsearch)
   };
   
   export default Cars;
+
+
+//this is for selected model only - a second version
+//   <ul>
+//   {models.filter((model) => model.makeId === e.makeId)
+//     .map((model, modelIndex) => (
+//       <li key={modelIndex}>
+//         <p> Model: {model.name}</p>
+//       </li>
+//     ))}
+//   </ul>
+//   {selectedCar && selectedCar.id === e.id ? (
+//     <button onClick={handleAddToCart}>Add to Cart</button>
+// ) : (
+//     <button onClick={() => handleSelectCar(e)}>Select</button>
+// )}
+// <hr />
