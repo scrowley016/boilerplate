@@ -14,6 +14,9 @@ const Cars = ({ carsearch }) => {
   const [filterMake, setFilterMake] = useState('');
   const [filterModel, setFilterModel] = useState('');
   const [filterPrice, setFilterPrice] = useState('');
+  const [isFilterMakeOn, setIsFilterMakeOn] = useState(false)
+  const [isFilterModelOn, setIsFilterModelOn] = useState(false)
+  const [isFilterPriceOn, setIsFilterPriceOn] = useState(false)
 
   // Obtain history
   const history = useHistory();
@@ -21,37 +24,30 @@ const Cars = ({ carsearch }) => {
   // Functions to set filter info from home page (history)
 
   const handleSetMakeFromHistory = () => {
-    const makeFromHistory =  state.makeId
-    setFilterMake(makeFromHistory)
-    console.log({filterMake})
+    const makeFromHistory = state?.makeId
+    if (makeFromHistory) {
+      setFilterMake(makeFromHistory)
+      setIsFilterMakeOn(true)
+    }
   }
-  
+
   const handleSetModelFromHistory = () => {
-    const modelFromHistory =  state.modelId
-    setFilterModel(modelFromHistory)
-    console.log({filterModel})
+    const modelFromHistory = state?.modelId
+    if (modelFromHistory) {
+      setFilterModel(modelFromHistory)
+      setIsFilterModelOn(true)
+    }
   }
 
   const handleSetPriceFromHistory = () => {
-    const priceFromHistory =  state.price
-    setFilterPrice(priceFromHistory)
-    console.log({filterPrice})
+    const priceFromHistory = state?.price
+    if (priceFromHistory) {
+      setFilterPrice(priceFromHistory)
+      setIsFilterPriceOn(true)
+      console.log({ filterPrice })
+    }
   }
 
-
-  console.log("history:", history);
-
-
-  // console.log("state.makeId:", state?.makeId);
-
-
-
-  // if(history.location.state.modelId){
-  //   const searchedModelId = history.location.state.makeId
-  // }
-  // if(history.location.state.makeId){
-  //   const searchedPrice = history.location.state.makeId
-  // }
 
   useEffect(() => {
     const carPage = async () => {
@@ -72,6 +68,11 @@ const Cars = ({ carsearch }) => {
     };
     carPage();
   }, []);
+
+
+  console.log(state);
+  console.log({ filterMake })
+  console.log({ filterModel })
 
   return (
     <div className='app-container'>
@@ -103,16 +104,18 @@ const Cars = ({ carsearch }) => {
                     </select>
                     <select className='select'>
                       <option value='0'>Max Price</option>
-                      <option>$20,000</option>
-                      <option>$40,000</option>
-                      <option>$60,000</option>
-                      <option>$80,000</option>
-                      <option>$100,000</option>
-                      <option>$120,000</option>
-                      <option>$140,000</option>
-                      <option>$160,000</option>
-                      <option>$180,000</option>
-                      <option>$200,000</option>
+                      <option>40000</option>
+                      <option>60000</option>
+                      <option>80000</option>
+                      <option>100000</option>
+                      <option>120000</option>
+                      <option>140000</option>
+                      <option>160000</option>
+                      <option>180000</option>
+                      <option>200000</option>
+                      <option>300000</option>
+                      <option>400000</option>
+                      <option>500000</option>
                     </select>
 
                   </div>
@@ -150,44 +153,63 @@ const Cars = ({ carsearch }) => {
 
       <div id="postsDisplay">
 
-        {cars.map((e, i) => {
+        {cars.filter((c) => {
+
+          if (isFilterMakeOn == true) {
+            if (isFilterPriceOn == true && isFilterModelOn == false){
+              return c.makeId == filterMake && c.price <= filterPrice
+            }
+            if (isFilterModelOn == true) {
+              if (isFilterPriceOn == true){
+                return c.modelId == filterModel && c.price <= filterPrice
+              }
+              return c.modelId == filterModel
+            }
+            return c.makeId == filterMake
+          }
+          if (isFilterPriceOn == true) {
+            return c.price <= filterPrice
+          }
+          else return c.id
+
+        }).map((e, i) => {
           return (
             <div key={i} className="carPost">
-         
-              <div>
-              {photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img
-                className='carPhoto'
-                key={i}
-                src={p.image}
-              ></img>))}
 
-              <h4>{e.year} {makes.filter((make) => make.id === e.makeId)
+              <div>
+                {photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img
+                  className='carPhoto'
+                  key={i}
+                  src={p.image}
+                ></img>))}
+
+                <h4>{e.year} {makes.filter((make) => make.id === e.makeId)
                   .map((make) => (
                     <>{make.name}</>
                   ))}</h4>
-              <div id='makeandmodeldiv'>
+                <div id='makeandmodeldiv'>
                   <h4>
-                  {models.filter((model) => model.id === e.modelId)
-                    .map((model) => (
-                      <div> {model.name}</div>
-                    ))}</h4>
+                    {models.filter((model) => model.id === e.modelId)
+                      .map((model) => (
+                        <div> {model.name}</div>
+                      ))}</h4>
+                </div>
+
+                <div className='priceandmilesdiv'><h5>${e.price}</h5><h5>{e.mileage} miles</h5></div>
+                <div className='cardescription'>
+                  "{e.description}"
+                  <div className='typeandcolordiv'>
+                    <>{types.filter((type) => type.id === e.typeId).map((type) => (
+                      <div>{type.name}</div>
+                    ))}</>
+                    <div>{e.color}</div>
+                  </div>
+
+                </div>
+
+                {/* <div id="addToCartButton"><button className='button'>Add to Cart</button></div> */}
               </div>
 
-              <div className='priceandmilesdiv'><h5>${e.price}</h5><h5>{e.mileage} miles</h5></div>
-              <div className='cardescription'>
-                "{e.description}"
-                <div className='typeandcolordiv'>
-                  <>{types.filter((type) => type.id === e.typeId).map((type) => (
-                    <div>{type.name}</div>
-                  ))}</>
-                  <div>{e.color}</div>
-                </div>
-              
-              </div>
-        
-              {/* <div id="addToCartButton"><button className='button'>Add to Cart</button></div> */}
-              </div>
-        
             </div>)
         })}
 
@@ -257,8 +279,8 @@ const Cars = ({ carsearch }) => {
       })} */}
 
 
-      </div>
-    );
-  };
-  
-  export default Cars;
+    </div>
+  );
+};
+
+export default Cars;
