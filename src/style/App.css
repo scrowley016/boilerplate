@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -43,3 +44,158 @@
   background-color: lightgray;
 }
 
+.select {
+  margin-right: 5px;
+}
+
+.carPosts {
+  border: solid;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  width: 50%;
+}
+
+#createCarPosts{
+  border: solid;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  width: 50%;
+}
+
+#createCarPosts, p {
+  padding: 10px;
+  padding-left: 10px;
+}
+
+#select1, #select2, #select3 {
+  border: solid;
+}
+
+input[type=text] {
+  border: solid;
+  border-radius: 25px;
+}
+
+option {
+  border: solid;
+  padding: 5px;
+}
+
+#createpostbutton {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.app-container h2 {
+  font-size: xx-large;
+}
+
+.app-container h3 {
+  font-size: xx-large;
+}
+.app-container h4 {
+  font-size: x-large;
+}
+
+#deletepostbutton {
+  text-align: center;
+}
+
+#deletebutton:hover {
+  background-color: lightcoral;
+  color: white;
+}
+
+#editbutton:hover {
+  background-color: lightblue;
+  color: white;
+}
+
+.priceandmilesdiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+#makeandmodeldiv {
+  font-size: smaller;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardescription {
+  color: gray;
+}
+
+.typeandcolordiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+#infoline {
+  margin-bottom: 20px;
+}
+
+#searchDiv{
+  justify-content: left;
+}
+
+.carPhoto {
+  margin: auto;
+}
+
+#postedPhotos {
+  text-align: center;
+  padding-top: 5px;
+  margin: 5px;
+}
+
+#editCarPhoto{
+  padding: 10px;
+}
+
+#editCarPhotoDiv{
+  border: solid;
+  margin: 20px;
+  padding: 5px;
+}
+
+#carPostsFilterDiv{
+  display: flex;
+
+}
+
+#carPostsDiv{
+  display: flex;
+}
+
+#postsDisplay{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.carPost {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  width: 300px;
+  height: 500px;
+  border: solid;
+  padding: 20px;
+  border-color: lightgrey;
+  border-radius: 25px;
+}
+
+.carPost:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#addToCartButton {
+  align-items: flex-end;
+  text-align: center;
+}

@@ -40,4 +40,8 @@ apiRouter.use('/cars', carsRouter);
 const cartRouter = require('./cart');
 apiRouter.use('/cart', cartRouter);
 
+// ROUTER: /api/photos
+const photoRouter = require('./photos');
+apiRouter.use('/photos', photoRouter);
+
 module.exports = apiRouter;

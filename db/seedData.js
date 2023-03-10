@@ -74,7 +74,7 @@ async function createTables() {
       "modelId" INTEGER REFERENCES model(id),
       color VARCHAR(255),
       mileage INTEGER,
-      UNIQUE ("typeId", "makeId", "usersId") 
+      UNIQUE ("typeId", "makeId", "usersId")
     );
       
     CREATE TABLE photos (

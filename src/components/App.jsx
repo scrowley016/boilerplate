@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
-import { Cars, Home, Login, Register, Cart, Navbar } from './index';
+import { Cars, Home, Login, Register, Cart, Navbar, Admin } from './index';
 
 import '../style/App.css';
 import NotFound from './NotFound';
@@ -43,6 +43,9 @@ const App = () => {
       </Route>
       <Route path="/Register">
         <Register setToken={setToken} />
+      </Route>
+      <Route path="/Admin">
+        <Admin />
       </Route>
       <Route exact path="*">
         <NotFound />

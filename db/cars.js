@@ -61,25 +61,37 @@ async function getCarByName(name) {
   return car;
 }
 
-async function updateCar({ id, ...fields }) {
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
-
-  if (setString.length === 0) {
-    return;
-  }
+async function updateCar({ 
+  id,
+  makeId,
+  modelId,
+  typeId,
+  year,
+  price,
+  mileage,
+  description,
+  color,
+  usersId }) {
 
   const {
     rows: [car],
   } = await client.query(
     `
       UPDATE cars
-      SET ${setString}
+      SET "makeId"=$1,"modelId"=$2, "typeId"=$3, year=$4, price=$5, mileage=$6, description=$7, color=$8, "usersId"=$9
       WHERE id=${id}
       RETURNING *;
     `,
-    Object.values(fields)
+    [ 
+      makeId,
+      modelId,
+      typeId,
+      year,
+      price,
+      mileage,
+      description,
+      color,
+      usersId]
   );
 
   return car;
