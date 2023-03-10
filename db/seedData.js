@@ -1,7 +1,5 @@
 const {
   client,
-  // declare your model imports here
-  // for example, User
 } = require('./');
 const { createUser, getAllAdminUsers } = require('./users');
 const { createMakes, getAllMakes } = require('./make');
@@ -9,22 +7,22 @@ const { createModels } = require('./models');
 const { createType, getAllTypes } = require('./type');
 const { createCar } = require('./cars');
 const { createCart } = require('./cart');
+const { addSelectedCars } = require('./selectedCars');
 
 async function dropTables() {
   try {
     console.log('Dropping all tables...');
     // drop tables in correct order
     await client.query(`
-  
-    DROP TABLE IF EXISTS photos;
-    DROP TABLE IF EXISTS favorite;
-    DROP TABLE IF EXISTS cart;
-    DROP TABLE IF EXISTS selectedCars;
-    DROP TABLE IF EXISTS cars;
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS model; 
-    DROP TABLE IF EXISTS make;
-    DROP TABLE IF EXISTS type;
+      DROP TABLE IF EXISTS selectedCars;
+      DROP TABLE IF EXISTS favorite;
+      DROP TABLE IF EXISTS photos;
+      DROP TABLE IF EXISTS cars;
+      DROP TABLE IF EXISTS cart;
+      DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS model; 
+      DROP TABLE IF EXISTS make;
+      DROP TABLE IF EXISTS type;
     `);
 
     console.log('finished dropping tables!');
@@ -33,6 +31,9 @@ async function dropTables() {
     throw error;
   }
 }
+
+
+
 
 async function createTables() {
   try {
@@ -88,24 +89,25 @@ async function createTables() {
       "carsId" INTEGER REFERENCES cars(id)
     );
 
-    CREATE TABLE selectedCars (
-      id SERIAL PRIMARY KEY, 
-      "carsId" INTEGER REFERENCES cars(id)
-      );
-
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY, 
       "usersId" INTEGER REFERENCES users(id)
     );
-    `); //use the string of the text to the url link to image
-    //could download image to then add to source file on here
-    //NOTE: ASK SHANNON... on learn dot, bullet 6, do we need email?
+
+    CREATE TABLE selectedCars (
+      id SERIAL PRIMARY KEY, 
+      "carsId" INTEGER REFERENCES cars(id),
+      "cartId" INTEGER REFERENCES cart(id)
+    );
+
+    `);
     console.log('finished creating tables!');
   } catch (error) {
     console.error('Error in creating tables...');
     throw error;
   }
 }
+
 
 async function createInitialUsers() {
   try {
@@ -284,6 +286,27 @@ async function createInitialCarts() {
   }
 }
 
+async function createInitialCarSelect() {
+  try {
+    console.log('Starting to create selectedCars...');
+
+    const createCarSelect = [
+      { carsId: 1,
+        cartId: 1
+      }
+    ];
+    
+    const carSelect = await Promise.all(createCarSelect.map(addSelectedCars));
+    
+    console.log('Selected cars created:');
+    console.log(carSelect);
+    console.log('Finished creating carSelect!');
+  } catch (error) {
+    console.error('Error creating carSelect...');
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
@@ -295,6 +318,7 @@ async function rebuildDB() {
     await createInitialModels();
     await createInitialCars();
     await createInitialCarts();
+    await createInitialCarSelect();
   } catch (error) {
     console.log('Error during rebuildDB');
     throw error;

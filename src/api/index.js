@@ -22,6 +22,27 @@ export const APIURL = `http://localhost:4000/api`;
 
 //this is where all our api endpoints are located
 
+// Fetch all selectedCars
+export async function fetchSelectedCars(cartId) {
+  try {
+    const response = await fetch(`/api/selectedCars/carts/${cartId}`);
+    const selectedCars = await response.json();
+    return selectedCars;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// Add a car to a cart
+export async function addToCart(carId, cartId) {
+  try {
+    const response = await axios.post(`${APIURL}/carts/${cartId}/cars/${carId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // Fetch all cars
 export async function fetchAllCars() {
   try {
@@ -119,6 +140,7 @@ export const fetchMe = async (token) => {
   const json = await res.json();
   return json;
 };
+
 
 export async function createNewCarPosting(addMake, addModel, addType, addYear, addPrice, addMileage, addDescription, addColor, addUsersId) {
   try {
@@ -249,3 +271,4 @@ export async function deletePhoto(id) {
     console.error(err);
   }
 }
+

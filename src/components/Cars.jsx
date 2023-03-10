@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes } from '../api/index';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 
@@ -104,6 +105,7 @@ const Cars = ({ carsearch }) => {
                 src="https://images.pexels.com/photos/8827011/pexels-photo-8827011.jpeg?auto=compress&cs=tinysrgb&w=800"
                 class="h-40 w-full object-cover sm:h-56 md:h-full"
               />
+
             </div>
           </div>
         </div>
@@ -161,6 +163,7 @@ const Cars = ({ carsearch }) => {
         })}
 
       </div>
+
 
 
 
@@ -231,3 +234,22 @@ const Cars = ({ carsearch }) => {
 };
 
 export default Cars;
+
+
+
+//this is for selected model only - a second version
+//   <ul>
+//   {models.filter((model) => model.makeId === e.makeId)
+//     .map((model, modelIndex) => (
+//       <li key={modelIndex}>
+//         <p> Model: {model.name}</p>
+//       </li>
+//     ))}
+//   </ul>
+//   {selectedCar && selectedCar.id === e.id ? (
+//     <button onClick={handleAddToCart}>Add to Cart</button>
+// ) : (
+//     <button onClick={() => handleSelectCar(e)}>Select</button>
+// )}
+// <hr />
+
