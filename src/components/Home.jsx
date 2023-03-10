@@ -15,6 +15,8 @@ const Home = () => {
   const [selectedModelId, setSelectedModelId] = useState('');
   const [selectedPrice, setSelectedPrice] = useState('');
 
+  const [isLexiUp, setIsLexiUp] = useState(true);
+
   const loadCars = async () => {
     const cars = await fetchAllCars();
     const types = await fetchAllTypes();
@@ -30,9 +32,14 @@ const Home = () => {
     history.push("/cars", { makeId: selectedMakeId, modelId: selectedModelId, price: selectedPrice })
   }
 
+  const handleCloseLexi = (event) => {
+    event.preventDefault();
+    setIsLexiUp(false)
+  }
+
   useEffect(() => {
     loadCars();
-  }, []);
+  }, [isLexiUp]);
 
   return (
 
@@ -374,6 +381,8 @@ const Home = () => {
   </div>
 </section>
 
+
+{isLexiUp ? 
 <aside
   class="fixed bottom-4 right-4 z-50 flex items-center justify-center gap-4 rounded-lg bg-black px-5 py-3 text-white"
 >
@@ -383,11 +392,11 @@ const Home = () => {
     rel="noreferrer"
     class="text-sm font-medium hover:opacity-75"
   >
-   👩‍💻 Hi there! Do you have any questions?
-   <p>-Lexi (Your RideStack Virtual Assistant)</p>
+   🙋‍♀️ Hi there, let me help you find your new ride!
+   <p><em>Lexi (Your RideStack Virtual Assistant)</em></p>
   </a>
 
-  <button class="rounded bg-white/20 p-1 hover:bg-white/10">
+  <button onClick={handleCloseLexi} class="rounded bg-white/20 p-1 hover:bg-white/10">
     <span class="sr-only">Close</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -403,10 +412,7 @@ const Home = () => {
     </svg>
   </button>
 </aside>
-
-
-
-
+: ""}
 
     </div>
 

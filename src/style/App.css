@@ -120,7 +120,8 @@ option {
   justify-content: space-between;
 }
 
-.makeandmodeldiv {
+#makeandmodeldiv {
+  font-size: smaller;
   display: flex;
   justify-content: space-between;
 }
@@ -169,4 +170,32 @@ option {
 
 #carPostsDiv{
   display: flex;
+}
+
+#postsDisplay{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.carPost {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  width: 300px;
+  height: 500px;
+  border: solid;
+  padding: 20px;
+  border-color: lightgrey;
+  border-radius: 25px;
+}
+
+.carPost:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#addToCartButton {
+  align-items: flex-end;
+  text-align: center;
 }
