@@ -61,7 +61,7 @@ apiRouter.post('/register', async (req, res, next) => {
 apiRouter.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = await getUser(username, password);
+    console.log({ username });
 
     if (!username || !password) {
       next({
@@ -69,18 +69,34 @@ apiRouter.post('/login', async (req, res, next) => {
         message: 'Please supply both username and password',
       });
     }
-
-    const token = jwt.sign(
-      {
-        // id: user.id,
-        username: username,
-      },
-      JWT_SECRET
-    );
-
-    res.send({ message: "you're logged in!", user, token });
+    const user = await getUser({ username, password });
+    if (!user) {
+      console.log('User not valid');
+      next({
+        name: 'IncorrectCredentials',
+        message: 'Please check username or password',
+      });
+      console.log('user still not valid');
+    }
+    if (user) {
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username: username,
+        },
+        JWT_SECRET
+      );
+      res.send({ message: "you're logged in!", user: user, token: token });
+    }
+    // else {
+    //   res.send({
+    //     name: 'IncorrectCredentials',
+    //     message: 'Please check username or password',
+    //   });
+    // }
   } catch (error) {
-    console.error('err in login in api/users.js', error);
+    console.error(error);
+    next(error);
   }
 });
 
