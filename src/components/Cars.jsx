@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToCart } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars } from '../api/index';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 
 const Cars = ({ carsearch }) => {
@@ -45,10 +45,10 @@ const Cars = ({ carsearch }) => {
   }, []);
 
 
-  // const handleAddToSelectedCars = async (carId) => {
-  //   // Add selected car to cart
-  //   await handleAddToSelectedCars(carId);
-  // };
+  const handleAddToSelectedCars = async (carsId) => {
+    // Add selected car to cart
+    await addToSelectedCars(carsId, 1);
+  };
 
 
   return (
@@ -162,7 +162,7 @@ const Cars = ({ carsearch }) => {
                 </div>
               
               </div>
-              {/* <button onClick={handleAddToSelectedCars(e.id)}>Add to Cart</button> */}
+              <button onClick={() => handleAddToSelectedCars(e.id)}>Add to selected cars</button>
               </div>
             </div>)
         })}

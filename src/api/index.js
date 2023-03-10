@@ -33,11 +33,21 @@ export async function fetchSelectedCars(cartId) {
   }
 }
 
-// Add a car to a cart
-export async function addToCart(carId, cartId) {
+
+// // Add a car to a cart
+export async function addToSelectedCars(carsId, cartId) {
   try {
-    const response = await axios.post(`${APIURL}/carts/${cartId}/cars/${carId}`);
-    return response.data;
+    const res = await fetch(`/api/selectedCar/${carsId}`,
+    { method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          carsId: carsId,
+          cartId: cartId
+        })});
+    const json = res.json();
+    return json;
   } catch (err) {
     console.error(err);
   }

@@ -22,17 +22,19 @@ apiRouter.patch('/', async (req, res, next) => {
   });
   
 
-apiRouter.get('/:id', async (req, res, next) => {
-    const { id } = req.params;
+apiRouter.post('/:carId', async (req, res, next) => {
+    const { id, cartId } = req.params;
     try {
-      const selectedCars = await getSelectedCarsById(id);
+      console.log("test")
+      const selectedCars = await getSelectedCarsById(id, cartId);
+      console.log(selectedCars)
       return (selectedCars);
     } catch (error) {
       console.error('error in :id api/selectedCars', error);
     }
   });
   
-  apiRouter.get('/users/:userId', async (req, res, next) => {
+  apiRouter.get('/users/:usersId', async (req, res, next) => {
     const { userId } = req.params;
     try {
       const selectedCars = await getSelectedCarsByUserId({ id: userId });
@@ -41,3 +43,5 @@ apiRouter.get('/:id', async (req, res, next) => {
       console.error('error in users/:userId api/selectedCars', error);
     }
   });
+
+module.exports = apiRouter;
