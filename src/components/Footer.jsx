@@ -134,23 +134,6 @@ return (
                 </a>
               </li>
 
-              <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  Accounts Review
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  HR Consulting
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  SEO Optimisation
-                </a>
-              </li>
             </ul>
           </nav>
         </div>
@@ -193,16 +176,11 @@ return (
               </li>
 
               <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  FAQs
+                <a href="https://github.com/zeljkomaric95" className="text-gray-700 transition hover:opacity-75">
+                  GitHub
                 </a>
               </li>
-
-              <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  Live Chat
-                </a>
-              </li>
+                
             </ul>
           </nav>
         </div>

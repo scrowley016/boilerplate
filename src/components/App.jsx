@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar token={token} setToken={setToken} setUsername={setUsername}></Navbar>
+      <header><Navbar token={token} setToken={setToken} setUsername={setUsername}></Navbar></header>
       <div className='app-container'>
       </div>
       <Switch>
