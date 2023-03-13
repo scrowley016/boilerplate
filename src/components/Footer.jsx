@@ -167,14 +167,14 @@ return (
               </li>
 
               <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  Meet the Team
+                <a href="https://github.com/BobbyWhitacre27" className="text-gray-700 transition hover:opacity-75">
+                  GitHub
                 </a>
               </li>
 
               <li>
                 <a href="#" className="text-gray-700 transition hover:opacity-75">
-                  Accounts Review
+                  Portfolio
                 </a>
               </li>
             </ul>
