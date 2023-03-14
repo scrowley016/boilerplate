@@ -109,6 +109,7 @@ export async function fetchAllModels() {
 }
 //users endpoints
 export const fetchRegister = async (username, password) => {
+  console.log('fetch register at the top');
   const res = await fetch(`${APIURL}/users/register`, {
     method: 'POST',
     headers: {
@@ -120,6 +121,7 @@ export const fetchRegister = async (username, password) => {
     }),
   });
   const json = await res.json();
+  console.log('fetch register at the bottom');
   return json;
 };
 
@@ -142,6 +144,7 @@ export const fetchLogin = async (username, password) => {
 //GET /api/users/me
 export const fetchMe = async (token) => {
   const res = await fetch(`${APIURL}/users/me`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -149,6 +152,21 @@ export const fetchMe = async (token) => {
   });
   const json = await res.json();
   return json;
+};
+
+export const fetchAllAdmin = async (token) => {
+  try {
+    const res = await fetch(`${APIURL}/users/account`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await res.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export async function createNewCarPosting(

@@ -110,4 +110,18 @@ apiRouter.get('/me', async (req, res, next) => {
   }
 });
 
+apiRouter.get('/account', async (req, res, next) => {
+  const { isAdmin } = req.body;
+  console.log(isAdmin);
+  try {
+    const admin = await getAllAdminUsers({ isAdmin });
+    console.log(admin);
+    if (isAdmin === true && admin === true) {
+      res.send(admin);
+    }
+  } catch (error) {
+    console.error('err in /account in db/users.js');
+  }
+});
+
 module.exports = apiRouter;
