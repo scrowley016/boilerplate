@@ -23,9 +23,9 @@ export const APIURL = `http://localhost:4000/api`;
 //this is where all our api endpoints are located
 
 // Fetch all selectedCars
-export async function fetchSelectedCars(cartId) {
+export async function fetchSelectedCars() {
   try {
-    const response = await fetch(`/api/selectedCars/carts/${cartId}`);
+    const response = await fetch(`${APIURL}/selectedCars`);
     const selectedCars = await response.json();
     return selectedCars;
   } catch (err) {
@@ -37,7 +37,7 @@ export async function fetchSelectedCars(cartId) {
 // // Add a car to a cart
 export async function addToSelectedCars(carsId, cartId) {
   try {
-    const res = await fetch(`/api/selectedCar/${carsId}`,
+    const res = await fetch(`${APIURL}/selectedCars`,
     { method: "POST",
         headers: {
           'Content-Type': 'application/json'
