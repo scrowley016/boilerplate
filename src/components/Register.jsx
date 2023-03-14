@@ -10,25 +10,28 @@ const Register = ({setToken}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setUsername('');
-        setPassword('');
+      console.log("testing");
 
         try {
             const register = await fetchRegister(username, password);
-            console.log(register);
+          console.log(register);
+          console.log("yellow");
             if (register.error) {
                 setMessage(register.message);
+                setUsername('');
+                setPassword('');   
                 return;
             }
-            if (register) {
-                setMessage(register.message);
+          if (register) {
+            setMessage(register.message);
+            setUsername('');
+            setPassword('');   
             }
-            setToken(register.token);
-            localStorage.setItem('token', register.token);
-            history.push('/');
+            history.push('/Login');
         } catch (error) {
             console.error("error in handleSubmit of Register.js");
         }
+      
     };
 
     return (
