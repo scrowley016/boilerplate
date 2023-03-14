@@ -1,6 +1,7 @@
 // This is the Web Server
 const express = require('express');
 const server = express();
+const jwt = require('jsonwebtoken'); //may delete -at
 
 // enable cross-origin resource sharing to proxy api requests
 // from localhost:3000 to localhost:4000 in local dev env
@@ -42,6 +43,15 @@ const handle = server.listen(PORT, async () => {
   } catch (error) {
     console.error('Database is closed for repairs!\n', error);
   }
+});
+
+// error handler
+server.use((error, req, res, next) => {
+  res.send({
+    error: 'error',
+    name: error.name,
+    message: error.message,
+  });
 });
 
 // export server and handle for routes/*.test.js
