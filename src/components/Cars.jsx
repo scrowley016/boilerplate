@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars } from '../api/index';
 import { useHistory } from 'react-router-dom';
 
-const Cars = () => {
+const Cars = (userId) => {
   const [cars, setCars] = useState([]);
   const [types, setTypes] = useState([]);
   const [models, setModels] = useState([]);
@@ -114,9 +114,11 @@ const Cars = () => {
 
 
 
-  const handleAddToSelectedCars = async (carsId) => {
+  const handleAddToSelectedCars = async (carsId, userId) => {
     // Add selected car to cart
-    await addToSelectedCars(carsId, 1);
+    console.log(carsId, userId)
+    console.log("hi1")
+    await addToSelectedCars(carsId, userId);
   };
 
 

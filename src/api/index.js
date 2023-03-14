@@ -35,7 +35,7 @@ export async function fetchSelectedCars() {
 
 
 // // Add a car to a cart
-export async function addToSelectedCars(carsId, cartId) {
+export async function addToSelectedCars(carsId, userId) {
   try {
     const res = await fetch(`${APIURL}/selectedCars`,
     { method: "POST",
@@ -44,7 +44,7 @@ export async function addToSelectedCars(carsId, cartId) {
         },
         body: JSON.stringify({
           carsId: carsId,
-          cartId: cartId
+          userId: userId
         })});
     const json = res.json();
     return json;

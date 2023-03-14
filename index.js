@@ -1,6 +1,7 @@
 // This is the Web Server
 const express = require('express');
 const server = express();
+const expressListRoutes = require('express-list-routes');
 const jwt = require('jsonwebtoken'); //may delete -at
 
 // enable cross-origin resource sharing to proxy api requests
@@ -18,14 +19,12 @@ server.use(express.json());
 // here's our static files
 const path = require('path');
 server.use(express.static(path.join(__dirname, 'build')));
-
 // here's our API
 server.use('/api', require('./api'));
+expressListRoutes(require('./api'));
 
-// by default serve up the react app if we don't recognize the route
-server.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+server.get('/routes', (req, res) => {
+})
 
 // bring in the DB connection
 const { client } = require('./db');
@@ -53,6 +52,8 @@ server.use((error, req, res, next) => {
     message: error.message,
   });
 });
+
+// console.log(server._router.stack)
 
 // export server and handle for routes/*.test.js
 module.exports = { server, handle };

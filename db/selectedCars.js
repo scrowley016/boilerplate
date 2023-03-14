@@ -1,12 +1,12 @@
 const client = require("./client");
 
-async function getSelectedCars({ carsId, cartId }) {
+async function addSelectedCars({ carId, userId }) {
     try {
         const { rows: [selectedCars] } = await client.query(`
-        INSERT INTO selectedCars ("carsId", "cartId")
+        INSERT INTO selectedCars ("carId", "userId")
             VALUES ($1, $2)
             RETURNING *;
-            `, [carsId, cartId]
+            `, [carId, userId]
         );
         return selectedCars;
     } catch (error) {
@@ -46,7 +46,7 @@ async function getSelectedCarsByUserId( { id }) {
 }
 
 module.exports = {
-    getSelectedCars,
+    addSelectedCars,
     getSelectedCarsById,
     getSelectedCarsByUserId
 }

@@ -3,11 +3,11 @@ const apiRouter = express.Router();
 
 const {
     getSelectedCars,
-    getSelectedCarsById,
+    addSelectedCars,
     getSelectedCarsByUserId,
 } = require('../db');
 
-apiRouter.post('/', async (req, res, next) => {
+apiRouter.patch('/', async (req, res, next) => {
     try {
       const { carsId, cartId } = req.body;
       const selectedCars = await getSelectedCars({carsId, cartId})
@@ -18,11 +18,11 @@ apiRouter.post('/', async (req, res, next) => {
   });
   
 
-apiRouter.post('/:carId', async (req, res, next) => {
-    const { carsid, cartId } = req.params;
+apiRouter.post('/', async (req, res, next) => {
+    const { carId, userId } = req.body;
     try {
       console.log("test")
-      const selectedCars = await getSelectedCarsById(carsid, cartId);
+      const selectedCars = await addSelectedCars(carId, userId);
       console.log(selectedCars)
       return (selectedCars);
     } catch (error) {
