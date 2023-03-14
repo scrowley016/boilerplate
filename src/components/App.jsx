@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
-import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer } from './index';
+import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer, Account } from './index';
 
 import '../style/App.css';
 import NotFound from './NotFound';
+import { fetchMe } from '../api';
 
 const App = () => {
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState([]);
   const [username, setUsername] = useState("");
+  console.log('token in App.jsx', { token });
+  console.log('user in App.jsx', {user});
 
   const history = useHistory();
 
-  
-  console.log(token);
-
-  const loggedInUser = async () => {
-    const { username } = await fetchMe(token);
-    setUsername(username);
-  }
 
   useEffect(() => {
-    loggedInUser
-  }, [token]);
+
+  }, [token, user]);
 
   return (
     <BrowserRouter>
-      <Navbar token={token} setToken={setToken} setUsername={setUsername}></Navbar>
+      <header><Navbar token={token} setToken={setToken} setUsername={setUsername} user={user} setUser={setUser}></Navbar></header>
       <div className='app-container'>
       </div>
       <Switch>
@@ -33,19 +30,22 @@ const App = () => {
         <Home />
       </Route>
       <Route path="/Cars">
-        <Cars />
+        <Cars userId={user?.id}/>
       </Route>
       <Route path="/Cart">
-        <Cart />
+        <Cart userId={user?.id}/>
       </Route>
       <Route path="/Login">
-        <Login setToken={setToken} />
+          <Login setToken={setToken} setUsername={setUsername} username={username} setUser={setUser} />
       </Route>
       <Route path="/Register">
         <Register setToken={setToken} />
       </Route>
       <Route path="/Admin">
-        <Admin />
+        <Admin userId={user?.id}/>
+      </Route>
+      <Route path="/account">
+          <Account username={username} token={token} user={user} />
       </Route>
       <Route exact path="*">
         <NotFound />
