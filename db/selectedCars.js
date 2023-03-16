@@ -1,31 +1,27 @@
 const client = require("./client");
 
-async function addSelectedCars({ carsId, cartId }) {
+async function addSelectedCars( carsId, cartId ) {
+    console.log(carsId, cartId, "backend db")
     try {
-        const {
-            rows: [selectedCars],
-        } = await client.query(
-            `INSERT INTO selectedCars ("carsId", "cartId")
+        const { rows: [selectedCars] } = await client.query(`
+        INSERT INTO selectedcars ("carsId", "cartId")
             VALUES ($1, $2)
-            RETURNING *
-            `,
-            [carsId, cartId]
+            RETURNING *;
+            `, [carsId, cartId]
         );
         return selectedCars;
     } catch (error) {
-        console.error('Error in addSelectedCars in db/selectedCars.js:', error.message);
+        console.error('Error in getSelectedCars in db/selectedCars.js:', error.message);
         throw error;
     }
 }
 
 async function getSelectedCarsById(id) {
     try {
-        const {
-            rows: [selectedCars],
-        } = await client.query(
-            `SELECT *
-            FROM selectedCars
-            WHERE id = $1
+        const { rows: [selectedCars],} = await client.query(`
+            SELECT *
+            FROM selectedcars
+            WHERE id = $1;
             `,
             [id]
         );
@@ -35,23 +31,23 @@ async function getSelectedCarsById(id) {
     }
 }
 
-async function getSelectedCarsByUserId( { id }) {
+async function getSelectedCars() {
+    console.log ("db selectedCars")
     try {
-        const { rows: selectedCars } = await client.query(
-            ` SELECT *
-            FROM selectedCars
-            WHERE "usersId" = $1
+        const { rows: selectedCars } = await client.query(` 
+            SELECT *
+            FROM selectedcars;
             `,
-            [id]
         );
+        console.log(selectedCars)
         return selectedCars;
     }   catch (error) {
-        console.error('error in getSelectedCarsByUserId in db/selectedCars.js')
+        console.error('error in getSelectedCars in db/selectedCars.js')
     }
 }
 
 module.exports = {
     addSelectedCars,
     getSelectedCarsById,
-    getSelectedCarsByUserId
+    getSelectedCars
 }
