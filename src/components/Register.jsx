@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { fetchRegister } from "../api";
 
-const Register = ({setToken}) => {
+const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -10,28 +10,24 @@ const Register = ({setToken}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-      console.log("testing");
 
         try {
-            const register = await fetchRegister(username, password);
-          console.log(register);
-          console.log("yellow");
-            if (register.error) {
-                setMessage(register.message);
-                setUsername('');
-                setPassword('');   
-                return;
+          const register = await fetchRegister(username, password);
+          if (register.error) {
+            setMessage(register.message);
+            setUsername('');
+            setPassword('');   
+            return;
             }
           if (register) {
             setMessage(register.message);
             setUsername('');
             setPassword('');   
             }
-            history.push('/Login');
+          history.push('/Login');
         } catch (error) {
             console.error("error in handleSubmit of Register.js");
         }
-      
     };
 
     return (
@@ -43,7 +39,7 @@ const Register = ({setToken}) => {
       <div>
         <div>
           <h1
-            className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
+            className="font-serif mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
           >
             Create an Account with RideStack🚗
           </h1>
@@ -97,16 +93,16 @@ const Register = ({setToken}) => {
               htmlFor="Password"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              Password:
             </label>
 
             <input
               type="password"
               id="Password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>
@@ -127,7 +123,7 @@ const Register = ({setToken}) => {
       </div>
     </main>
   </div>
-    )
+  )
 }
 
 export default Register;
