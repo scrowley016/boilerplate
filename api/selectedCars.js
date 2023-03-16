@@ -4,39 +4,40 @@ const apiRouter = express.Router();
 const {
     getSelectedCars,
     addSelectedCars,
-    getSelectedCarsByUserId,
-} = require('../db');
+} = require('../db/selectedCars');
 
 apiRouter.patch('/', async (req, res, next) => {
     try {
       const { carsId, cartId } = req.body;
-      const selectedCars = await getSelectedCars({carsId, cartId})
-      return res.send(selectedCars);
+      const selectedCars = await getSelectedCars(carsId, cartId)
+      res.send(selectedCars);
     } catch (error) {
       console.error('error in api/selectedCars', error);
+      next ()
     }
   });
   
 
 apiRouter.post('/', async (req, res, next) => {
-    const { carId, userId } = req.body;
+    const { carsId, cartId } = req.body;
+    console.log(carsId, cartId, "api backend")
     try {
       console.log("test")
-      const selectedCars = await addSelectedCars(carId, userId);
+      const selectedCars = await addSelectedCars(carsId, cartId);
       console.log(selectedCars)
-      return (selectedCars);
+      res.send (selectedCars);
     } catch (error) {
       console.error('error in :id api/selectedCars', error);
     }
   });
   
-  apiRouter.get('/users/:usersId', async (req, res, next) => {
-    const { usersId } = req.params;
+  apiRouter.get('/', async (req, res, next) => {
+    console.log ("backend api getselected")
     try {
-      const selectedCars = await getSelectedCarsByUserId({ id: usersId });
-      return (selectedCars);
+      const selectedCars = await getSelectedCars();
+      res.send (selectedCars);
     } catch (error) {
-      console.error('error in users/:userId api/selectedCars', error);
+      console.error('error in GET getSelectedCars api/selectedCars', error);
     }
   });
 

@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllCarts, fetchSelectedCars } from '../api/index';
 
-const Cart = () => {
+const Cart = ({ userId }) => {
     const [carts, setCarts] = useState([]);
     const [selectedCars, setSelectedCars] = useState([]);
-    console.log(carts);
-    console.log(selectedCars);
+    const [cartId, setCartId] = useState("");
+    console.log(carts, "carts cart.jsx");
+    console.log(selectedCars, "get selected cars");
 
     useEffect(() => {
       const cartPage = async () => {
         const carts = await fetchAllCarts();
+        const cars = await fetchSelectedCars();
         setCarts(carts);
+        setCartId(carts.userId);
+        setSelectedCars(cars);
       };
       cartPage();
     }, []);
   
-    const getSelectedCars = async (cartId) => {
-      const cars = await fetchSelectedCars(cartId);
-      setSelectedCars([...selectedCars, ...cars]);
-    };
+    // const getSelectedCars = async (cartId) => {
+    //   const cars = await fetchSelectedCars(cartId);
+    //   console.log(cars)
+    //   setSelectedCars(cars);
+    // };
+
+    //filter for users selected car in cart not working yet!
+
 
     return (
       <div className='app-container'>
@@ -28,8 +36,19 @@ const Cart = () => {
                {e.id ? 
                <div> 
                <p>CartId: {e.id}</p>
-               <p>userId: {e.usersId}</p>
-              {/* // need selectedCars info to put in here */}
+               <p>userId: { userId }</p>
+               <p>Selected Cars:</p>
+                  <ul>
+                  
+                      {
+                      selectedCars.filter((selectedCars) => userId == cartId
+                      ).map((car, j) => (
+                        <li key={j}>
+                          <p>CarId: {car.id}</p>
+                          {/*We can add more car details here */}
+                        </li>
+                      ))}
+                  </ul>
 <section>
   <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
     <div class="mx-auto max-w-3xl">
@@ -272,16 +291,6 @@ const Cart = () => {
     </div>
   </div>
 </section>
-                <p>Selected Cars:</p>
-                  <ul>
-                      {selectedCars.map((car, j) => (
-                        <li key={j}>
-                          <p>CarId: {car.id}</p>
-                          {/*We can add more car details here */}
-                        </li>
-                      ))}
-                  </ul>
-                    <button onClick={() => getSelectedCars(e.id)}>Get selected cars</button>
                </div>
                : "" 
               }

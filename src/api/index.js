@@ -24,6 +24,7 @@ export const APIURL = `http://localhost:4000/api`;
 
 // Fetch all selectedCars
 export async function fetchSelectedCars() {
+  console.log("test in front api index.js")
   try {
     const response = await fetch(`${APIURL}/selectedCars`);
     const selectedCars = await response.json();
@@ -35,7 +36,8 @@ export async function fetchSelectedCars() {
 
 
 // // Add a car to a cart
-export async function addToSelectedCars(carsId, userId) {
+export async function addToSelectedCars(carsId, cartId) {
+  console.log(carsId, cartId, "api frontend")
   try {
     const res = await fetch(`${APIURL}/selectedCars`,
     { method: "POST",
@@ -44,7 +46,7 @@ export async function addToSelectedCars(carsId, userId) {
         },
         body: JSON.stringify({
           carsId: carsId,
-          userId: userId
+          cartId: cartId
         })});
     const json = res.json();
     return json;

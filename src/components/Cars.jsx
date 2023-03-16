@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars, fetchAllCarts } from '../api/index';
 import { useHistory } from 'react-router-dom';
 
 const Cars = (userId) => {
@@ -9,6 +9,7 @@ const Cars = (userId) => {
   const [models, setModels] = useState([]);
   const [makes, setMakes] = useState([]);
   const [photos, setPhotos] = useState([]);
+  const [carts, setCarts] = useState([]);
 
   const [selectedMakeId, setSelectedMakeId] = useState('');
   const [selectedModelId, setSelectedModelId] = useState('');
@@ -93,11 +94,13 @@ const Cars = (userId) => {
       const makes = await fetchAllMakes();
       const models = await fetchAllModels();
       const photos = await fetchAllPhotos();
+      const carts = await fetchAllCarts();
       setCars(cars);
       setTypes(types)
       setModels(models);
       setMakes(makes);
       setPhotos(photos);
+      setCarts(carts);
 
       if(isFilterOnCarsPage == false){
       handleSetMakeFromHistory();
@@ -114,11 +117,11 @@ const Cars = (userId) => {
 
 
 
-  const handleAddToSelectedCars = async (carsId, userId) => {
+  const handleAddToSelectedCars = async (carsId, carts) => {
     // Add selected car to cart
-    console.log(carsId, userId)
     console.log("hi1")
-    await addToSelectedCars(carsId, userId);
+    console.log(carsId, carts)
+    await addToSelectedCars(carsId, carts);
   };
 
 
@@ -267,10 +270,10 @@ const Cars = (userId) => {
                     ))}</>
                     <div>{e.color}</div>
                   </div>
-
+          
                 </div>
 
-                <button onClick={() => handleAddToSelectedCars(e.id)}>Add to selected cars</button>
+                <button onClick={() => handleAddToSelectedCars(e.id, carts.map((c) => c.id  )[0])}>Add to selected cars</button>
               </div>
 
             </div>)

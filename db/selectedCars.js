@@ -1,12 +1,13 @@
 const client = require("./client");
 
-async function addSelectedCars({ carId, userId }) {
+async function addSelectedCars( carsId, cartId ) {
+    console.log(carsId, cartId, "backend db")
     try {
         const { rows: [selectedCars] } = await client.query(`
-        INSERT INTO selectedCars ("carId", "userId")
+        INSERT INTO selectedcars ("carsId", "cartId")
             VALUES ($1, $2)
             RETURNING *;
-            `, [carId, userId]
+            `, [carsId, cartId]
         );
         return selectedCars;
     } catch (error) {
@@ -19,7 +20,7 @@ async function getSelectedCarsById(id) {
     try {
         const { rows: [selectedCars],} = await client.query(`
             SELECT *
-            FROM selectedCars
+            FROM selectedcars
             WHERE id = $1;
             `,
             [id]
@@ -30,23 +31,23 @@ async function getSelectedCarsById(id) {
     }
 }
 
-async function getSelectedCarsByUserId( { id }) {
+async function getSelectedCars() {
+    console.log ("db selectedCars")
     try {
         const { rows: selectedCars } = await client.query(` 
             SELECT *
-            FROM selectedCars
-            WHERE "usersId" = $1;
+            FROM selectedcars;
             `,
-            [id]
         );
+        console.log(selectedCars)
         return selectedCars;
     }   catch (error) {
-        console.error('error in getSelectedCarsByUserId in db/selectedCars.js')
+        console.error('error in getSelectedCars in db/selectedCars.js')
     }
 }
 
 module.exports = {
     addSelectedCars,
     getSelectedCarsById,
-    getSelectedCarsByUserId
+    getSelectedCars
 }
