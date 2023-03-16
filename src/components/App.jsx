@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer, Account } from './index';
 import { fetchAllCarts } from '../api/index';
+=======
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer, Account, Car_details, NotFound } from './index';
+>>>>>>> 93bfefaa66fae52bba1cd26f2a46f3248f2470fa
 
 import '../style/App.css';
-import NotFound from './NotFound';
-import { fetchMe } from '../api';
 
 const App = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState([]);
  
   const [username, setUsername] = useState("");
+<<<<<<< HEAD
   
   // console.log('token in App.jsx', { token });
   // console.log('user in App.jsx', {user});
 
   const history = useHistory();
 
+=======
+  const [selectedCar, setSelectedCar] = useState()
+>>>>>>> 93bfefaa66fae52bba1cd26f2a46f3248f2470fa
 
   useEffect(() => {
 
@@ -39,16 +46,19 @@ const App = () => {
         <Cart userId={user?.id} />
       </Route>
       <Route path="/Login">
-          <Login setToken={setToken} setUsername={setUsername} username={username} setUser={setUser} />
+          <Login setToken={setToken} setUser={setUser} />
       </Route>
       <Route path="/Register">
-        <Register setToken={setToken} />
+        <Register />
       </Route>
       <Route path="/Admin">
         <Admin userId={user?.id}/>
       </Route>
       <Route path="/account">
-          <Account username={username} token={token} user={user} />
+        <Account user={user} />
+      </Route>
+      <Route path="/:carsId">
+        <Car_details selectedCar={selectedCar}/>
       </Route>
       <Route exact path="*">
         <NotFound />

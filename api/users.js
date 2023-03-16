@@ -18,8 +18,11 @@ require('dotenv').config();
 apiRouter.post('/register', async (req, res, next) => {
   try {
     const { username, password, isAdmin } = req.body;
+<<<<<<< HEAD
     console.log("hi")
     //check password length
+=======
+>>>>>>> 93bfefaa66fae52bba1cd26f2a46f3248f2470fa
     if (password.length < 8) {
       res.send({
         error: 'PasswordInvalid',
@@ -27,7 +30,6 @@ apiRouter.post('/register', async (req, res, next) => {
         message: 'Password Too Short!',
       });
     }
-    // check username if it exist
     const checkUser = await getUserbyUsername(username);
     if (checkUser) {
       res.send({
@@ -36,8 +38,6 @@ apiRouter.post('/register', async (req, res, next) => {
         message: `User ${username} is already taken.`,
       });
     }
-
-    //create user after previous checks
     const user = await createUser({ username, password, isAdmin });
     console.log('user:', user)
     const token = jwt.sign(
@@ -63,7 +63,6 @@ apiRouter.post('/register', async (req, res, next) => {
 apiRouter.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    console.log({ username });
 
     if (!username || !password) {
       next({
@@ -90,12 +89,6 @@ apiRouter.post('/login', async (req, res, next) => {
       );
       res.send({ message: "you're logged in!", user: user, token: token });
     }
-    // else {
-    //   res.send({
-    //     name: 'IncorrectCredentials',
-    //     message: 'Please check username or password',
-    //   });
-    // }
   } catch (error) {
     console.error(error);
     next(error);

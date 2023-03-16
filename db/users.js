@@ -5,7 +5,6 @@ async function createUser({ username, password, isAdmin }) {
   const SALT_COUNT = 10;
 
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
-  console.log({ hashedPassword });
   try {
     const {
       rows: [user],
@@ -18,9 +17,7 @@ async function createUser({ username, password, isAdmin }) {
         `,
       [username, hashedPassword, isAdmin]
     );
-    console.log(user);
     delete user.password;
-    console.log('line 23', { user });
     return user;
   } catch (error) {
     console.error('error creating users in users.js', error);
@@ -40,7 +37,6 @@ async function getUserbyUsername(username) {
       `,
       [username]
     );
-    console.log('Line 42 from userbyusername', { user });
     return user;
   } catch (error) {
     console.error('error in getUserbyUsername');
@@ -50,10 +46,7 @@ async function getUserbyUsername(username) {
 async function getUser({ username, password }) {
   const user = await getUserbyUsername(username);
   const hashedPassword = user.password;
-  console.log({ hashedPassword, password });
   const isValid = await bcrypt.compare(password, hashedPassword);
-  console.log('line 51', { password });
-  console.log({ isValid });
 
   try {
     if (isValid) {
@@ -67,7 +60,7 @@ async function getUser({ username, password }) {
       `,
         [username]
       );
-      console.log('line 65', { user });
+
       return user;
     }
   } catch (error) {

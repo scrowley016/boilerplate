@@ -5,6 +5,7 @@ const {
   addCarToFavorite,
   getFavoriteById,
   getFavoriteByUserId,
+  updateFavorite,
   destroyFavorite,
 } = require('../db');
 
@@ -14,6 +15,8 @@ apiRouter.patch('/:userId', async (req, res, next) => {
     const id = req.params.userId;
     const username = req.user.username;
     const userId = req.user.id;
+
+    const addFavorite = await updateFavorite();
   } catch (error) {
     console.error('err in patch /api/favorite/:userId', error);
   }
@@ -23,3 +26,5 @@ apiRouter.patch('/:userId', async (req, res, next) => {
 apiRouter.delete('/:userId', async (req, res, next) => {
   const id = req.params.userId;
 });
+
+module.exports = apiRouter;
