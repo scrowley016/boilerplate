@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchLogin } from '../api/index';
 
@@ -12,8 +12,7 @@ const Login = ({setToken, setUser}) => {
         event.preventDefault();
         setUsername('');
         setPassword('');
-        console.log(username);
-        console.log(password);
+
         try {
             if (!username || !password) {
               setMessage('Please supply both username and password');
@@ -51,7 +50,7 @@ const Login = ({setToken, setUser}) => {
     >
       <div className="max-w-xl lg:max-w-3xl">
         <h1
-          className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
+          className="font-serif mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
         >
           🚗RideStack🚗
         </h1>
@@ -87,10 +86,10 @@ const Login = ({setToken, setUser}) => {
             <input
               type="text"
               id="username"
-                    name="username"
-                    value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>
@@ -106,10 +105,10 @@ const Login = ({setToken, setUser}) => {
             <input
               type="password"
               id="Password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
               className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
             />
           </div>
