@@ -1,6 +1,4 @@
-const {
-  client,
-} = require('./');
+const { client } = require('./');
 const { createUser, getAllAdminUsers } = require('./users');
 const { createMakes, getAllMakes } = require('./make');
 const { createModels } = require('./models');
@@ -31,9 +29,6 @@ async function dropTables() {
     throw error;
   }
 }
-
-
-
 
 async function createTables() {
   try {
@@ -108,7 +103,6 @@ async function createTables() {
   }
 }
 
-
 async function createInitialUsers() {
   try {
     console.log('Starting to create users...');
@@ -116,6 +110,8 @@ async function createInitialUsers() {
       { username: 'bobby', password: 'bobby123', isAdmin: true },
       { username: 'ana', password: 'ana123456', isAdmin: false },
       { username: 'zack', password: 'zack123456', isAdmin: true },
+      { username: 'ana1', password: 'ana123456', isAdmin: false },
+      { username: 'admin', password: '12345678', isAdmin: false },
     ];
 
     const users = await Promise.all(usersToCreate.map(createUser)); //don't forget to write this function "createUser"
@@ -270,10 +266,7 @@ async function createInitialCarts() {
   try {
     console.log('Starting to create carts...');
 
-    const cartsToCreate = [
-      { userId: 1 },
-
-    ];
+    const cartsToCreate = [{ userId: 1 }];
 
     const carts = await Promise.all(cartsToCreate.map(createCart));
 
@@ -290,14 +283,10 @@ async function createInitialCarSelect() {
   try {
     console.log('Starting to create selectedCars...');
 
-    const createCarSelect = [
-      { carsId: 1,
-        cartId: 1
-      }
-    ];
-    
+    const createCarSelect = [{ carsId: 1, cartId: 1 }];
+
     const carSelect = await Promise.all(createCarSelect.map(addSelectedCars));
-    
+
     console.log('Selected cars created:');
     console.log(carSelect);
     console.log('Finished creating carSelect!');
