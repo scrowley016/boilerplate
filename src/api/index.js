@@ -23,9 +23,10 @@ export const APIURL = `http://localhost:4000/api`;
 //this is where all our api endpoints are located
 
 // Fetch all selectedCars
-export async function fetchSelectedCars(cartId) {
+export async function fetchSelectedCars() {
+  console.log("test in front api index.js")
   try {
-    const response = await fetch(`/api/selectedCars/carts/${cartId}`);
+    const response = await fetch(`${APIURL}/selectedCars`);
     const selectedCars = await response.json();
     return selectedCars;
   } catch (err) {
@@ -33,13 +34,22 @@ export async function fetchSelectedCars(cartId) {
   }
 }
 
-// Add a car to a cart
-export async function addToCart(carId, cartId) {
+
+// // Add a car to a cart
+export async function addToSelectedCars(carsId, cartId) {
+  console.log(carsId, cartId, "api frontend")
   try {
-    const response = await axios.post(
-      `${APIURL}/carts/${cartId}/cars/${carId}`
-    );
-    return response.data;
+    const res = await fetch(`${APIURL}/selectedCars`,
+    { method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          carsId: carsId,
+          cartId: cartId
+        })});
+    const json = res.json();
+    return json;
   } catch (err) {
     console.error(err);
   }

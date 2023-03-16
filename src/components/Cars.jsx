@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes } from '../api/index';
+import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars, fetchAllCarts } from '../api/index';
 import { useHistory } from 'react-router-dom';
 
-const Cars = () => {
+const Cars = (userId) => {
   const [cars, setCars] = useState([]);
   const [types, setTypes] = useState([]);
   const [models, setModels] = useState([]);
   const [makes, setMakes] = useState([]);
   const [photos, setPhotos] = useState([]);
+  const [carts, setCarts] = useState([]);
 
   const [selectedMakeId, setSelectedMakeId] = useState('');
   const [selectedModelId, setSelectedModelId] = useState('');
@@ -93,11 +94,13 @@ const Cars = () => {
       const makes = await fetchAllMakes();
       const models = await fetchAllModels();
       const photos = await fetchAllPhotos();
+      const carts = await fetchAllCarts();
       setCars(cars);
       setTypes(types)
       setModels(models);
       setMakes(makes);
       setPhotos(photos);
+      setCarts(carts);
 
       if(isFilterOnCarsPage == false){
       handleSetMakeFromHistory();
@@ -111,6 +114,15 @@ const Cars = () => {
     };
     carPage();
   }, [filterMake, filterModel, filterPrice, selectedMakeId, selectedModelId, selectedPrice]);
+
+
+
+  const handleAddToSelectedCars = async (carsId, carts) => {
+    // Add selected car to cart
+    console.log("hi1")
+    console.log(carsId, carts)
+    await addToSelectedCars(carsId, carts);
+  };
 
 
   return (
@@ -258,10 +270,10 @@ const Cars = () => {
                     ))}</>
                     <div>{e.color}</div>
                   </div>
-
+          
                 </div>
 
-                {/* <div id="addToCartButton"><button className='button'>Add to Cart</button></div> */}
+                <button onClick={() => handleAddToSelectedCars(e.id, carts.map((c) => c.id  )[0])}>Add to selected cars</button>
               </div>
 
             </div>)

@@ -44,6 +44,9 @@ apiRouter.use('/cart', cartRouter);
 const photoRouter = require('./photos');
 apiRouter.use('/photos', photoRouter);
 
+const selectedCarRouter = require('./selectedCars');
+apiRouter.use('/selectedCars', selectedCarRouter);
+
 apiRouter.use('*', async (req, res, next) => {
   res.status(404).json({ message: '404 not found' });
 });

@@ -2,42 +2,43 @@ const express = require('express');
 const apiRouter = express.Router();
 
 const {
+    getSelectedCars,
     addSelectedCars,
-    getSelectedCarsById,
-    getSelectedCarsByUserId,
-} = require('../db');
+} = require('../db/selectedCars');
 
 apiRouter.patch('/', async (req, res, next) => {
-    const { carsIds, cartId } = req.body;
     try {
-      const selectedCars = [];
-      for (const carsId of carsIds) {
-        const selectedCar = await addSelectedCars({ carsId, cartId });
-        selectedCars.push(selectedCar);
-      }
-      return res.send(selectedCars);
+      const { carsId, cartId } = req.body;
+      const selectedCars = await getSelectedCars(carsId, cartId)
+      res.send(selectedCars);
     } catch (error) {
       console.error('error in api/selectedCars', error);
+      next ()
     }
   });
   
 
-apiRouter.get('/:id', async (req, res, next) => {
-    const { id } = req.params;
+apiRouter.post('/', async (req, res, next) => {
+    const { carsId, cartId } = req.body;
+    console.log(carsId, cartId, "api backend")
     try {
-      const selectedCars = await getSelectedCarsById(id);
-      return (selectedCars);
+      console.log("test")
+      const selectedCars = await addSelectedCars(carsId, cartId);
+      console.log(selectedCars)
+      res.send (selectedCars);
     } catch (error) {
       console.error('error in :id api/selectedCars', error);
     }
   });
   
-  apiRouter.get('/users/:userId', async (req, res, next) => {
-    const { userId } = req.params;
+  apiRouter.get('/', async (req, res, next) => {
+    console.log ("backend api getselected")
     try {
-      const selectedCars = await getSelectedCarsByUserId({ id: userId });
-      return (selectedCars);
+      const selectedCars = await getSelectedCars();
+      res.send (selectedCars);
     } catch (error) {
-      console.error('error in users/:userId api/selectedCars', error);
+      console.error('error in GET getSelectedCars api/selectedCars', error);
     }
   });
+
+module.exports = apiRouter;
