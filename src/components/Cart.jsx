@@ -2,22 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { fetchAllCarts, fetchSelectedCars } from '../api/index';
 
 const Cart = ({ userId }) => {
-    const [carts, setCarts] = useState([]);
     const [selectedCars, setSelectedCars] = useState([]);
-    const [cartId, setCartId] = useState("");
-    console.log(carts, "carts cart.jsx");
-    console.log(selectedCars, "get selected cars");
+    const [cart, setCart] = useState([]);
+
 
     useEffect(() => {
       const cartPage = async () => {
         const carts = await fetchAllCarts();
-        const cars = await fetchSelectedCars();
-        setCarts(carts);
-        setCartId(carts.userId);
-        setSelectedCars(cars);
+        const carsInCart = await fetchSelectedCars();
+        setCart(carts)
+        setSelectedCars(carsInCart);
       };
       cartPage();
     }, []);
+
+    console.log("cart from cartpage:", cart)
+
+
+      const cartsByUser = cart?.filter((f) => userId == cart.userId)
+      console.log({cartsByUser})
+      
+      
+        const currentCart = cartsByUser[cartsByUser.length - 1]
+        console.log({currentCart})
+      
+      
+   
   
     // const getSelectedCars = async (cartId) => {
     //   const cars = await fetchSelectedCars(cartId);
@@ -31,25 +41,16 @@ const Cart = ({ userId }) => {
     return (
       <div className='app-container'>
         
-        <div>{carts.map((e, i) => {
+        <div>{userId ? cart.filter((cart) => cart.usersId == userId).map((e, i) => {
+    
             return (<div key={i}>
                {e.id ? 
                <div> 
                <p>CartId: {e.id}</p>
                <p>userId: { userId }</p>
-               <p>Selected Cars:</p>
-                  <ul>
-                  
-                      {
-                      selectedCars.filter((selectedCars) => userId == cartId
-                      ).map((car, j) => (
-                        <li key={j}>
-                          <p>CarId: {car.id}</p>
-                          {/*We can add more car details here */}
-                        </li>
-                      ))}
-                  </ul>
-<section>
+                -----
+
+{/* <section>
   <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
     <div class="mx-auto max-w-3xl">
       <header class="text-center">
@@ -290,14 +291,14 @@ const Cart = ({ userId }) => {
       </div>
     </div>
   </div>
-</section>
+</section> */}
                </div>
                : "" 
               }
            
             </div>
             )
-        })}</div>
+        }): <h2>Please log in to see your cart!</h2>}</div>
       </div>
     );
   };

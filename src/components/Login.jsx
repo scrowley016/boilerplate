@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { fetchLogin } from '../api/index';
+import { createCart, fetchLogin } from '../api/index';
 
 const Login = ({setToken, setUser}) => {
     const [username, setUsername] = useState('');
@@ -24,6 +24,7 @@ const Login = ({setToken, setUser}) => {
             } else {
               setToken(login.token);
               setUser(login.user);
+              createCart(login.user.id)
               localStorage.setItem('token', JSON.stringify(login));
               history.push('/account');
             }

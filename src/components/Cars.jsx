@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars, fetchAllCarts } from '../api/index';
 import { useHistory } from 'react-router-dom';
 
-const Cars = (userId) => {
+const Cars = ({userId, cartId}) => {
   const [cars, setCars] = useState([]);
   const [types, setTypes] = useState([]);
   const [models, setModels] = useState([]);
@@ -86,6 +86,7 @@ const Cars = (userId) => {
     setFilterPrice(selectedPrice)
   }
 
+  // console.log({userId})
 
   useEffect(() => {
     const carPage = async () => {
@@ -119,8 +120,8 @@ const Cars = (userId) => {
 
   const handleAddToSelectedCars = async (carsId, carts) => {
     // Add selected car to cart
-    console.log("hi1")
-    console.log(carsId, carts)
+    // console.log("hi1")
+    // console.log(carsId, carts)
     await addToSelectedCars(carsId, carts);
   };
 
@@ -261,9 +262,11 @@ const Cars = (userId) => {
                       ))}</h4>
                 </div>
 
+                <hr></hr>
+
                 <div className='priceandmilesdiv'><h5>${e.price}</h5><h5>{e.mileage} miles</h5></div>
                 <div className='cardescription'>
-                  "{e.description}"
+                  {e.description}
                   <div className='typeandcolordiv'>
                     <>{types.filter((type) => type.id === e.typeId).map((type) => (
                       <div>{type.name}</div>
@@ -272,9 +275,11 @@ const Cars = (userId) => {
                   </div>
           
                 </div>
-
-                <button onClick={() => handleAddToSelectedCars(e.id, carts.map((c) => c.id  )[0])}>Add to selected cars</button>
-              </div>
+                { userId ? 
+                <div id="addToCartDiv">
+                <button className='button' id="addToCartButton"onClick={() => handleAddToSelectedCars(e.id, carts.map((c) => c.id  )[0])}>Add to cart</button>
+                </div> : ""}
+                </div>
 
             </div>)
         })}

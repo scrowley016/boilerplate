@@ -3,7 +3,7 @@ import { Link, Router, useHistory } from 'react-router-dom';
 
 const Navbar = ({ token, setToken, setUsername, user, setUser }) => {
   const history = useHistory();
-  console.log({user});
+
 
     const logout = () => {
         localStorage.removeItem('token');

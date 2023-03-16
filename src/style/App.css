@@ -116,6 +116,7 @@ option {
 }
 
 .priceandmilesdiv {
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
 }
@@ -127,6 +128,7 @@ option {
 }
 
 .cardescription {
+
   color: gray;
 }
 
@@ -170,6 +172,7 @@ option {
 
 #carPostsDiv{
   display: flex;
+  justify-content: center;
 }
 
 #postsDisplay{
@@ -181,6 +184,7 @@ option {
 
 .carPost {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin: 10px;
   width: 300px;
@@ -198,4 +202,21 @@ option {
 #addToCartButton {
   align-items: flex-end;
   text-align: center;
+}
+
+#addToCartDiv{
+  margin-top: 15px;
+  text-align: center;
+}
+
+#addToCartButton{
+  background-color: rgb(69, 130, 69);
+  color: white;
+  font-style: italic;
+}
+
+#addToCartButton:hover{
+  background-color: rgb(141, 205, 141);
+  color: white;
+  font-style: italic;
 }
