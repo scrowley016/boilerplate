@@ -256,7 +256,7 @@ const Admin = () => {
                                 ))}</h3>
                     </div>
                     <div className='carPhoto'>{photos.filter((photo) => photo.carsId === e.id).map((p, i) => (<img className='carPhoto' key={i} src={p.image}></img>))}</div>
-                    <div className='priceandmilesdiv'><h4>${e.price}</h4><h4>{e.mileage} miles</h4></div>
+                    <div className='priceandmilesdiv'><h4>${e.price.toLocaleString("en-US")}</h4><h4>{e.mileage.toLocaleString("en-US")} miles</h4></div>
                     <div className='cardescription'>
                         "{e.description}"
                         <div className='typeandcolordiv'>

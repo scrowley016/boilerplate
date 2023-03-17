@@ -16,20 +16,20 @@ async function addSelectedCars( carsId, cartId ) {
     }
 }
 
-async function getSelectedCarsById(id) {
-    try {
-        const { rows: [selectedCars],} = await client.query(`
-            SELECT *
-            FROM selectedcars
-            WHERE id = $1;
-            `,
-            [id]
-        );
-        return selectedCars;
-    } catch (error) {
-        console.log('error in getSelectedCarsById in db/selectedCars.js');
-    }
-}
+async function deleteSelectedCar(id) {
+    const {
+      rows: [car],
+    } = await client.query(
+      `
+          DELETE FROM selectedcars
+          WHERE id = $1
+          RETURNING *;
+      `,
+      [id]
+    );
+  
+    return car;
+  }
 
 async function getSelectedCars() {
     console.log ("db selectedCars")
@@ -48,6 +48,6 @@ async function getSelectedCars() {
 
 module.exports = {
     addSelectedCars,
-    getSelectedCarsById,
+    deleteSelectedCar,
     getSelectedCars
 }

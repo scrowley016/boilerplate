@@ -126,7 +126,7 @@ const Login = ({setToken, setUser, setCart}) => {
             </button>
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-              Need an account?
+              <>Need an account? </>
               <a href="/register" className="text-gray-700 underline">Create New Account</a>.
             </p>
           </div>

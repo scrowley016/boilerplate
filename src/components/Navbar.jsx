@@ -18,36 +18,36 @@ const Navbar = ({ token, setToken, setUsername, user, setUser }) => {
     <div>
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between sm:px-6 lg:px-8">
           <div className="flex flex-1 items-center justify-between gap-8">
-            <div className='flex items-center sm:px-6 lg:px-8'>
+            <div id="navBar" className='flex items-center sm:px-6 lg:px-8'>
               <div className='flex justify-start mr-10'>
                 <Link to='/'>
-                  <span className='font-serif text-4xl'>RideStack</span>
+                  <span className='font-serif text-4xl pl-2'>RideStack</span>
                 </Link>
               </div>
-              <div className='flex justify-end flex-1 mr-auto'>
+              <div className='flex justify-end flex-1 mr-auto d-md-none hidden'>
                 <Link to="/cars" className=' active:text-indigo-600'>
-                    <button className='m-2 font-serif text-xl font-style: italic hover:text-indigo-600 focus:text-indigo-600'>
-                        Find Your Dream Car...
+                    <button className='m-2 font-serif text-xl font-style: italic hover:text-indigo-600 focus:text-indigo-600 '>
+                        Find Your Car...
                     </button>
                 </Link>
 
               </div>
             </div>
       <div className="flex items-center">
-              <div className="flex items-center divide-x divide-gray-100 border-x border-gray-100">
+              <div className="flex items-center divide-x divide-gray-100 border-x border-gray-100 pr-2">
                 
                 {!token ? (
                     <div className="sm:flex sm:gap-4">
                     <Link to="/Login"
                       className="block rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700"
                     >
-                      Log in
+                      Log-in
                     </Link>
 
                     <Link to="/register"
                       className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-indigo-600 transition hover:text-indigo-600/75 sm:block"
                     >
-                      Sign up
+                      Sign-up
                     </Link>
                     
                   </div>

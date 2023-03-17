@@ -84,18 +84,18 @@ const Home = () => {
                   </select>
                   <select className='select' value={selectedPrice} onChange={(event) => setSelectedPrice(event.target.value)}>
                     <option value='0'>Max Price</option>
-                    <option>40000</option>
-                    <option>60000</option>
-                    <option>80000</option>
-                    <option>100000</option>
-                    <option>120000</option>
-                    <option>140000</option>
-                    <option>160000</option>
-                    <option>180000</option>
-                    <option>200000</option>
-                    <option>300000</option>
-                    <option>400000</option>
-                    <option>500000</option>
+                    <option>40,000</option>
+                    <option>60,000</option>
+                    <option>80,000</option>
+                    <option>100,000</option>
+                    <option>120,000</option>
+                    <option>140,000</option>
+                    <option>160,000</option>
+                    <option>180,000</option>
+                    <option>200,000</option>
+                    <option>300,000</option>
+                    <option>400,000</option>
+                    <option>500,000</option>
                   </select>
                   <button className="mt-8 inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" onClick={handleSubmit}>Search</button>
                   </div>
@@ -242,7 +242,7 @@ const Home = () => {
         <div className="flex items-center gap-4">
           <img
             alt="Zack"
-            src="https://media.licdn.com/dms/image/D4D03AQG3SDVqq8m__A/profile-displayphoto-shrink_400_400/0/1679011754441?e=1684368000&v=beta&t=i20Use1OSLaoJExRQT3ISP14IY0CDnb8HhHQMSSiFrI"
+            src="https://ca.slack-edge.com/T024FPYBQ-U041T8FGE9M-45729e8edbc5-512"
             className="h-16 w-16 rounded-full object-cover"
           />
 
@@ -394,8 +394,8 @@ const Home = () => {
     rel="noreferrer"
     className="text-sm font-medium hover:opacity-75"
   >
-   🙋‍♀️ Hi there, let me help you find your new ride!
-   <p><em>Lexi (Your RideStack Virtual Assistant)</em></p>
+   🙋‍♀️ Let me help you find your new ride!
+   <p><em>Lexi (Your Virtual Assistant)</em></p>
   </a>
 
   <button onClick={handleCloseLexi} className="rounded bg-white/20 p-1 hover:bg-white/10">

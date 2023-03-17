@@ -55,6 +55,23 @@ export async function addToSelectedCars(carsId, cartId) {
   }
 }
 
+// Delete car from a cart
+export async function deleteCarFromSelectedCar(id) {
+  try {
+    const res = await fetch(`${APIURL}/selectedCars/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
 // Fetch all cars
 export async function fetchAllCars() {
   try {
@@ -303,7 +320,6 @@ export async function createPhoto(carsId, image) {
 // Delete photos
 export async function deletePhoto(id) {
   try {
-    console.log('photo is #2:', id);
     const res = await fetch(`${APIURL}/photos/${id}`, {
       method: 'DELETE',
       headers: {

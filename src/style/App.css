@@ -128,7 +128,6 @@ option {
 }
 
 .cardescription {
-
   color: gray;
 }
 
@@ -220,3 +219,21 @@ option {
   color: white;
   font-style: italic;
 }
+
+#deleteFromCartButton{
+  background-color: rgb(201, 85, 79);
+  color: white;
+  font-style: italic;
+}
+
+#deleteFromCartButton:hover {
+  background-color: rgb(236, 147, 142);
+  color: white;
+  font-style: italic;
+}
+
+#removeFromCartDiv{
+  margin-top: 15px;
+  text-align: center;
+}
+

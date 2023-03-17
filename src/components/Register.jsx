@@ -115,7 +115,7 @@ const Register = () => {
             </button>
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-              Already have an account?
+              <>Already have an account? </>
               <a href="/Login" className="text-gray-700 underline">Log in</a>.
             </p>
           </div>

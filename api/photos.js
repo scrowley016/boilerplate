@@ -38,41 +38,6 @@ apiRouter.post('/', async (req, res, next) => {
 }
 });
 
-// apiRouter.patch('/:carsId', async (req, res, next) => {
-//     console.log("test2")
-//     try{
-//         const id = req.params.carsId;
-//      const {
-//          makeId,
-//          modelId,
-//          typeId,
-//          year,
-//          price,
-//          mileage,
-//          description,
-//          color,
-//          userId
-//      } = req.body;
- 
-//      const updatecar = await updateCar({
-//          id: id,  
-//          makeId,
-//          modelId,
-//          typeId,
-//          year,
-//          price,
-//          mileage,
-//          description,
-//          color,
-//          userId})
-
-//      res.send(
-//          updatecar
-//      )
-//  }catch (error){
-//      next(error)
-//  }
-//  });
 
 apiRouter.delete('/:photoId', async (req, res, next) => {
     try{

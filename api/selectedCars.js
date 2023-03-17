@@ -4,18 +4,20 @@ const apiRouter = express.Router();
 const {
     getSelectedCars,
     addSelectedCars,
+    deleteSelectedCar
 } = require('../db/selectedCars');
 
-apiRouter.patch('/', async (req, res, next) => {
-    try {
-      const { carsId, cartId } = req.body;
-      const selectedCars = await getSelectedCars(carsId, cartId)
-      res.send(selectedCars);
-    } catch (error) {
-      console.error('error in api/selectedCars', error);
-      next ()
-    }
-  });
+apiRouter.delete('/:selectedCarId', async (req, res, next) => {
+  try{
+  const id = req.params.selectedCarId;
+  const removeCarFromCart = await deleteSelectedCar(id);
+
+  res.send(removeCarFromCart);
+
+  }catch (error){
+      next(error)
+  }
+});
   
 
 apiRouter.post('/', async (req, res, next) => {

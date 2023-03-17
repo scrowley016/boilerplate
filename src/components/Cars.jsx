@@ -119,9 +119,6 @@ const Cars = ({userId, cart}) => {
 
 
   const handleAddToSelectedCars = async (carsId, cart) => {
-    // Add selected car to cart
-    // console.log("hi1")
-    // console.log(carsId, carts)
     await addToSelectedCars(carsId, cart.id);
   };
 
@@ -136,7 +133,7 @@ const Cars = ({userId, cart}) => {
               <div class="mx-auto max-w-xl text-center">
 
 
-                <h2 class="text-2xl font-bold text-white md:text-3xl">
+                <h2 class="text-2xl font-bold text-white md:text-3xl mb-5">
                   Your chariot awaits
                 </h2>
 
@@ -156,18 +153,18 @@ const Cars = ({userId, cart}) => {
                   </select>
                   <select className='select' value={selectedPrice} onChange={handleSetPriceFromCarsPage}>
                     <option value='0'>Max Price</option>
-                    <option>40000</option>
-                    <option>60000</option>
-                    <option>80000</option>
-                    <option>100000</option>
-                    <option>120000</option>
-                    <option>140000</option>
-                    <option>160000</option>
-                    <option>180000</option>
-                    <option>200000</option>
-                    <option>300000</option>
-                    <option>400000</option>
-                    <option>500000</option>
+                    <option>40,000</option>
+                    <option>60,000</option>
+                    <option>80,000</option>
+                    <option>100,000</option>
+                    <option>120,000</option>
+                    <option>140,000</option>
+                    <option>160,000</option>
+                    <option>180,000</option>
+                    <option>200,000</option>
+                    <option>300,000</option>
+                    <option>400,000</option>
+                    <option>500,000</option>
                   </select>
                   <button class="mt-8 inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" onClick={handleSubmit}>Search</button>
                   </div>
@@ -264,7 +261,7 @@ const Cars = ({userId, cart}) => {
 
                 <hr></hr>
 
-                <div className='priceandmilesdiv'><h5>${e.price}</h5><h5>{e.mileage} miles</h5></div>
+                <div className='priceandmilesdiv'><h5>${e.price.toLocaleString("en-US")}</h5><h5>{e.mileage.toLocaleString("en-US")} miles</h5></div>
                 <div className='cardescription'>
                   {e.description}
                   <div className='typeandcolordiv'>

@@ -14,7 +14,7 @@ return (
         />
 
         <p className="max-w-xs mt-4 text-gray-500">
-          RideStack is not a real car website. These products are not real. This is a project made by Robert (Bobby) Whitacre, Zeljko (Zack) Maric, and Ana Tran from the 2209-fbt-ct-web-pt cohort of FullStackAcademy.
+          RideStack is not a real car website. These products are not real. This is a project made by Bobby Whitacre, Zeljko (Zack) Maric, and Ana Tran from the 2209-fbt-ct-web-pt cohort of FullStackAcademy.
         </p>
 
         <ul className="flex gap-6 mt-8">
