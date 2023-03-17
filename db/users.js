@@ -104,10 +104,19 @@ async function getAllAdminUsers({ isAdmin }) {
   }
 }
 
+async function getAllUsers() {
+  const { rows: users } = await client.query(`
+    SELECT * FROM users;
+    `);
+
+  return users;
+}
+
 module.exports = {
   createUser,
   getUserbyUsername,
   getUser,
   getUserbyId,
   getAllAdminUsers,
+  getAllUsers
 };

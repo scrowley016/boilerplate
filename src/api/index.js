@@ -18,7 +18,11 @@ import axios from 'axios';
   }
 */
 
-export const APIURL = `http://localhost:4000/api`;
+// Connect to deployed database
+export const APIURL = `https://ridestack.onrender.com/api`;
+
+// export const APIURL = `http://localhost:4000/api`;
+
 
 //this is where all our api endpoints are located
 
@@ -130,7 +134,7 @@ export async function fetchAllModels() {
 //users endpoints
 export const fetchRegister = async (username, password) => {
   console.log('fetch register at the top');
-  const res = await fetch(`${APIURL}/users/register`, {
+  const res = await fetch(`${APIURL}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -147,7 +151,7 @@ export const fetchRegister = async (username, password) => {
 
 //POST /api/users/login
 export const fetchLogin = async (username, password) => {
-  const res = await fetch(`${APIURL}/users/login`, {
+  const res = await fetch(`${APIURL}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

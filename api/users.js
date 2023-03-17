@@ -7,6 +7,7 @@ const {
   getUser,
   getUserbyId,
   getAllAdminUsers,
+  getAllUsers,
 } = require('../db');
 
 const jwt = require('jsonwebtoken');
@@ -15,7 +16,7 @@ const { JWT_SECRET } = process.env;
 require('dotenv').config();
 
 // POST /api/users/register
-apiRouter.post('/register', async (req, res, next) => {
+apiRouter.post('/', async (req, res, next) => {
   try {
     const { username, password, isAdmin } = req.body;
     if (password.length < 8) {
@@ -55,7 +56,7 @@ apiRouter.post('/register', async (req, res, next) => {
 });
 
 // POST /api/users/login
-apiRouter.post('/login', async (req, res, next) => {
+apiRouter.post('/', async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
@@ -112,6 +113,18 @@ apiRouter.get('/account', async (req, res, next) => {
   } catch (error) {
     console.error('err in /account in db/users.js');
   }
+});
+
+apiRouter.get('/', async (req, res, next) => {
+  try {
+      const users = await getAllUsers()
+
+  res.send(
+      users
+  )
+} catch(error) {
+  next(error)
+}
 });
 
 module.exports = apiRouter;
