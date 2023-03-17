@@ -43,8 +43,8 @@ const Login = ({setToken, setUser, setCart}) => {
       className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6"
     >
       <img
-        alt="crappy-electric-car"
-        src="https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        alt="electric car concept"
+        src="https://images.pexels.com/photos/14675274/pexels-photo-14675274.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         className="absolute inset-0 h-full w-full object-cover"
       />
     </aside>
@@ -55,9 +55,9 @@ const Login = ({setToken, setUser, setCart}) => {
     >
       <div className="max-w-xl lg:max-w-3xl">
         <h1
-          className="font-serif mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
+          className="font-serif md:text-4xl"
         >
-          🚗RideStack🚗
+          Welcome back to RideStack!
         </h1>
         {message && (
               <div className='shadow-lg alert alert-error'>

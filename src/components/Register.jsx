@@ -39,13 +39,13 @@ const Register = () => {
       <div>
         <div>
           <h1
-            className="font-serif mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
+            className="font-serif md:text-4xl"
           >
-            Create an Account with RideStack🚗
+            Create an Account with RideStack!
           </h1>
 
           <p className="mt-4 leading-relaxed text-gray-500">
-            Do you see yourself in a new vehicle soon? Are you ready for a journey? Start here!
+            Do you see yourself in a new vehicle soon? Are you ready for the jurney? Start here!
           </p>
         </div>
         {message && (
