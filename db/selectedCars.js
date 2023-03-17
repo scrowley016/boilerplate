@@ -22,7 +22,7 @@ async function deleteSelectedCar(id) {
     } = await client.query(
       `
           DELETE FROM selectedcars
-          WHERE id = $1
+          WHERE "carsId" = $1
           RETURNING *;
       `,
       [id]

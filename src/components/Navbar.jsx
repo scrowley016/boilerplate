@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useHistory} from 'react-router-dom';
+import { deleteCart } from '../api/index';
 
-const Navbar = ({ token, setToken, setUsername, user, setUser }) => {
+const Navbar = ({ token, setToken, setUsername, user, setUser, cart }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const history = useHistory();
 
+
+
     const logout = () => {
+      deleteCart(cart.id)
       localStorage.removeItem('token');
       localStorage.removeItem('cart');
       setUsername('');

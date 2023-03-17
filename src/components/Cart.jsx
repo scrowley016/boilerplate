@@ -11,6 +11,8 @@ const Cart = ({ userId, cart }) => {
   const [makes, setMakes] = useState([]);
   const [photos, setPhotos] = useState([]);
 
+  const [isRemove, setIsRemove] = useState(false)
+
   useEffect(() => {
     const cartPage = async () => {
       const allCarts = await fetchAllCarts();
@@ -31,7 +33,7 @@ const Cart = ({ userId, cart }) => {
       setSelectedCars(carsInCart);
     };
     cartPage();
-  }, []);
+  }, [isRemove]);
 
   console.log("cart from cartpage:", cart)
 
@@ -54,8 +56,17 @@ const Cart = ({ userId, cart }) => {
   console.log({ priceOfCars })
 
   const handleDeleteSelectedCars = async (id) => {
+    setIsRemove(true)
+    console.log("car id from handle remove:", id)
     await deleteCarFromSelectedCar(id);
+    setIsRemove(false)
   };
+
+  const handleDeleteCarPosting = async (id) => {
+    setIsDelete(true)
+    await deleteCarPosting(id)
+    setIsDelete(false)
+}
 
   const checkoutAlert = () => {
     alert("Thank you for your order! :)")

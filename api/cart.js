@@ -41,7 +41,7 @@ apiRouter.post('/', async (req, res, next) => {
 // Delete cart
 apiRouter.delete('/:cartId', async (req, res, next) => {
     try{
-    const id = req.params.carsId;
+    const id = req.params.cartId;
     const removeCart = await deleteCart(id);
 
     res.send(removeCart);

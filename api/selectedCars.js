@@ -7,11 +7,10 @@ const {
     deleteSelectedCar
 } = require('../db/selectedCars');
 
-apiRouter.delete('/:selectedCarId', async (req, res, next) => {
+apiRouter.delete('/:carId', async (req, res, next) => {
   try{
-  const id = req.params.selectedCarId;
+  const id = req.params.carId;
   const removeCarFromCart = await deleteSelectedCar(id);
-
   res.send(removeCarFromCart);
 
   }catch (error){
@@ -34,7 +33,6 @@ apiRouter.post('/', async (req, res, next) => {
   });
   
   apiRouter.get('/', async (req, res, next) => {
-    console.log ("backend api getselected")
     try {
       const selectedCars = await getSelectedCars();
       res.send (selectedCars);
