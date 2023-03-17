@@ -388,16 +388,15 @@ const Home = () => {
 <aside
   className="fixed bottom-4 right-4 z-50 flex items-center justify-center gap-4 rounded-lg bg-black px-5 py-3 text-white"
 >
+<Link to="/cars">
   <a
-    href="/cars"
-    target="_blank"
     rel="noreferrer"
     className="text-sm font-medium hover:opacity-75"
   >
    🙋‍♀️ Let me help you find your new ride!
    <p><em>Lexi (Your Virtual Assistant)</em></p>
   </a>
-
+</Link>
   <button onClick={handleCloseLexi} className="rounded bg-white/20 p-1 hover:bg-white/10">
     <span className="sr-only">Close</span>
     <svg
