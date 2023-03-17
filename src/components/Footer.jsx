@@ -4,7 +4,7 @@ const Footer = () => {
 return (
 <footer aria-label="Site Footer" className="bg-white">
   <div
-    className=" px-4 py-16 mx-auto space-y-3 sm:px-6 lg:space-y-16 lg:px-3"
+    className="margin-auto  px-4 py-16 mx-auto space-y-3 sm:px-6 lg:space-y-16 lg:px-3"
   >
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-3">
       <div>
@@ -156,7 +156,7 @@ return (
               </li>
 
               <li>
-                <a href="#" className="text-gray-700 transition hover:opacity-75">
+                <a href="https://grand-kringle-c9625f.netlify.app/" className="text-gray-700 transition hover:opacity-75">
                   Portfolio
                 </a>
               </li>

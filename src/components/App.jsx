@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer, Account, Car_details, NotFound } from './index';
+import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Cars, Home, Login, Register, Cart, Navbar, Admin, Footer, Account } from './index';
+import { fetchAllCarts } from '../api/index';
 
 import '../style/App.css';
 
 const App = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState([]);
+  const [cart, setCart] = useState([]);
+ 
   const [username, setUsername] = useState("");
-  const [selectedCar, setSelectedCar] = useState()
+  
+  // console.log('token in App.jsx', { token });
+  // console.log('user in App.jsx', {user});
 
+  const history = useHistory();
+
+  console.log("cart on App:", cart)
   useEffect(() => {
 
-  }, [token, user]);
+  }, [token, user, cart]);
 
   return (
     <BrowserRouter>
@@ -24,13 +32,13 @@ const App = () => {
         <Home />
       </Route>
       <Route path="/Cars">
-        <Cars userId={user?.id}/>
+        <Cars userId={user?.id} cart={cart}/>
       </Route>
       <Route path="/Cart">
-        <Cart userId={user?.id}/>
+        <Cart userId={user?.id} cart={cart}/>
       </Route>
       <Route path="/Login">
-          <Login setToken={setToken} setUser={setUser} />
+          <Login setToken={setToken} setUser={setUser} setCart={setCart}/>
       </Route>
       <Route path="/Register">
         <Register />
@@ -41,12 +49,12 @@ const App = () => {
       <Route path="/account">
         <Account user={user} />
       </Route>
-      <Route path="/:carsId">
+      {/* <Route path="/:carsId">
         <Car_details selectedCar={selectedCar}/>
-      </Route>
-      <Route exact path="*">
+      </Route> */}
+      {/* <Route exact path="*">
         <NotFound />
-      </Route>
+      </Route> */}
       </Switch>
       <footer><Footer /></footer>
     </BrowserRouter>

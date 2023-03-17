@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { fetchLogin } from '../api/index';
+import { createCart, fetchLogin, fetchAllCarts } from '../api/index';
 
-const Login = ({setToken, setUser}) => {
+const Login = ({setToken, setUser, setCart}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -23,6 +23,11 @@ const Login = ({setToken, setUser}) => {
             } else {
               setToken(login.token);
               setUser(login.user);
+              createCart(login.user.id)
+              const allCarts = await fetchAllCarts();
+              const cart = allCarts[allCarts.length - 1]
+              setCart(cart)
+              localStorage.setItem('cart', JSON.stringify(cart));
               localStorage.setItem('token', JSON.stringify(login));
               history.push('/account');
             }

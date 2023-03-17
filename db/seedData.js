@@ -111,6 +111,7 @@ async function createInitialUsers() {
       { username: 'ana', password: 'ana123456', isAdmin: false },
       { username: 'zack', password: 'zack123456', isAdmin: true },
       { username: 'ana1', password: 'ana123456', isAdmin: false },
+      { username: 'admin', password: '12345678', isAdmin: true },
     ];
 
     const users = await Promise.all(usersToCreate.map(createUser)); //don't forget to write this function "createUser"
@@ -261,39 +262,39 @@ async function createInitialCars() {
   }
 }
 
-async function createInitialCarts() {
-  try {
-    console.log('Starting to create carts...');
+// async function createInitialCarts() {
+//   try {
+//     console.log('Starting to create carts...');
 
-    const cartsToCreate = [{ userId: 1 }];
+//     const cartsToCreate = [{ userId: 1 }];
 
-    const carts = await Promise.all(cartsToCreate.map(createCart));
+//     const carts = await Promise.all(cartsToCreate.map(createCart));
 
-    console.log('Carts created:');
-    console.log(carts);
-    console.log('Finished creating carts!');
-  } catch (error) {
-    console.error('Error creating carts...');
-    throw error;
-  }
-}
+//     console.log('Carts created:');
+//     console.log(carts);
+//     console.log('Finished creating carts!');
+//   } catch (error) {
+//     console.error('Error creating carts...');
+//     throw error;
+//   }
+// }
 
-async function createInitialCarSelect() {
-  try {
-    console.log('Starting to create selectedCars...');
+// async function createInitialCarSelect() {
+//   try {
+//     console.log('Starting to create selectedCars...');
 
-    const createCarSelect = [{ carsId: 1, cartId: 1 }];
+//     const createCarSelect = [{ carsId: 1, cartId: 1 }];
 
-    const carSelect = await Promise.all(createCarSelect.map(addSelectedCars));
+//     const carSelect = await Promise.all(createCarSelect.map(addSelectedCars));
 
-    console.log('Selected cars created:');
-    console.log(carSelect);
-    console.log('Finished creating carSelect!');
-  } catch (error) {
-    console.error('Error creating carSelect...');
-    throw error;
-  }
-}
+//     console.log('Selected cars created:');
+//     console.log(carSelect);
+//     console.log('Finished creating carSelect!');
+//   } catch (error) {
+//     console.error('Error creating carSelect...');
+//     throw error;
+//   }
+// }
 
 async function rebuildDB() {
   try {
@@ -305,8 +306,8 @@ async function rebuildDB() {
     await createInitialTypes();
     await createInitialModels();
     await createInitialCars();
-    await createInitialCarts();
-    await createInitialCarSelect();
+    // await createInitialCarts();
+    // await createInitialCarSelect();
   } catch (error) {
     console.log('Error during rebuildDB');
     throw error;
