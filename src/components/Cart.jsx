@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllCarts, fetchSelectedCars } from '../api/index';
+import { fetchAllCarts, fetchSelectedCars, fetchAllCars, fetchAllMakes, fetchAllModels, fetchAllPhotos } from '../api/index';
 
-const Cart = ({ userId }) => {
+const Cart = ({ userId, cart }) => {
     const [selectedCars, setSelectedCars] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [allCarts, setAllCarts] = useState([]);
 
+    const [cars, setCars] = useState([]);
+    const [types, setTypes] = useState([]);
+    const [models, setModels] = useState([]);
+    const [makes, setMakes] = useState([]);
+    const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
       const cartPage = async () => {
-        const carts = await fetchAllCarts();
+        const allCarts = await fetchAllCarts();
         const carsInCart = await fetchSelectedCars();
-        setCart(carts)
+        const cars = await fetchAllCars();
+        const types = await fetchAllTypes();
+        const makes = await fetchAllMakes();
+        const models = await fetchAllModels();
+        const photos = await fetchAllPhotos();
+        const carts = await fetchAllCarts();
+        setCars(cars);
+        setTypes(types)
+        setModels(models);
+        setMakes(makes);
+        setPhotos(photos);
+        setCarts(carts);
+        setAllCarts(allCarts)
         setSelectedCars(carsInCart);
       };
       cartPage();
@@ -18,13 +35,8 @@ const Cart = ({ userId }) => {
 
     console.log("cart from cartpage:", cart)
 
+    console.log("selectedcars from cart page:", selectedCars)
 
-      const cartsByUser = cart?.filter((f) => userId == cart.userId)
-      console.log({cartsByUser})
-      
-      
-        const currentCart = cartsByUser[cartsByUser.length - 1]
-        console.log({currentCart})
       
       
    
@@ -41,7 +53,7 @@ const Cart = ({ userId }) => {
     return (
       <div className='app-container'>
         
-        <div>{userId ? cart.filter((cart) => cart.usersId == userId).map((e, i) => {
+        <div>{userId ? allCarts.filter((c) => c.id == cart.id).map((e, i) => {
     
             return (<div key={i}>
                {e.id ? 
@@ -49,6 +61,7 @@ const Cart = ({ userId }) => {
                <p>CartId: {e.id}</p>
                <p>userId: { userId }</p>
                 -----
+
 
 {/* <section>
   <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -298,7 +311,18 @@ const Cart = ({ userId }) => {
            
             </div>
             )
-        }): <h2>Please log in to see your cart!</h2>}</div>
+        })
+        
+      
+        
+        : <h2>Please log in to see your cart!</h2>}</div>
+
+        <div>
+            {selectedCars.filter((f) => f.cartId == cart.id).map((car) => {
+              
+              return(<>{car.carsId}</>)})}
+
+        </div>
       </div>
     );
   };

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchAllCars, fetchAllTypes, fetchAllModels, fetchAllPhotos, fetchAllMakes, addToSelectedCars, fetchAllCarts } from '../api/index';
 import { useHistory } from 'react-router-dom';
 
-const Cars = ({userId, cartId}) => {
+const Cars = ({userId, cart}) => {
   const [cars, setCars] = useState([]);
   const [types, setTypes] = useState([]);
   const [models, setModels] = useState([]);
@@ -118,11 +118,11 @@ const Cars = ({userId, cartId}) => {
 
 
 
-  const handleAddToSelectedCars = async (carsId, carts) => {
+  const handleAddToSelectedCars = async (carsId, cart) => {
     // Add selected car to cart
     // console.log("hi1")
     // console.log(carsId, carts)
-    await addToSelectedCars(carsId, carts);
+    await addToSelectedCars(carsId, cart.id);
   };
 
 
@@ -277,7 +277,7 @@ const Cars = ({userId, cartId}) => {
                 </div>
                 { userId ? 
                 <div id="addToCartDiv">
-                <button className='button' id="addToCartButton"onClick={() => handleAddToSelectedCars(e.id, carts.map((c) => c.id  )[0])}>Add to cart</button>
+                <button className='button' id="addToCartButton"onClick={() => handleAddToSelectedCars(e.id, cart)}>Add to cart</button>
                 </div> : ""}
                 </div>
 

@@ -18,11 +18,6 @@ require('dotenv').config();
 apiRouter.post('/register', async (req, res, next) => {
   try {
     const { username, password, isAdmin } = req.body;
-<<<<<<< HEAD
-    console.log("hi")
-    //check password length
-=======
->>>>>>> 93bfefaa66fae52bba1cd26f2a46f3248f2470fa
     if (password.length < 8) {
       res.send({
         error: 'PasswordInvalid',

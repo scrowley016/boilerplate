@@ -4,13 +4,10 @@ import { Link, useHistory} from 'react-router-dom';
 const Navbar = ({ token, setToken, setUsername, user, setUser }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const history = useHistory();
-<<<<<<< HEAD
-
-=======
->>>>>>> 93bfefaa66fae52bba1cd26f2a46f3248f2470fa
 
     const logout = () => {
       localStorage.removeItem('token');
+      localStorage.removeItem('cart');
       setUsername('');
       setToken('');
       setUser('');
