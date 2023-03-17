@@ -52,7 +52,7 @@ const Home = () => {
               <div className="relative h-64 sm:h-80 lg:h-full">
                 <img
                   alt="House"
-                  src="https://images.pexels.com/photos/14674461/pexels-photo-14674461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src="https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>

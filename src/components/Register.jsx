@@ -45,7 +45,7 @@ const Register = () => {
           </h1>
 
           <p className="mt-4 leading-relaxed text-gray-500">
-            Do you see yourself in a new vehicle soon? Are you ready for the future? Start here!
+            Do you see yourself in a new vehicle soon? Are you ready for the jurney? Start here!
           </p>
         </div>
         {message && (
