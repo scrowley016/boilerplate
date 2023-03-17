@@ -62,11 +62,6 @@ const Cart = ({ userId, cart }) => {
     setIsRemove(false)
   };
 
-  const handleDeleteCarPosting = async (id) => {
-    setIsDelete(true)
-    await deleteCarPosting(id)
-    setIsDelete(false)
-}
 
   const checkoutAlert = () => {
     alert("Thank you for your order! :)")
@@ -90,7 +85,7 @@ const Cart = ({ userId, cart }) => {
                     </header>
 
                     <div class="items-center">
-                      <ul class="flex justify-center">
+                      <ul class="flex justify-center bg-gray-200 rounded-md">
 
 
 

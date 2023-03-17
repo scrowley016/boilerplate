@@ -192,6 +192,7 @@ option {
   padding: 20px;
   border-color: lightgrey;
   border-radius: 25px;
+  background-color: white;
 }
 
 .carPost:hover {
