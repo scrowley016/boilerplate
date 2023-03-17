@@ -1,23 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllCarts, fetchSelectedCars } from '../api/index';
+import { fetchAllCarts, fetchSelectedCars, fetchAllCars, fetchAllMakes, fetchAllModels, fetchAllPhotos } from '../api/index';
 
-const Cart = ({ userId }) => {
-    const [carts, setCarts] = useState([]);
+const Cart = ({ userId, cart }) => {
     const [selectedCars, setSelectedCars] = useState([]);
-    const [cartId, setCartId] = useState("");
-    console.log(carts, "carts cart.jsx");
-    console.log(selectedCars, "get selected cars");
+    const [allCarts, setAllCarts] = useState([]);
+
+    const [cars, setCars] = useState([]);
+    const [types, setTypes] = useState([]);
+    const [models, setModels] = useState([]);
+    const [makes, setMakes] = useState([]);
+    const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
       const cartPage = async () => {
+        const allCarts = await fetchAllCarts();
+        const carsInCart = await fetchSelectedCars();
+        const cars = await fetchAllCars();
+        const types = await fetchAllTypes();
+        const makes = await fetchAllMakes();
+        const models = await fetchAllModels();
+        const photos = await fetchAllPhotos();
         const carts = await fetchAllCarts();
-        const cars = await fetchSelectedCars();
+        setCars(cars);
+        setTypes(types)
+        setModels(models);
+        setMakes(makes);
+        setPhotos(photos);
         setCarts(carts);
-        setCartId(carts.userId);
-        setSelectedCars(cars);
+        setAllCarts(allCarts)
+        setSelectedCars(carsInCart);
       };
       cartPage();
     }, []);
+
+    console.log("cart from cartpage:", cart)
+
+    console.log("selectedcars from cart page:", selectedCars)
+
+      
+      
+   
   
     // const getSelectedCars = async (cartId) => {
     //   const cars = await fetchSelectedCars(cartId);
@@ -31,25 +53,17 @@ const Cart = ({ userId }) => {
     return (
       <div className='app-container'>
         
-        <div>{carts.map((e, i) => {
+        <div>{userId ? allCarts.filter((c) => c.id == cart.id).map((e, i) => {
+    
             return (<div key={i}>
                {e.id ? 
                <div> 
                <p>CartId: {e.id}</p>
                <p>userId: { userId }</p>
-               <p>Selected Cars:</p>
-                  <ul>
-                  
-                      {
-                      selectedCars.filter((selectedCars) => userId == cartId
-                      ).map((car, j) => (
-                        <li key={j}>
-                          <p>CarId: {car.id}</p>
-                          {/*We can add more car details here */}
-                        </li>
-                      ))}
-                  </ul>
-<section>
+                -----
+
+
+{/* <section>
   <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
     <div class="mx-auto max-w-3xl">
       <header class="text-center">
@@ -290,14 +304,25 @@ const Cart = ({ userId }) => {
       </div>
     </div>
   </div>
-</section>
+</section> */}
                </div>
                : "" 
               }
            
             </div>
             )
-        })}</div>
+        })
+        
+      
+        
+        : <h2>Please log in to see your cart!</h2>}</div>
+
+        <div>
+            {selectedCars.filter((f) => f.cartId == cart.id).map((car) => {
+              
+              return(<>{car.carsId}</>)})}
+
+        </div>
       </div>
     );
   };

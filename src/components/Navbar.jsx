@@ -7,6 +7,7 @@ const Navbar = ({ token, setToken, setUsername, user, setUser }) => {
 
     const logout = () => {
       localStorage.removeItem('token');
+      localStorage.removeItem('cart');
       setUsername('');
       setToken('');
       setUser('');

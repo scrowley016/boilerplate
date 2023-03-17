@@ -316,3 +316,23 @@ export async function deletePhoto(id) {
     console.error(err);
   }
 }
+
+
+export async function createCart(userId) {
+  try {
+    const res = await fetch(`${APIURL}/cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: userId
+      }),
+    });
+    const json = res.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+  }
+}
+

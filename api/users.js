@@ -34,6 +34,7 @@ apiRouter.post('/register', async (req, res, next) => {
       });
     }
     const user = await createUser({ username, password, isAdmin });
+    console.log('user:', user)
     const token = jwt.sign(
       {
         id: user.id,

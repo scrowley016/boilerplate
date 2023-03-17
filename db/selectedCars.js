@@ -11,7 +11,7 @@ async function addSelectedCars( carsId, cartId ) {
         );
         return selectedCars;
     } catch (error) {
-        console.error('Error in getSelectedCars in db/selectedCars.js:', error.message);
+        console.error('Error in addSelectedCars in db/selectedCars.js:', error.message);
         throw error;
     }
 }
