@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { fetchRegister } from "../api";
+import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -116,7 +117,7 @@ const Register = () => {
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               <>Already have an account? </>
-              <a href="/Login" className="text-gray-700 underline">Log in</a>.
+              <Link to="/Login"><a className="text-gray-700 underline">Log in</a>.</Link>
             </p>
           </div>
         </form>

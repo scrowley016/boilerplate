@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createCart, fetchLogin, fetchAllCarts } from '../api/index';
+import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
 
 const Login = ({setToken, setUser, setCart}) => {
     const [username, setUsername] = useState('');
@@ -127,7 +128,7 @@ const Login = ({setToken, setUser, setCart}) => {
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               <>Need an account? </>
-              <a href="/register" className="text-gray-700 underline">Create New Account</a>.
+              <Link to="/Register"><a className="text-gray-700 underline">Create New Account</a>.</Link>
             </p>
           </div>
         </form>
