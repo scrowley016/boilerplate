@@ -16,7 +16,7 @@ const { JWT_SECRET } = process.env;
 require('dotenv').config();
 
 // POST /api/users/register
-apiRouter.post('/', async (req, res, next) => {
+apiRouter.post('/register', async (req, res, next) => {
   try {
     const { username, password, isAdmin } = req.body;
     if (password.length < 8) {
@@ -56,7 +56,7 @@ apiRouter.post('/', async (req, res, next) => {
 });
 
 // POST /api/users/login
-apiRouter.post('/', async (req, res, next) => {
+apiRouter.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
 

@@ -134,7 +134,7 @@ export async function fetchAllModels() {
 //users endpoints
 export const fetchRegister = async (username, password) => {
   console.log('fetch register at the top');
-  const res = await fetch(`${APIURL}/users`, {
+  const res = await fetch(`${APIURL}/users/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export const fetchRegister = async (username, password) => {
 
 //POST /api/users/login
 export const fetchLogin = async (username, password) => {
-  const res = await fetch(`${APIURL}/users`, {
+  const res = await fetch(`${APIURL}/users/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
