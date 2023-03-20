@@ -156,7 +156,7 @@ return (
               </li>
 
               <li>
-                <a href="https://grand-kringle-c9625f.netlify.app/" className="text-gray-700 transition hover:opacity-75">
+                <a href="https://bobby-whitacre.netlify.app/" className="text-gray-700 transition hover:opacity-75">
                   Portfolio
                 </a>
               </li>
