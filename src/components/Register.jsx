@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { fetchRegister } from "../api";
-import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 
 const Register = () => {
     const [username, setUsername] = useState('');
