@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createCart, fetchLogin, fetchAllCarts } from '../api/index';
-import { BrowserRouter, Link, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 const Login = ({setToken, setUser, setCart}) => {
     const [username, setUsername] = useState('');

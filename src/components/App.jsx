@@ -12,12 +12,11 @@ const App = () => {
  
   const [username, setUsername] = useState("");
   
-  // console.log('token in App.jsx', { token });
-  // console.log('user in App.jsx', {user});
+
 
   const history = useHistory();
 
-  console.log("cart on App:", cart)
+
   useEffect(() => {
 
   }, [token, user, cart]);

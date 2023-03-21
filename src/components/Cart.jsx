@@ -35,14 +35,12 @@ const Cart = ({ userId, cart }) => {
     cartPage();
   }, [isRemove]);
 
-  console.log("cart from cartpage:", cart)
 
-  console.log("selectedcars from cart page:", selectedCars)
 
 
 
   const usersCarsinCart = selectedCars.filter((car) => car.cartId == cart.id)
-  console.log({ usersCarsinCart })
+ 
 
   const carsInCart = usersCarsinCart.map((car) => cars.find((c) => c.id == car.carsId))
 
@@ -52,12 +50,10 @@ const Cart = ({ userId, cart }) => {
 
   const totalInCart = totalInCartNoCommas.toLocaleString("en-US")
 
-  console.log({ carsInCart })
-  console.log({ priceOfCars })
+
 
   const handleDeleteSelectedCars = async (id) => {
     setIsRemove(true)
-    console.log("car id from handle remove:", id)
     await deleteCarFromSelectedCar(id);
     setIsRemove(false)
   };

@@ -45,7 +45,7 @@ return photo;
 }
 
 async function deletePhoto(id) {
-    console.log("id", id)
+
   const {
     rows: [photo],
   } = await client.query(

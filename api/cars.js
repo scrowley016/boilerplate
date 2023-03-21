@@ -59,7 +59,7 @@ apiRouter.post('/', async (req, res, next) => {
 });
 
 apiRouter.patch('/:carsId', async (req, res, next) => {
-    console.log("test2")
+   
     try{
         const id = req.params.carsId;
      const {

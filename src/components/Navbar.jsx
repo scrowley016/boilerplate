@@ -29,7 +29,7 @@ const Navbar = ({ token, setToken, setUsername, user, setUser, cart }) => {
 
   const carsInCartNumber = carsInCart.length
 
-  console.log({carsInCartNumber})
+
 
     return (
     <div>
@@ -41,7 +41,7 @@ const Navbar = ({ token, setToken, setUsername, user, setUser, cart }) => {
                   <span className='font-serif text-4xl pl-2'>RideStack</span>
                 </Link>
               </div>
-              <div className='flex justify-end flex-1 mr-auto d-md-none hidden'>
+              <div className='flex justify-end flex-1 mr-auto d-md-none'>
                 <Link to="/cars" className=' active:text-indigo-600'>
                     <button className='m-2 font-serif text-xl font-style: italic hover:text-indigo-600 focus:text-indigo-600 '>
                         Find Your Car...

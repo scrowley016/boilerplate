@@ -28,7 +28,7 @@ export const APIURL = `https://ridestack.onrender.com/api`;
 
 // Fetch all selectedCars
 export async function fetchSelectedCars() {
-  console.log("test in front api index.js")
+
   try {
     const response = await fetch(`${APIURL}/selectedCars`);
     const selectedCars = await response.json();
@@ -41,7 +41,7 @@ export async function fetchSelectedCars() {
 
 // // Add a car to a cart
 export async function addToSelectedCars(carsId, cartId) {
-  console.log(carsId, cartId, "api frontend")
+  
   try {
     const res = await fetch(`${APIURL}/selectedCars`,
     { method: "POST",
@@ -61,7 +61,7 @@ export async function addToSelectedCars(carsId, cartId) {
 
 // Delete car from a cart
 export async function deleteCarFromSelectedCar(id) {
-  console.log("car id from front end api:", id)
+
   try {
     const res = await fetch(`${APIURL}/selectedCars/${id}`, {
       method: 'DELETE',
@@ -133,7 +133,7 @@ export async function fetchAllModels() {
 }
 //users endpoints
 export const fetchRegister = async (username, password) => {
-  console.log('fetch register at the top');
+  
   const res = await fetch(`${APIURL}/users/register`, {
     method: 'POST',
     headers: {
@@ -145,7 +145,7 @@ export const fetchRegister = async (username, password) => {
     }),
   });
   const json = await res.json();
-  console.log('fetch register at the bottom');
+  
   return json;
 };
 
@@ -205,9 +205,7 @@ export async function createNewCarPosting(
   addUsersId
 ) {
   try {
-    console.log('make:', addMake);
-    console.log('model:', addModel);
-    console.log('year:', addYear);
+   
     const res = await fetch(`${APIURL}/cars`, {
       method: 'POST',
       headers: {
@@ -263,8 +261,7 @@ export async function editCarPosting(
   editUsersId
 ) {
   try {
-    console.log(id);
-    console.log(editPrice);
+
     const res = await fetch(`${APIURL}/cars/${id}`, {
       method: 'PATCH',
       headers: {
@@ -282,9 +279,9 @@ export async function editCarPosting(
         usersId: editUsersId,
       }),
     });
-    console.log('test1');
+
     const json = res.json();
-    console.log(json);
+  
     return json;
   } catch (err) {
     console.error(err);

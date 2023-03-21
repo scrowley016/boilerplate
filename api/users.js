@@ -35,7 +35,7 @@ apiRouter.post('/register', async (req, res, next) => {
       });
     }
     const user = await createUser({ username, password, isAdmin });
-    console.log('user:', user)
+   
     const token = jwt.sign(
       {
         id: user.id,
@@ -68,12 +68,12 @@ apiRouter.post('/login', async (req, res, next) => {
     }
     const user = await getUser({ username, password });
     if (!user) {
-      console.log('User not valid');
+  
       next({
         name: 'IncorrectCredentials',
         message: 'Please check username or password',
       });
-      console.log('user still not valid');
+   
     }
     if (user) {
       const token = jwt.sign(
@@ -103,10 +103,10 @@ apiRouter.get('/me', async (req, res, next) => {
 
 apiRouter.get('/account', async (req, res, next) => {
   const { isAdmin } = req.body;
-  console.log(isAdmin);
+
   try {
     const admin = await getAllAdminUsers({ isAdmin });
-    console.log(admin);
+
     if (isAdmin === true && admin === true) {
       res.send(admin);
     }

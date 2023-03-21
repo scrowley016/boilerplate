@@ -196,7 +196,7 @@ const Admin = () => {
     // Handle function for deleting car photo
 
     const handleDeleteCarPhoto = async (id) => {
-        console.log('photoId', id)
+       
         setIsPhotoDelete(true)
         await deletePhoto(id)
         setIsPhotoDelete(false)

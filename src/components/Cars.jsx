@@ -86,7 +86,7 @@ const Cars = ({userId, cart}) => {
     setFilterPrice(selectedPrice)
   }
 
-  // console.log({userId})
+  
 
   useEffect(() => {
     const carPage = async () => {

@@ -21,11 +21,11 @@ apiRouter.delete('/:carId', async (req, res, next) => {
 
 apiRouter.post('/', async (req, res, next) => {
     const { carsId, cartId } = req.body;
-    console.log(carsId, cartId, "api backend")
+
     try {
-      console.log("test")
+   
       const selectedCars = await addSelectedCars(carsId, cartId);
-      console.log(selectedCars)
+
       res.send (selectedCars);
     } catch (error) {
       console.error('error in :id api/selectedCars', error);

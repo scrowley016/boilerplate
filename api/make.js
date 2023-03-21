@@ -12,7 +12,6 @@ const {
 apiRouter.get('/', async (req, res, next) => {
   try {
     const makes = await getAllMakes();
-    console.log("hi")
     res.send(makes);
   } catch (error) {
     console.error('err in getting all makes', error);
